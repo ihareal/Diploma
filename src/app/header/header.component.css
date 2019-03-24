@@ -1,0 +1,8 @@
+.fake-menu{
+    text-align: center;
+    list-style: none;
+}
+ul.fake-menu li{
+    margin-right: 7px;
+    display: inline;
+}
