@@ -10,10 +10,13 @@ import { MapComponent } from './map/map.component';
 import { NewsComponent } from './news/news.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatListModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { HeaderSideNavComponent } from './header-side-nav/header-side-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import {MatCardModule} from '@angular/material/card';
     HouseComponent,
     MapComponent,
     NewsComponent,
-    HeaderComponent
+    HeaderComponent,
+    HeaderSideNavComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,10 @@ import {MatCardModule} from '@angular/material/card';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatSidenavModule,
+    LayoutModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

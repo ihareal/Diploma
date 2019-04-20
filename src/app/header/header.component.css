@@ -24,3 +24,6 @@ ul.fake-menu li {
     color: white;
     text-align: center;
 }
+.mat-card {
+  border-radius: 0px;
+}

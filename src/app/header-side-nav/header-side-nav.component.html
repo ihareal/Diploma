@@ -1,0 +1,43 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="false"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-button class="md-title center" [routerLink]="['/news']" routerLinkActive="router-link-active">
+        <i class="far fa-newspaper"></i> News</a>
+      <br>
+      <a mat-button [routerLink]="['/map']" routerLinkActive="router-link-active">
+        <i class="fas fa-map-marked-alt"></i> Eco maps</a>
+      <a mat-button [routerLink]="['/house']" routerLinkActive="router-link-active">
+        <i class="fas fa-home"></i> Eco house</a>
+      <a mat-button [routerLink]="['/car']" routerLinkActive="router-link-active">
+        <i class="fas fa-car"></i> Eco car</a>
+      <a mat-button [routerLink]="['/activities']" routerLinkActive="router-link-active">
+        <i class="fas fa-leaf"></i> Activities</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar role='heading' class="z-depth-5" color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+
+      <span class="eco-service">EcoService</span>
+      <span class="spacer"></span>
+      <div class="tool-bar">
+        <a mat-button class="md-title center" [routerLink]="['/news']" routerLinkActive="router-link-active">
+          <i class="far fa-newspaper"></i> News</a>
+        <a mat-button [routerLink]="['/map']" routerLinkActive="router-link-active">
+          <i class="fas fa-map-marked-alt"></i> Eco maps</a>
+        <a mat-button [routerLink]="['/house']" routerLinkActive="router-link-active">
+          <i class="fas fa-home"></i> Eco house</a>
+        <a mat-button [routerLink]="['/car']" routerLinkActive="router-link-active">
+          <i class="fas fa-car"></i> Eco car</a>
+        <a mat-button [routerLink]="['/activities']" routerLinkActive="router-link-active">
+          <i class="fas fa-leaf"></i> Activities</a>
+      </div>
+    </mat-toolbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>
