@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./header-side-nav.component.css']
 })
 export class HeaderSideNavComponent {
-
+  opened: boolean;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)

@@ -5,7 +5,10 @@ import { CarComponent } from './car/car.component';
 import { HouseComponent } from './house/house.component';
 import { MapComponent } from './map/map.component';
 import { NewsComponent } from './news/news.component';
+import { HeaderComponent } from './header/header.component';
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HeaderComponent },
   { path: 'activities', component: ActivitiesComponent },
   { path: 'car', component: CarComponent },
   { path: 'house', component: HouseComponent },
