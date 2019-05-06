@@ -1,0 +1,9 @@
+<div class="container">
+  <h1>Events map</h1>
+  <!-- [mapDraggable]="false -->
+  <agm-map [clickableIcons]="true" [zoom]="13" [latitude]="lat" [longitude]="lng">
+    <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>
+    <agm-marker (markerClick)="markerClick($event)" [latitude]="lat2" [longitude]="lng2" [opacity]="0.7"
+      [label]="'Event'" [iconUrl]="wipIcon"></agm-marker>
+  </agm-map>
+</div>

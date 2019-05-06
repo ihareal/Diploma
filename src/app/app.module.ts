@@ -18,8 +18,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { HeaderSideNavComponent } from './header-side-nav/header-side-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule } from '@angular/forms';
-import {MatGridListModule} from '@angular/material/grid-list';
-
+import { MatGridListModule } from '@angular/material/grid-list';
+import { AgmCoreModule } from '@agm/core';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,8 +35,12 @@ import {MatGridListModule} from '@angular/material/grid-list';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDIuyI8VxR9oscUQJIi0OFl0DfkOhWwP9k'
+    }),
     BrowserAnimationsModule,
     MatButtonModule,
+    HttpClientModule,
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
