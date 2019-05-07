@@ -21,6 +21,8 @@ import { FormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { AgmCoreModule } from '@agm/core';
 import { HttpClientModule } from '@angular/common/http';
+import { MatTabsModule } from '@angular/material/tabs';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +42,7 @@ import { HttpClientModule } from '@angular/common/http';
     }),
     BrowserAnimationsModule,
     MatButtonModule,
+    MatTabsModule,
     HttpClientModule,
     MatToolbarModule,
     MatIconModule,

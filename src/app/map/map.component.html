@@ -1,9 +1,126 @@
-<div class="container">
-  <h1>Events map</h1>
-  <!-- [mapDraggable]="false -->
-  <agm-map [clickableIcons]="true" [zoom]="13" [latitude]="lat" [longitude]="lng">
-    <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>
-    <agm-marker (markerClick)="markerClick($event)" [latitude]="lat2" [longitude]="lng2" [opacity]="0.7"
-      [label]="'Event'" [iconUrl]="wipIcon"></agm-marker>
-  </agm-map>
-</div>
+<mat-tab-group class="local-navigation-menu">
+  <mat-tab label="Events map">
+    <div class="container">
+      <h1>Events map</h1>
+      <!-- [mapDraggable]="false -->
+      <ul class="legend">
+        <li class="personal-marker">Your current location marker</li>
+        <li class="hot-marker">Hot event marker</li>
+        <li class="wip-marker">Work in progress event marker</li>
+        <li class="coming-soon-marker">Nearest future event marker</li>
+      </ul>
+      <agm-map [ngClass]="{shiftedMap: shift}" class="shiftedMap" [clickableIcons]="true" [zoom]="11" [latitude]="lat"
+        [longitude]="lng" [zoomControl]="false">
+
+
+        <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>
+
+
+        <agm-marker *ngFor="let marker of wipMarkers" (markerClick)="markerClick($event)" [latitude]="marker.lat"
+          [longitude]="marker.lng" [opacity]="1" [label]="marker.label" [iconUrl]="wipIcon"
+          (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
+
+        <agm-marker *ngFor="let marker of hotMarkers" (markerClick)="markerClick($event)" [latitude]="marker.lat"
+          [longitude]="marker.lng" [opacity]="0.7" [title]='asfhadk' [label]="marker.label" [iconUrl]="hotIcon"
+          (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
+
+        <agm-marker *ngFor="let marker of comingSoonMarkers" (markerClick)="markerClick($event)" [latitude]="marker.lat"
+          [longitude]="marker.lng" [opacity]="0.7" [label]="marker.label" [iconUrl]="commingSoonIcon"
+          (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
+
+
+      </agm-map>
+      <div [ngClass]="{disable: !shift}" class="activityInfo disable">
+        <h1>Event name</h1>
+        <h2>description</h2>
+      </div>
+
+    </div>
+  </mat-tab>
+  <mat-tab label="Polution map">
+    <div class="container">
+
+    <h1>Polution map</h1>
+    <ul class="legend">
+      <li class="const-polution">Constant polution</li>
+      <li class="temporary-polution">Temporary polution (depends from traffic or year season)</li>
+    </ul>
+    <agm-map [clickableIcons]="true" [zoom]="11" [latitude]="lat" [longitude]="lng" [zoomControl]="false">
+      <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>
+
+      <agm-circle
+      [latitude]="53.894214"
+      [longitude]="27.644620"
+      [radius]="800"
+      [fillColor]="'red'"
+      [circleDraggable]="false"
+      [editable]="false">
+      </agm-circle>
+
+
+      <agm-circle
+      [latitude]="53.879133"
+      [longitude]="27.647825"
+      [radius]="800"
+      [fillColor]="'red'"
+      [circleDraggable]="false"
+      [editable]="false">
+      </agm-circle>
+
+
+      <agm-circle
+      [latitude]="53.883183"
+      [longitude]="27.576386"
+      [radius]="800"
+      [fillColor]="'red'"
+      [circleDraggable]="false"
+      [editable]="false">
+      </agm-circle>
+
+
+      <agm-circle
+      [latitude]="53.895841"
+      [longitude]="27.576037"
+      [radius]="800"
+      [fillColor]="'red'"
+      [circleDraggable]="false"
+      [editable]="false">
+      </agm-circle>
+
+
+      <agm-circle
+      [latitude]="53.908165"
+      [longitude]="27.574209"
+      [radius]="800"
+      [fillColor]="'yellow'"
+      [circleDraggable]="false"
+      [editable]="false">
+      </agm-circle>
+
+
+      <agm-circle
+      [latitude]="53.930959"
+      [longitude]="27.576597"
+      [radius]="800"
+      [fillColor]="'yellow'"
+      [circleDraggable]="false"
+      [editable]="false">
+      </agm-circle>
+
+
+      <agm-circle
+      [latitude]="53.911274"
+      [longitude]="27.559396"
+      [radius]="800"
+      [fillColor]="'yellow'"
+      [circleDraggable]="false"
+      [editable]="false">
+      </agm-circle>
+    </agm-map>
+  </div>
+  </mat-tab>
+
+  <mat-tab label="Route map">
+
+  </mat-tab>
+</mat-tab-group>

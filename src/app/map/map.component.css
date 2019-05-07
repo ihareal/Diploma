@@ -1,7 +1,96 @@
 agm-map {
   height: 550px;
+  width: 98vw;
+  transition-property: width;
+  transition-duration: 0.75s;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+}
+
+ul.legend {
+  margin: 0px;
+  padding: 10px;
+}
+
+ul.legend li {
+  display: inline;
+  list-style-type: square;
+  margin-right: 10px;
+  padding: 3px;
+}
+
+ul.legend li.const-polution {
+  color: #EDA2A8;
+  border: 1px solid #EDA2A8;
+}
+
+ul.legend li.temporary-polution {
+  color: #E2E6AE;
+  border: 1px solid #E2E6AE;
+}
+
+ul.legend li.personal-marker {
+  color: #E6423A;
+  border: 1px solid #E6423A;
+}
+
+ul.legend li.hot-marker {
+  color: #E98970;
+  border: 1px solid #E98970;
+}
+
+ul.legend li.wip-marker {
+  color: #E6D19E;
+  border: 1px solid #E6D19E;
+}
+
+ul.legend li.coming-soon-marker {
+  color: #87FD9F;
+  border: 1px solid #87FD9F;
+}
+
+ul.legend li::before {
+  color: red;
+}
+
+.local-navigation-menu {
+  margin: 10px;
+}
+
+.shiftedMap {
+  width: 45vw;
+}
+
+.activityInfo {
+  width: 45vw;
+  margin-top: -550px;
+  float: right;
+  width: 45vw;
+}
+
+.disable {
+  display: none;
 }
 
 .container {
-    margin: 16px;
+  margin: 16px;
+}
+
+.row {
+  display: flex;
+}
+
+@media (max-width: 320px) {
+  .activityInfo {
+    margin-top: 0;
+    float: none;
+    width: 98vw;
+  }
+
+  .shiftedMap {
+    width: 98vw;
+  }
 }
