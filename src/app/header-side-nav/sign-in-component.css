@@ -1,0 +1,32 @@
+.mat-dialog-content {
+  display: flex;
+  justify-content: center;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.dialog-content {
+    margin-top: 5%;
+}
+.errorMessage {
+    text-align: center;
+    background-color: #A0E5E8;
+    color: white;
+    width: 20vw;
+    font-style: oblique;
+    animation: 2s alertAnimation forwards;
+}
+
+@keyframes alertAnimation {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

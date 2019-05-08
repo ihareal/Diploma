@@ -1,0 +1,51 @@
+<div class="dialog-content" [formGroup]="signInForm">
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input type="email" formControlName="email" matInput placeholder="Email" required>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input type="password" formControlName="password" matInput placeholder="Password" required>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-content>
+    <p align="center" class="errorMessage" *ngIf="formControls.password.errors">Minimum 6 characters required for password</p>
+  </div>
+
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Choose your district</mat-label>
+      <mat-select formControlName="district" required>
+        <mat-option *ngFor="let district of districtArray" [value]="district.value">
+          {{district.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Choose dwelling type</mat-label>
+      <mat-select formControlName="houseType" required>
+        <mat-option *ngFor="let dwelling of dwellingArray" [value]="dwelling.value">
+          {{dwelling.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input type="number" formControlName="stage" matInput placeholder="Stage number" required>
+    </mat-form-field>
+  </div>
+
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick($event)">No Thanks</button>
+    <!-- cdkFocusInitial -->
+    <button [disabled]="!signInForm.valid" mat-button>Ok</button>
+  </div>
+</div>

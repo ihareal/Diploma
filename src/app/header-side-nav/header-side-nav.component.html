@@ -16,6 +16,8 @@
         <i class="fas fa-car"></i> Eco car</a>
       <a mat-button [routerLink]="['/activities']" routerLinkActive="router-link-active" (click)="drawer.toggle()">
         <i class="fas fa-leaf"></i> Activities</a>
+        <br>
+      <button mat-button (click)="openSignInDialog(); drawer.toggle()">Sign in</button>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -25,7 +27,8 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
 
-      <span class="eco-service"><a class="home" [routerLink]="['/home']" routerLinkActive="router-link-active">EcoService</a></span>
+      <span class="eco-service"><a class="home" [routerLink]="['/home']"
+          routerLinkActive="router-link-active">EcoService</a></span>
       <span class="spacer"></span>
       <div class="tool-bar">
         <a mat-button class="md-title center" [routerLink]="['/news']" routerLinkActive="router-link-active">
@@ -38,6 +41,7 @@
           <i class="fas fa-car"></i> Eco car</a>
         <a mat-button [routerLink]="['/activities']" routerLinkActive="router-link-active">
           <i class="fas fa-leaf"></i> Activities</a>
+        <button mat-button (click)="openSignInDialog()">Sign in</button>
       </div>
     </mat-toolbar>
     <router-outlet></router-outlet>

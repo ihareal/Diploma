@@ -22,6 +22,12 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { AgmCoreModule } from '@agm/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SignInComponent } from './header-side-nav/header-side-nav.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -32,15 +38,21 @@ import { MatTabsModule } from '@angular/material/tabs';
     MapComponent,
     NewsComponent,
     HeaderComponent,
-    HeaderSideNavComponent
+    HeaderSideNavComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDIuyI8VxR9oscUQJIi0OFl0DfkOhWwP9k'
     }),
     BrowserAnimationsModule,
+    MatDialogModule,
     MatButtonModule,
     MatTabsModule,
     HttpClientModule,
@@ -53,6 +65,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     FormsModule,
     MatGridListModule,
   ],
+  entryComponents: [SignInComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
