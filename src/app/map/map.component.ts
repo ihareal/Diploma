@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { MapsService } from '../shared/services/maps.service';
 import { Marker } from '../shared/models/marker.model';
+import { MarkerCircle } from '../shared/models/marker.circle.model';
 @Component({
     selector: 'app-map',
     templateUrl: 'map.component.html',
@@ -9,7 +10,8 @@ import { Marker } from '../shared/models/marker.model';
 
 export class MapComponent implements OnInit {
 
-    private shift = false;
+    private shiftMarker = false;
+    private shiftPollution = false;
     lat = '';
     lng = '';
 
@@ -58,6 +60,44 @@ export class MapComponent implements OnInit {
         }
     ];
 
+    public constantPollutionCircle: MarkerCircle[] = [
+        {
+            lat: 53.894214,
+            lng: 27.644620,
+            description: 'adhfaskdjfhaskldfh',
+        },
+        {
+            lat: 53.879133,
+            lng: 27.647825,
+            description: 'adhfaskdjfhaskldfh',
+        },
+        {
+            lat: 53.883183,
+            lng: 27.576386,
+            description: 'adhfaskdjfhaskldfh',
+        },
+        {
+            lat: 53.895841,
+            lng: 27.576037,
+            description: 'adhfaskdjfhaskldfh',
+        }
+    ];
+
+    public temporaryPollutionCircle: MarkerCircle[] = [
+        {
+            lat: 53.908165,
+            lng: 27.574209,
+        },
+        {
+            lat: 53.930959,
+            lng: 27.576597,
+        },
+        {
+            lat: 53.911274,
+            lng: 27.559396,
+        },
+    ];
+
     /*put into database for future using in user statistic & user cabinet*/
     dataBaseInfo = [];
     constructor(
@@ -82,9 +122,14 @@ export class MapComponent implements OnInit {
     }
 
     public markerClick($event) {
-        if ($event._id !==  '0') {
-            this.shift = !this.shift;
+        if ($event._id !== '0') {
+            this.shiftMarker = !this.shiftMarker;
         }
+        console.log($event);
+    }
+
+    public circleClick($event) {
+        this.shiftPollution = !this.shiftPollution;
         console.log($event);
     }
 }

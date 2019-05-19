@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,18 +15,26 @@ export interface DialogData {
   templateUrl: './header-side-nav.component.html',
   styleUrls: ['./header-side-nav.component.css']
 })
-export class HeaderSideNavComponent {
+
+export class HeaderSideNavComponent implements OnInit {
   opened: boolean;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
 
+  public register = false;
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog
   ) { }
 
+  ngOnInit(): void {
+    if (localStorage.getItem('email')) {
+      this.register = true;
+    }
+  }
 
   openSignInDialog(): void {
     const dialogRef = this.dialog.open(SignInComponent, {
@@ -34,9 +42,17 @@ export class HeaderSideNavComponent {
       height: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (localStorage.getItem('email')) {
+        this.register = true;
+      }
     });
   }
+
+  public signOut() {
+    this.register = false;
+    localStorage.clear();
+  }
+
 }
 
 @Component({
@@ -59,10 +75,12 @@ export class SignInComponent {
     { value: 'Moscouski', viewValue: 'Moscouski' },
     { value: 'Frunzenski', viewValue: 'Frunzenski' },
   ];
+
   public dwellingArray: MultiSelectModel[] = [
-    { value: 'flat', viewValue: 'flat' },
-    { value: 'house', viewValue: 'house' },
+    { value: 'flat', viewValue: 'Flat' },
+    { value: 'house', viewValue: 'House' },
   ];
+
   constructor(
     public dialogRef: MatDialogRef<SignInComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -73,12 +91,28 @@ export class SignInComponent {
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
       district: [''],
       houseType: [''],
-      stage: [''],
+      flatStage: [''],
+      stageHouseAmount: [''],
     });
   }
 
   get formControls() { return this.signInForm.controls; }
-  onNoClick(): void {
+
+  public onNoClick(): void {
+    this.dialogRef.close();
+  }
+  public onOkClick($event) {
+    Object.keys(this.formControls).forEach(control => {
+      if (control !== 'password') {
+        (this.signInForm.controls[control].value !== null &&
+          this.signInForm.controls[control].value !== undefined &&
+          this.signInForm.controls[control].value !== '') ?
+          // true
+          localStorage.setItem(control, this.signInForm.controls[control].value) :
+          // false
+          console.log();
+      }
+    });
     this.dialogRef.close();
   }
 }

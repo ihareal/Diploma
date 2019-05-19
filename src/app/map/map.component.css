@@ -17,39 +17,98 @@ ul.legend {
 
 ul.legend li {
   display: inline;
+  text-align: center;
   list-style-type: square;
   margin-right: 10px;
   padding: 3px;
 }
 
+ul.legend li {
+  cursor: pointer;
+}
+
 ul.legend li.const-polution {
   color: #EDA2A8;
+  border-radius: 7px;
   border: 1px solid #EDA2A8;
+  transition: background-color 0.5s ease, border-radius 0.5s ease;
 }
 
 ul.legend li.temporary-polution {
   color: #E2E6AE;
+  border-radius: 7px;
   border: 1px solid #E2E6AE;
+  transition: background-color 0.5s ease, border-radius 0.5s ease;
+}
+
+ul.legend li.const-polution:hover {
+  color: white;
+  border-radius: 20px;
+  border: 1px solid #EDA2A8;
+  background-color: #EDA2A8;
+}
+
+ul.legend li.temporary-polution:hover {
+  color: white;
+  border-radius: 20px;
+  border: 1px solid #E2E6AE;
+  background-color: #E2E6AE;
 }
 
 ul.legend li.personal-marker {
   color: #E6423A;
+  border-radius: 7px;
   border: 1px solid #E6423A;
+  transition: background-color 0.5s ease, border-radius 0.5s ease;
 }
 
 ul.legend li.hot-marker {
   color: #E98970;
+  border-radius: 7px;
   border: 1px solid #E98970;
-}
-
-ul.legend li.wip-marker {
-  color: #E6D19E;
-  border: 1px solid #E6D19E;
+  transition: background-color 0.5s ease, border-radius 0.5s ease;
 }
 
 ul.legend li.coming-soon-marker {
   color: #87FD9F;
+  border-radius: 7px;
   border: 1px solid #87FD9F;
+  transition: background-color 0.5s ease, border-radius 0.5s ease;
+}
+
+ul.legend li.wip-marker {
+  color: #E6D19E;
+  border-radius: 7px;
+  border: 1px solid #E6D19E;
+  transition: background-color 0.5s ease, border-radius 0.5s ease;
+}
+
+ul.legend li.personal-marker:hover {
+  color: white;
+  border-radius: 20px;
+  border: 1px solid #E6423A;
+  background-color: #E6423A;
+}
+
+ul.legend li.hot-marker:hover {
+  color: white;
+  border-radius: 20px;
+  border: 1px solid #E98970;
+  background-color: #E98970;
+}
+
+ul.legend li.wip-marker:hover {
+  color: white;
+  border-radius: 20px;
+  border: 1px solid #E98970;
+  background-color: #E98970;
+}
+
+ul.legend li.coming-soon-marker:hover {
+  color: white;
+  border-radius: 20px;
+  border: 1px solid #87FD9F;
+  background-color: #87FD9F;
 }
 
 ul.legend li::before {
@@ -81,6 +140,13 @@ ul.legend li::before {
 
 .row {
   display: flex;
+}
+
+.pollutionInfo {
+  width: 45vw;
+  margin-top: -550px;
+  float: right;
+  width: 45vw;
 }
 
 @media (max-width: 320px) {

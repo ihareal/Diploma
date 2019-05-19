@@ -18,6 +18,8 @@
         <i class="fas fa-leaf"></i> Activities</a>
         <br>
       <button mat-button (click)="openSignInDialog(); drawer.toggle()">Sign in</button>
+      <button mat-button (click)="signOut()">Sign out</button>
+
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -41,7 +43,8 @@
           <i class="fas fa-car"></i> Eco car</a>
         <a mat-button [routerLink]="['/activities']" routerLinkActive="router-link-active">
           <i class="fas fa-leaf"></i> Activities</a>
-        <button mat-button (click)="openSignInDialog()">Sign in</button>
+        <button *ngIf="!register" mat-button (click)="openSignInDialog()">Sign in</button>
+        <button *ngIf="register" mat-button (click)="signOut()">Sign out</button>
       </div>
     </mat-toolbar>
     <router-outlet></router-outlet>

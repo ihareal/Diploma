@@ -36,9 +36,15 @@
     </mat-form-field>
   </div>
 
-  <div mat-dialog-content>
+  <div *ngIf="formControls.houseType.value === 'house'" mat-dialog-content>
     <mat-form-field>
-      <input type="number" formControlName="stage" matInput placeholder="Stage number" required>
+      <input type="number" formControlName="flatStage" matInput placeholder="Stage amount" required>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="formControls.houseType.value === 'flat'" mat-dialog-content>
+    <mat-form-field>
+      <input type="number" formControlName="stageHouseAmount" matInput placeholder="Stage number" required>
     </mat-form-field>
   </div>
 
@@ -46,6 +52,6 @@
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick($event)">No Thanks</button>
     <!-- cdkFocusInitial -->
-    <button [disabled]="!signInForm.valid" mat-button>Ok</button>
+    <button [disabled]="!signInForm.valid" (click)="onOkClick($event)" mat-button>Ok</button>
   </div>
 </div>

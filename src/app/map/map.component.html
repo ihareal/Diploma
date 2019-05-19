@@ -9,30 +9,32 @@
         <li class="wip-marker">Work in progress event marker</li>
         <li class="coming-soon-marker">Nearest future event marker</li>
       </ul>
-      <agm-map [ngClass]="{shiftedMap: shift}" class="shiftedMap" [clickableIcons]="true" [zoom]="11" [latitude]="lat"
+      <agm-map [ngClass]="{shiftedMap: shiftMarker}" class="shiftedMap" [clickableIcons]="true" [zoom]="11" [latitude]="lat"
         [longitude]="lng" [zoomControl]="false">
 
-
+        <!--User position marker-->
         <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>
 
-
+        <!--Work in progress marker-->
         <agm-marker *ngFor="let marker of wipMarkers" (markerClick)="markerClick($event)" [latitude]="marker.lat"
           [longitude]="marker.lng" [opacity]="1" [label]="marker.label" [iconUrl]="wipIcon"
           (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
 
+        <!--Hot markers-->
         <agm-marker *ngFor="let marker of hotMarkers" (markerClick)="markerClick($event)" [latitude]="marker.lat"
           [longitude]="marker.lng" [opacity]="0.7" [title]='asfhadk' [label]="marker.label" [iconUrl]="hotIcon"
           (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
 
+        <!--Coming soon markers-->        
         <agm-marker *ngFor="let marker of comingSoonMarkers" (markerClick)="markerClick($event)" [latitude]="marker.lat"
           [longitude]="marker.lng" [opacity]="0.7" [label]="marker.label" [iconUrl]="commingSoonIcon"
           (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
 
 
       </agm-map>
-      <div [ngClass]="{disable: !shift}" class="activityInfo disable">
+      <div [ngClass]="{disable: !shiftMarker}" class="activityInfo disable">
         <h1>Event name</h1>
-        <h2>description</h2>
+        <h2>Description</h2>
       </div>
 
     </div>
@@ -45,78 +47,36 @@
       <li class="const-polution">Constant polution</li>
       <li class="temporary-polution">Temporary polution (depends from traffic or year season)</li>
     </ul>
-    <agm-map [clickableIcons]="true" [zoom]="11" [latitude]="lat" [longitude]="lng" [zoomControl]="false">
+    <agm-map [ngClass]="{shiftedMap: shiftPollution}" [clickableIcons]="true" [zoom]="11" [latitude]="lat" [longitude]="lng" [zoomControl]="false">
       <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>
 
-      <agm-circle
-      [latitude]="53.894214"
-      [longitude]="27.644620"
+      <!--Constant pollution circle-->
+      <agm-circle *ngFor="let m of constantPollutionCircle"
+      [latitude]="m.lat"
+      [longitude]="m.lng"
       [radius]="800"
       [fillColor]="'red'"
       [circleDraggable]="false"
-      [editable]="false">
+      [editable]="false"
+      (circleClick)="circleClick($event)">
       </agm-circle>
 
-
-      <agm-circle
-      [latitude]="53.879133"
-      [longitude]="27.647825"
-      [radius]="800"
-      [fillColor]="'red'"
-      [circleDraggable]="false"
-      [editable]="false">
-      </agm-circle>
-
-
-      <agm-circle
-      [latitude]="53.883183"
-      [longitude]="27.576386"
-      [radius]="800"
-      [fillColor]="'red'"
-      [circleDraggable]="false"
-      [editable]="false">
-      </agm-circle>
-
-
-      <agm-circle
-      [latitude]="53.895841"
-      [longitude]="27.576037"
-      [radius]="800"
-      [fillColor]="'red'"
-      [circleDraggable]="false"
-      [editable]="false">
-      </agm-circle>
-
-
-      <agm-circle
-      [latitude]="53.908165"
-      [longitude]="27.574209"
+      <!--Temporary pollution marker-->
+      <agm-circle *ngFor="let m of temporaryPollutionCircle"
+      [latitude]="m.lat"
+      [longitude]="m.lng"
       [radius]="800"
       [fillColor]="'yellow'"
       [circleDraggable]="false"
-      [editable]="false">
+      [editable]="false"
+      (circleClick)="circleClick($event)">
       </agm-circle>
 
-
-      <agm-circle
-      [latitude]="53.930959"
-      [longitude]="27.576597"
-      [radius]="800"
-      [fillColor]="'yellow'"
-      [circleDraggable]="false"
-      [editable]="false">
-      </agm-circle>
-
-
-      <agm-circle
-      [latitude]="53.911274"
-      [longitude]="27.559396"
-      [radius]="800"
-      [fillColor]="'yellow'"
-      [circleDraggable]="false"
-      [editable]="false">
-      </agm-circle>
     </agm-map>
+    <div [ngClass]="{disable: !shiftPollution}" class="pollutionInfo disable">
+      <h1>Object name or id</h1>
+      <h2>Pollution description</h2>
+    </div>
   </div>
   </mat-tab>
 
