@@ -149,8 +149,14 @@ ul.legend li::before {
   width: 45vw;
 }
 
-@media (max-width: 320px) {
+@media (max-width: 858px) {
   .activityInfo {
+    margin-top: 0;
+    float: none;
+    width: 98vw;
+  }
+
+  .pollutionInfo {
     margin-top: 0;
     float: none;
     width: 98vw;

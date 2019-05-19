@@ -12,6 +12,7 @@ export class MapComponent implements OnInit {
 
     private shiftMarker = false;
     private shiftPollution = false;
+    public description: string;
     lat = '';
     lng = '';
 
@@ -60,42 +61,61 @@ export class MapComponent implements OnInit {
         }
     ];
 
-    public constantPollutionCircle: MarkerCircle[] = [
+    public constantPolutionCircle: MarkerCircle[] = [
         {
             lat: 53.894214,
             lng: 27.644620,
-            description: 'adhfaskdjfhaskldfh',
         },
         {
             lat: 53.879133,
             lng: 27.647825,
-            description: 'adhfaskdjfhaskldfh',
         },
         {
             lat: 53.883183,
             lng: 27.576386,
-            description: 'adhfaskdjfhaskldfh',
         },
         {
             lat: 53.895841,
             lng: 27.576037,
-            description: 'adhfaskdjfhaskldfh',
         }
     ];
 
-    public temporaryPollutionCircle: MarkerCircle[] = [
+    public temporaryPolutionCircle: MarkerCircle[] = [
         {
             lat: 53.908165,
             lng: 27.574209,
         },
         {
-            lat: 53.930959,
-            lng: 27.576597,
+            lat: 53.93189819796218,
+            lng: 27.585695404243438,
         },
         {
             lat: 53.911274,
             lng: 27.559396,
         },
+    ];
+
+    public polutionMarkerDescription: MarkerCircle[] = [
+        {
+            lat: 53.89429197551946,
+            lng: 27.644030780545904,
+            description: 'Дражня'
+        },
+        {
+            lat: 53.87952097033476,
+            lng: 27.64883754277116,
+            description: 'Минская ТЭЦ-3'
+        },
+        {
+            lat: 53.883019905293764,
+            lng: 27.57574540396331,
+            description: 'Мотовелозавод'
+        },
+        {
+            lat: 53.89636819340571,
+            lng: 27.57593579233435,
+            description: 'Станкостроительный завод'
+        }
     ];
 
     /*put into database for future using in user statistic & user cabinet*/
@@ -129,7 +149,16 @@ export class MapComponent implements OnInit {
     }
 
     public circleClick($event) {
+        // Only coords in event
+        console.log($event.coords);
+    }
+
+    public markerForDescription($event) {
         this.shiftPollution = !this.shiftPollution;
-        console.log($event);
+        this.polutionMarkerDescription.forEach(m => {
+            if (m.lat === $event.latitude && m.lng === $event.longitude) {
+                this.description = m.description;
+            }
+        });
     }
 }
