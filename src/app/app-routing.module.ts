@@ -7,6 +7,8 @@ import { MapComponent } from './map/map.component';
 import { NewsComponent } from './news/news.component';
 import { HeaderComponent } from './header/header.component';
 import { PersonalAreaComponent } from './personal-area/personal.area.component';
+import { NewsReadingComponent } from './news-reading-component/news.reading.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HeaderComponent },
@@ -15,7 +17,8 @@ const routes: Routes = [
   { path: 'house', component: HouseComponent },
   { path: 'map', component: MapComponent },
   { path: 'news', component: NewsComponent },
-  { path: 'personal-area', component: PersonalAreaComponent }
+  { path: 'personal-area', component: PersonalAreaComponent },
+  { path: 'news-reading-component', component: NewsReadingComponent}
 ];
 
 @NgModule({

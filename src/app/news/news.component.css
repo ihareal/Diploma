@@ -1,19 +1,25 @@
-img {
-  max-width: 100%;
-}
+
 
 a {
   text-decoration: none;
 }
 
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(31rem, 1fr));
+  grid-gap: 3px;
+  justify-items: center;
+}
+
 .container {
+  text-align: center;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: #444;
+  padding: 40px 0px 0px 0px;  
 }
 
 .card {
+  height: 500px;
   position: relative;
   background: #333;
   width: 400px;
@@ -23,6 +29,10 @@ a {
   box-shadow: 0 .25rem .25rem rgba(0, 0, 0, 0.2),
     0 0 1rem rgba(0, 0, 0, 0.2);
   overflow: hidden;
+}
+
+main .card img {
+    width: 100%;
 }
 
 
