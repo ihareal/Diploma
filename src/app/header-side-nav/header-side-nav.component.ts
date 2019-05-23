@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MultiSelectModel } from '../shared/models/district.model';
+
 export interface DialogData {
   animal: string;
   name: string;
@@ -24,6 +25,7 @@ export class HeaderSideNavComponent implements OnInit {
     );
 
   public register = false;
+  public menuType = null;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -44,6 +46,11 @@ export class HeaderSideNavComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (localStorage.getItem('email')) {
         this.register = true;
+      }
+      if (localStorage.getItem('role') === 'user') {
+        this.menuType = true;
+      } else if (localStorage.getItem('role') === 'admin') {
+        this.menuType = false;
       }
     });
   }
@@ -88,7 +95,7 @@ export class SignInComponent {
   ) {
     this.signInForm = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       district: [''],
       houseType: [''],
       flatStage: [''],
@@ -111,6 +118,10 @@ export class SignInComponent {
           localStorage.setItem(control, this.signInForm.controls[control].value) :
           // false
           console.log();
+      } else if (this.signInForm.controls['password'].value === 'admin') {
+        localStorage.setItem('role', 'admin');
+      } else if (this.signInForm.controls['password'].value !== 'admin') {
+        localStorage.setItem('role', 'user');
       }
     });
     this.dialogRef.close();
