@@ -31,6 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NewsReadingComponent } from './news-reading-component/news.reading.component';
 import { PersonalAreaComponent } from './personal-area/personal.area.component';
 import { MatMenuModule} from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { MatMenuModule} from '@angular/material/menu';
   ],
   imports: [
     BrowserModule,
+    MatTooltipModule,
     AppRoutingModule,
     MatFormFieldModule,
     MatInputModule,

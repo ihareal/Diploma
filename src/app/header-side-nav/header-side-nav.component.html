@@ -44,17 +44,27 @@
         <a mat-button [routerLink]="['/activities']" routerLinkActive="router-link-active">
           <i class="fas fa-leaf"></i> Activities</a>
         <button *ngIf="!register" mat-button (click)="openSignInDialog()">Sign in</button>
-        <button *ngIf="register" [matMenuTriggerFor]="cabinetOptions" mat-button>Cabinet</button>
+        <button *ngIf="register" [matMenuTriggerFor]="cabinetOptions" mat-button>
+          <i
+          matTooltip="Admin cabinet allows you extra rights"
+          [matTooltipPosition]="'below'"
+           *ngIf="!menuType" class="fas fa-user-shield"></i> 
+          <i
+          matTooltip="User cabinet"
+          [matTooltipPosition]="'below'" 
+          *ngIf="menuType" class="fas fa-user"></i>
+          Cabinet
+        </button>
         <mat-menu #cabinetOptions="matMenu">
           <!--House / flat info -> advices -->
           <!--TODO: Dynamic naming-->
+          <!--TODO: Add function of creating events in admin cabinet-->
           <button *ngIf="menuType" mat-menu-item [routerLink]="['/personal-area']">Info</button>
           <button *ngIf="menuType" mat-menu-item [routerLink]="['/personal-area']">Activities</button>
           <button *ngIf="!menuType" mat-menu-item [matMenuTriggerFor]="createZone"
             [routerLink]="['/personal-area']">Create zone</button>
           <button *ngIf="!menuType" mat-menu-item [matMenuTriggerFor]="userStatistic"
             [routerLink]="['/personal-area']">Statistic zone</button>
-          <button *ngIf="!menuType" mat-menu-item [routerLink]="['/personal-area']"></button>
           <button mat-menu-item (click)="signOut()">Sign Out</button>
         </mat-menu>
 
