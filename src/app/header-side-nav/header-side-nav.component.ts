@@ -64,6 +64,7 @@ export class HeaderSideNavComponent implements OnInit {
 export class SignInComponent {
 
   public signInForm: FormGroup;
+  public hiddenPassword = true;
   public districtArray: MultiSelectModel[] = [
     { value: 'Centralniy', viewValue: 'Centralniy' },
     { value: 'Sovietskiy', viewValue: 'Sovietskiy' },
@@ -98,9 +99,22 @@ export class SignInComponent {
 
   get formControls() { return this.signInForm.controls; }
 
+  public show() {
+    this.hiddenPassword = false;
+    const x = (<HTMLInputElement>document.getElementById('passwordInput'));
+    x.type = 'text';
+  }
+
+  public hide() {
+    this.hiddenPassword = true;
+    const x = (<HTMLInputElement>document.getElementById('passwordInput'));
+    x.type = 'password';
+  }
+
   public onNoClick(): void {
     this.dialogRef.close();
   }
+
   public onOkClick($event) {
     Object.keys(this.formControls).forEach(control => {
       if (control !== 'password') {

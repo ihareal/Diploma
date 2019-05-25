@@ -7,7 +7,11 @@
   </div>
   <div mat-dialog-content>
     <mat-form-field>
-      <input type="password" formControlName="password" matInput placeholder="Password" required>
+      <div class="password-container">
+          <input type="password" id="passwordInput" formControlName="password" matInput placeholder="Password" required>
+          <i *ngIf="hiddenPassword" (click)="show()" class="fas fa-eye-slash"></i>
+          <i *ngIf="!hiddenPassword" (click)="hide()" class="fas fa-eye"></i>
+      </div>      
     </mat-form-field>
   </div>
 
