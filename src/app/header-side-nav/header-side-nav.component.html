@@ -16,7 +16,7 @@
         <i class="fas fa-car"></i> Eco car</a>
       <a mat-button [routerLink]="['/activities']" routerLinkActive="router-link-active" (click)="drawer.toggle()">
         <i class="fas fa-leaf"></i> Activities</a>
-        <br>
+      <br>
       <button mat-button (click)="openSignInDialog(); drawer.toggle()">Sign in</button>
       <button mat-button (click)="signOut()">Sign out</button>
 
@@ -44,7 +44,29 @@
         <a mat-button [routerLink]="['/activities']" routerLinkActive="router-link-active">
           <i class="fas fa-leaf"></i> Activities</a>
         <button *ngIf="!register" mat-button (click)="openSignInDialog()">Sign in</button>
-        <button *ngIf="register" mat-button (click)="signOut()">Sign out</button>
+        <button *ngIf="register" [matMenuTriggerFor]="cabinetOptions" mat-button>Cabinet</button>
+        <mat-menu #cabinetOptions="matMenu">
+          <!--House / flat info -> advices -->
+          <!--TODO: Dynamic naming-->
+          <button *ngIf="menuType" mat-menu-item [routerLink]="['/personal-area']">Info</button>
+          <button *ngIf="menuType" mat-menu-item [routerLink]="['/personal-area']">Activities</button>
+          <button *ngIf="!menuType" mat-menu-item [matMenuTriggerFor]="createZone"
+            [routerLink]="['/personal-area']">Create zone</button>
+          <button *ngIf="!menuType" mat-menu-item [matMenuTriggerFor]="userStatistic"
+            [routerLink]="['/personal-area']">Statistic zone</button>
+          <button *ngIf="!menuType" mat-menu-item [routerLink]="['/personal-area']"></button>
+          <button mat-menu-item (click)="signOut()">Sign Out</button>
+        </mat-menu>
+
+        <mat-menu #createZone="matMenu">
+          <button mat-menu-item [routerLink]="['/personal-area']">Create article</button>
+          <button mat-menu-item [routerLink]="['/personal-area']">Create event</button>
+        </mat-menu>
+
+        <mat-menu #userStatistic="matMenu">
+          <button mat-menu-item [routerLink]="['/personal-area']">User statistic</button>
+          <button mat-menu-item [routerLink]="['/personal-area']">Eco statistic</button>
+        </mat-menu>
       </div>
     </mat-toolbar>
     <router-outlet></router-outlet>

@@ -30,6 +30,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NewsReadingComponent } from './news-reading-component/news.reading.component';
 import { PersonalAreaComponent } from './personal-area/personal.area.component';
+import { MatMenuModule} from '@angular/material/menu';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +53,7 @@ import { PersonalAreaComponent } from './personal-area/personal.area.component';
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatMenuModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDIuyI8VxR9oscUQJIi0OFl0DfkOhWwP9k'
     }),
