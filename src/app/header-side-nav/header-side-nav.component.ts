@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MultiSelectModel } from '../shared/models/district.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface DialogData {
   animal: string;
@@ -26,15 +27,23 @@ export class HeaderSideNavComponent implements OnInit {
 
   public register = false;
   public menuType = null;
+  public changeTheme = false;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.router.navigate(['/home'], { queryParams: { theme: 'usual' } });
     if (localStorage.getItem('email')) {
       this.register = true;
+    }
+    if (localStorage.getItem('role') === 'user') {
+      this.menuType = true;
+    } else if (localStorage.getItem('role') === 'admin') {
+      this.menuType = false;
     }
   }
 
@@ -60,6 +69,15 @@ export class HeaderSideNavComponent implements OnInit {
     localStorage.clear();
   }
 
+  public themeChanged($event) {
+    this.changeTheme = $event.checked;
+    if (this.changeTheme === true) {
+      this.router.navigate(['/home'], { queryParams: { theme: 'eye' } });
+    } else {
+      this.router.navigate(['/home'], { queryParams: { theme: 'usual' } });
+    }
+  }
+
 }
 
 @Component({
@@ -68,10 +86,11 @@ export class HeaderSideNavComponent implements OnInit {
   styleUrls: ['./sign-in-component.css']
 })
 
-export class SignInComponent {
+export class SignInComponent implements OnInit {
 
   public signInForm: FormGroup;
   public hiddenPassword = true;
+  public changeTheme = false;
   public districtArray: MultiSelectModel[] = [
     { value: 'Centralniy', viewValue: 'Centralniy' },
     { value: 'Sovietskiy', viewValue: 'Sovietskiy' },
@@ -90,9 +109,11 @@ export class SignInComponent {
   ];
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     public dialogRef: MatDialogRef<SignInComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private fb: FormBuilder,
+    private router: Router
   ) {
     this.signInForm = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -101,6 +122,14 @@ export class SignInComponent {
       houseType: [''],
       flatStage: [''],
       stageHouseAmount: [''],
+    });
+  }
+
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(query => {
+      if (query['theme'] === 'eye') {
+        this.changeTheme = true;
+      }
     });
   }
 

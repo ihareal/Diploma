@@ -21,6 +21,14 @@
   justify-content: center;
 }
 
+::ng-deep .mat-slide-toggle {
+  height: 24px !important
+}
+
+::ng-deep .mat-slide-toggle-label {
+  margin-top: 0.5vh !important
+}
+
 .spacer {
   flex: 1 1 auto;
 }

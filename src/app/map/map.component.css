@@ -37,6 +37,7 @@ ul.legend li {
 }
 
 .fa-map-marker {
+
   display: flex;
   flex-direction: row;
   justify-content: right;
