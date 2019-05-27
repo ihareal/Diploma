@@ -27,6 +27,29 @@ ul.legend li {
   cursor: pointer;
 }
 
+.fa-times {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  margin-left: 40vw;
+  cursor: pointer;
+  font-size: 20pt;
+}
+
+.fa-map-marker {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  margin-left: 40vw;
+  cursor: pointer;
+  font-size: 20pt;
+}
+
+:host ::ng-deep .mat-tab-body-content {
+  height: auto !important;
+  overflow: hidden !important;
+}
+
 ul.legend li.const-polution {
   color: #EDA2A8;
   border-radius: 7px;

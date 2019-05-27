@@ -161,4 +161,12 @@ export class MapComponent implements OnInit {
             }
         });
     }
+
+    public closeMarkerDescription() {
+        this.shiftMarker = !this.shiftMarker;
+    }
+
+    public closePolutionDescription() {
+        this.shiftPollution = !this.shiftPollution;
+    }
 }

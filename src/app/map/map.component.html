@@ -33,6 +33,7 @@
 
       </agm-map>
       <div [ngClass]="{disable: !shiftMarker}" class="activityInfo disable">
+        <i (click)='closeMarkerDescription()' class="fas fa-times"></i>
         <h1>Event name</h1>
         <h2>Description</h2>
       </div>
@@ -52,9 +53,8 @@
         <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>
 
         <!--Constant polution markers for place description-->
-        <agm-marker *ngFor="let m of polutionMarkerDescription" (markerClick)="markerForDescription($event)" [latitude]="m.lat"
-          [longitude]="m.lng" [opacity]="0.7" [title]='asfhadk' [iconUrl]="hotIcon"
-          >
+        <agm-marker *ngFor="let m of polutionMarkerDescription" (markerClick)="markerForDescription($event)"
+          [latitude]="m.lat" [longitude]="m.lng" [opacity]="0.7" [title]='asfhadk' [iconUrl]="hotIcon">
 
         </agm-marker>
         <!--Constant pollution circle-->
@@ -69,13 +69,12 @@
 
       </agm-map>
       <div [ngClass]="{disable: !shiftPollution}" class="pollutionInfo disable">
+        <i (click)='closePolutionDescription()' class="fas fa-times"></i>
+        <i class="fas fa-map-marker"></i>
         <h1>{{description}}</h1>
         <h2>Pollution description</h2>
       </div>
     </div>
   </mat-tab>
 
-  <mat-tab label="Route map">
-
-  </mat-tab>
 </mat-tab-group>
