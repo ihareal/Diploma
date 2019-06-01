@@ -17,10 +17,38 @@
       <a mat-button [routerLink]="['/activities']" routerLinkActive="router-link-active" (click)="drawer.toggle()">
         <i class="fas fa-leaf"></i> Activities</a>
       <br>
-      <button mat-button (click)="openSignInDialog(); drawer.toggle()">Sign in</button>
-      <br>
-      <button mat-button (click)="signOut()">Sign out</button>
+      <button *ngIf="!register" mat-button (click)="openSignInDialog()">Sign in</button>
+      <button *ngIf="register" [matMenuTriggerFor]="cabinetOptions" mat-button>
+        <i matTooltip="Admin cabinet allows you extra rights" [matTooltipPosition]="'below'" *ngIf="!menuType"
+          class="fas fa-user-shield"></i>
+        <i matTooltip="User cabinet" [matTooltipPosition]="'below'" *ngIf="menuType" class="fas fa-user"></i>
+        Cabinet
+      </button>
+      <mat-menu #cabinetOptions="matMenu">
+        <!--House / flat info -> advices -->
+        <!--TODO: Dynamic naming-->
+        <!--TODO: Add function of creating events in admin cabinet-->
+        <button *ngIf="menuType" mat-menu-item [routerLink]="['/personal-area']">Info</button>
+        <button *ngIf="menuType" mat-menu-item [routerLink]="['/personal-area']">Activities</button>
+        <button *ngIf="!menuType" mat-menu-item [matMenuTriggerFor]="createZone"
+          [routerLink]="['/personal-area']">Create zone</button>
+        <button *ngIf="!menuType" mat-menu-item [matMenuTriggerFor]="userStatistic"
+          [routerLink]="['/personal-area']">Statistic zone</button>
+        <button mat-menu-item (click)="signOut()">Sign Out</button>
+      </mat-menu>
 
+      <mat-menu #createZone="matMenu">
+        <button mat-menu-item [routerLink]="['/personal-area']">Create article</button>
+        <button mat-menu-item [routerLink]="['/personal-area']">Create event</button>
+      </mat-menu>
+
+      <mat-menu #userStatistic="matMenu">
+        <button mat-menu-item [routerLink]="['/personal-area']">User statistic</button>
+        <button mat-menu-item [routerLink]="['/personal-area']">Eco statistic</button>
+      </mat-menu>
+      <br>
+      <mat-slide-toggle [class.alternative]="changeTheme" [(ngModel)]="changeTheme" (change)="themeChanged($event)"  matTooltip="You can change theme for visually impaired persons" [matTooltipPosition]="'below'">
+      </mat-slide-toggle>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content [class.alternative]="changeTheme">
