@@ -14,6 +14,36 @@
 </mat-toolbar> -->
 
 <mat-card [class.alternative]="changeTheme" class="headerHelperCard">
+  <table>
+    <tr>
+      <td class="option-text" colspan="2">News</td>
+      <td colspan="5">Eco news from popular "green" sources</td>
+    </tr>
+    <tr>
+      <td class="option-text">Eco maps</td>
+      <td colspan="5">
+        <img class="events-map" src="../../assets/images/homePageMap.png" alt="">
+        <img class="pollution-map" src="../../assets/images/homePagePollutionMap.png" alt="">
+      </td>
+    </tr>
+    <tr>
+      <td class="option-text">Eco {{dwellingType}}</td>
+      <td colspan="5">Some extra information about your {{dwellingType}} or flat material</td>
+    </tr>
+    <tr>
+      <td class="option-text">Eco car</td>
+      <td colspan="5">Some extra information about car: economy & ecological alternatives</td>
+    </tr>
+    <tr>
+      <td class="option-text">Activities</td>
+      <td colspan="5">Your opportunity to contribute in environment</td>
+    </tr>
+    <tr>
+      <td class="option-text">Personal advices</td>
+      <td colspan="5">You will open this function after you will <span (click)="openSignIn($event)" class="sign-in">Sign in</span></td>
+    </tr>
+  </table>
+
   <mat-card-title color='warn'>EcoService - your provider in ecology</mat-card-title>
   <mat-card-content>
     <p>
@@ -25,5 +55,7 @@
   <mat-card-actions>
     <button class="z-depth-5" mat-button>Start</button>
     <button class="z-depth-5" mat-button>Share</button>
+
+
   </mat-card-actions>
 </mat-card>

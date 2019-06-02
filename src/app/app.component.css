@@ -1,9 +1,27 @@
-
 ::ng-deep a {
-    color: white;
-    text-decoration: none !important;
-  }
-
-*{
-  font-family: 'Montserrat', arial; 
+  color: white;
+  text-decoration: none !important;
 }
+
+* {
+  font-family: 'Montserrat', arial;
+}
+
+/* width */
+::ng-deep ::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::ng-deep ::-webkit-scrollbar-track {
+  background-color: #202020;
+}
+
+/* Handle */
+::ng-deep ::-webkit-scrollbar-thumb {
+  background-color: #BE145A;
+  border-radius: 7px;
+}
+
+/* Handle on hover */
+::ng-deep ::-webkit-scrollbar-thumb:hover {}

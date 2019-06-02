@@ -34,43 +34,44 @@
       </agm-map>
       <div [ngClass]="{disable: !shiftMarker}" class="activityInfo disable">
         <i (click)='closeMarkerDescription()' class="fas fa-times"></i>
+        <i *ngIf="admin" matTooltip="As admin you also can create new events" [matTooltipPosition]="'below'" class="fas fa-map-marker"></i>
         <h1>Event name</h1>
         <h2>Description</h2>
       </div>
 
     </div>
   </mat-tab>
-  <mat-tab label="Polution map">
+  <mat-tab label="Pollution map">
     <div class="container">
 
-      <h1>Polution map</h1>
+      <h1>Pollution map</h1>
       <ul class="legend">
-        <li class="const-polution">Constant polution</li>
-        <li class="temporary-polution">Temporary polution (depends from traffic or year season)</li>
+        <li class="const-pollution">Constant pollution</li>
+        <li class="temporary-pollution">Temporary pollution (depends from traffic or year season)</li>
       </ul>
       <agm-map [ngClass]="{shiftedMap: shiftPollution}" [clickableIcons]="true" [zoom]="11" [latitude]="lat"
         [longitude]="lng" [zoomControl]="false">
         <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>
 
-        <!--Constant polution markers for place description-->
-        <agm-marker *ngFor="let m of polutionMarkerDescription" (markerClick)="markerForDescription($event)"
+        <!--Constant pollution markers for place description-->
+        <agm-marker *ngFor="let m of pollutionMarkerDescription" (markerClick)="markerForDescription($event)"
           [latitude]="m.lat" [longitude]="m.lng" [opacity]="0.7" [title]='asfhadk' [iconUrl]="hotIcon">
 
         </agm-marker>
         <!--Constant pollution circle-->
-        <agm-circle *ngFor="let m of constantPolutionCircle" [latitude]="m.lat" [longitude]="m.lng" [radius]="800"
+        <agm-circle *ngFor="let m of constantPollutionCircle" [latitude]="m.lat" [longitude]="m.lng" [radius]="800"
           [fillColor]="'red'" [circleDraggable]="false" [editable]="false" (circleClick)="circleClick($event)">
         </agm-circle>
 
         <!--Temporary pollution marker-->
-        <agm-circle *ngFor="let m of temporaryPolutionCircle" [latitude]="m.lat" [longitude]="m.lng" [radius]="800"
+        <agm-circle *ngFor="let m of temporaryPollutionCircle" [latitude]="m.lat" [longitude]="m.lng" [radius]="800"
           [fillColor]="'yellow'" [circleDraggable]="false" [editable]="false" (circleClick)="circleClick($event)">
         </agm-circle>
 
       </agm-map>
       <div [ngClass]="{disable: !shiftPollution}" class="pollutionInfo disable">
-        <i (click)='closePolutionDescription()' class="fas fa-times"></i>
-        <i class="fas fa-map-marker"></i>
+        <i (click)='closePollutionDescription()' class="fas fa-times"></i>
+        <i *ngIf="admin" matTooltip="As admin you also can create new events" [matTooltipPosition]="'below'" class="fas fa-map-marker"></i>
         <h1>{{description}}</h1>
         <h2>Pollution description</h2>
       </div>

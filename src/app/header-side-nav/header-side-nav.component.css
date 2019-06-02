@@ -21,19 +21,20 @@
   justify-content: center;
 }
 
-::ng-deep .mat-slide-toggle {
+:host ::ng-deep .mat-slide-toggle {
   height: 24px !important
 }
 
-::ng-deep .mat-slide-toggle-label {
-  margin-top: 0.5vh !important
+:host ::ng-deep .mat-slide-toggle-label {
+  margin-top: 0.5vh !important;
+  padding: 0 16px;
 }
 
 .spacer {
   flex: 1 1 auto;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 864px) {
   .sidenav {
     display: none !important;
   }
@@ -43,7 +44,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 863px) {
   .tool-bar {
     display: none;
   }

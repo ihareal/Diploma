@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { MapsService } from '../shared/services/maps.service';
 import { Marker } from '../shared/models/marker.model';
 import { MarkerCircle } from '../shared/models/marker.circle.model';
+import { CheckingService } from '../shared/checking.service';
 @Component({
     selector: 'app-map',
     templateUrl: 'map.component.html',
@@ -13,6 +14,7 @@ export class MapComponent implements OnInit {
     private shiftMarker = false;
     private shiftPollution = false;
     public description: string;
+    public admin = false;
     lat = '';
     lng = '';
 
@@ -61,7 +63,7 @@ export class MapComponent implements OnInit {
         }
     ];
 
-    public constantPolutionCircle: MarkerCircle[] = [
+    public constantPollutionCircle: MarkerCircle[] = [
         {
             lat: 53.894214,
             lng: 27.644620,
@@ -80,7 +82,7 @@ export class MapComponent implements OnInit {
         }
     ];
 
-    public temporaryPolutionCircle: MarkerCircle[] = [
+    public temporaryPollutionCircle: MarkerCircle[] = [
         {
             lat: 53.908165,
             lng: 27.574209,
@@ -95,7 +97,7 @@ export class MapComponent implements OnInit {
         },
     ];
 
-    public polutionMarkerDescription: MarkerCircle[] = [
+    public pollutionMarkerDescription: MarkerCircle[] = [
         {
             lat: 53.89429197551946,
             lng: 27.644030780545904,
@@ -122,6 +124,7 @@ export class MapComponent implements OnInit {
     dataBaseInfo = [];
     constructor(
         private mapService: MapsService,
+        private checkingService: CheckingService
     ) { }
 
     public markerOver(m: Marker) {
@@ -133,6 +136,7 @@ export class MapComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.admin = this.checkingService.checkForAdmin();
         this.mapService.getLocation().subscribe(data => {
             console.log(data);
             this.dataBaseInfo.push({ country: data.country_name, region: data.region, ip: data.ip, postal: data.postal });
@@ -155,7 +159,7 @@ export class MapComponent implements OnInit {
 
     public markerForDescription($event) {
         this.shiftPollution = !this.shiftPollution;
-        this.polutionMarkerDescription.forEach(m => {
+        this.pollutionMarkerDescription.forEach(m => {
             if (m.lat === $event.latitude && m.lng === $event.longitude) {
                 this.description = m.description;
             }
@@ -166,7 +170,7 @@ export class MapComponent implements OnInit {
         this.shiftMarker = !this.shiftMarker;
     }
 
-    public closePolutionDescription() {
+    public closePollutionDescription() {
         this.shiftPollution = !this.shiftPollution;
     }
 }
