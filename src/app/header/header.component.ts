@@ -16,10 +16,9 @@ export class HeaderComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.activatedRoute.queryParams.subscribe(query => {
-            if (query['theme'] === 'eye') {
-                this.changeTheme = true;
-            }
-        });
+        const themeType = localStorage.getItem('theme');
+        if (themeType === 'eye') {
+            this.changeTheme = true;
+        }
     }
 }

@@ -36,7 +36,6 @@ export class HeaderSideNavComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.router.navigate(['/home'], { queryParams: { theme: 'usual' } });
     if (localStorage.getItem('email')) {
       this.register = true;
     }
@@ -72,9 +71,11 @@ export class HeaderSideNavComponent implements OnInit {
   public themeChanged($event) {
     this.changeTheme = $event.checked;
     if (this.changeTheme === true) {
-      this.router.navigate(['/home'], { queryParams: { theme: 'eye' } });
+      localStorage.setItem('theme', 'eye');
+      // this.router.navigate(['/home'], { queryParams: { theme: 'eye' } });
     } else {
-      this.router.navigate(['/home'], { queryParams: { theme: 'usual' } });
+      localStorage.setItem('theme', 'usual');
+      // this.router.navigate(['/home'], { queryParams: { theme: 'usual' } });
     }
   }
 
