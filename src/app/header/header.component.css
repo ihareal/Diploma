@@ -3,6 +3,10 @@ img {
   max-height: 100%;
 }
 
+*{
+  font-size: 20pt;
+}
+
 .fake-menu {
   text-align: center;
   list-style: none;
@@ -16,7 +20,11 @@ table {
 
 td {
   padding: 15px 30px 15px 0;
-  text-align: left
+  text-align: center;
+}
+
+hr {
+  width: 80vw;
 }
 
 .flex-container {
@@ -88,4 +96,20 @@ ul.fake-menu li {
 .row {
   display: flex;
   flex-direction: row;
+}
+
+/* 
+tr.border td {
+  border-bottom: 3px solid white;
+} */
+
+@media (max-width: 1352px){
+  .pollution-map {
+    display: none;
+  }
+
+  .events-map {
+    filter: blur(0px);
+  }
+
 }
