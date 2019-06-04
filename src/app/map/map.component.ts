@@ -40,6 +40,12 @@ export class MapComponent implements OnInit {
             label: 'A',
             draggable: false,
             animation: 'DROP'
+        },
+        {
+            lat: 53.899028,
+            lng: 27.564069,
+            draggable: false,
+            animation: 'DROP',
         }
     ];
 
@@ -48,6 +54,18 @@ export class MapComponent implements OnInit {
             lat: 53.935,
             lng: 27.904,
             label: 'A',
+            draggable: false,
+            animation: 'DROP'
+        },
+        {
+            lat: 53.898547,
+            lng: 27.569397,
+            draggable: false,
+            animation: 'DROP'
+        },
+        {
+            lat: 53.901152,
+            lng: 27.566414,
             draggable: false,
             animation: 'DROP'
         }

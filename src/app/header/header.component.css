@@ -3,7 +3,7 @@ img {
   max-height: 100%;
 }
 
-*{
+* {
   font-size: 20pt;
 }
 
@@ -36,19 +36,28 @@ hr {
   text-align: left;
 }
 
+.eco-maps-description {
+  display: none;
+}
+
 .events-map {
-  filter: blur(1px);
+  display: none;
   position: relative;
   top: 0px;
   left: 0px;
   border-radius: 10px;
 }
 
+.events-map-initial {
+  border-radius: 10px;
+  filter: blur(1px);
+}
+
 .pollution-map {
   border-radius: 10px;
   position: absolute;
-  bottom: 40vh;
-  left: 40vw;
+  bottom: 36vh;
+  left: 50vw;
 }
 
 .option-description-text {
@@ -84,9 +93,10 @@ ul.fake-menu li {
 }
 
 .headerHelperCard {
+  height: calc(89vh - 14px);
   color: gray;
   text-align: center;
-  height: auto;
+  /* height: auto; */
 }
 
 .mat-card {
@@ -103,13 +113,32 @@ tr.border td {
   border-bottom: 3px solid white;
 } */
 
-@media (max-width: 1352px){
+@media (max-width: 1352px) {
   .pollution-map {
     display: none;
   }
 
   .events-map {
+    display: inline-block;
     filter: blur(0px);
   }
 
+  .events-map-initial {
+    display: none;
+  }
+}
+
+@media (max-width: 938px) {
+  .events-map {
+    display: none;
+  }
+
+  .eco-maps-description {
+    display: inline-block;
+    text-align: center;
+  }
+
+  table {
+    width: 0vw;
+  }
 }
