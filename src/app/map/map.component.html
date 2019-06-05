@@ -9,8 +9,8 @@
         <li class="wip-marker">Work in progress event marker</li>
         <li class="coming-soon-marker">Nearest future event marker</li>
       </ul>
-      <agm-map [ngClass]="{shiftedMap: shiftMarker}" class="shiftedMap" [clickableIcons]="true" [zoom]="11"
-        [latitude]="lat" [longitude]="lng" [zoomControl]="false">
+      <agm-map [disableDoubleClickZoom]="'false'" (mapDblClick)="addMarker($event.coords.lat, $event.coords.lng)" [ngClass]="{shiftedMap: shiftMarker}" class="shiftedMap" [clickableIcons]="true" [zoom]="11"
+        [latitude]="lat" [longitude]="lng">
 
         <!--User position marker-->
         <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>

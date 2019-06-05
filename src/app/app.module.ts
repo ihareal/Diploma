@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { ActivitiesComponent } from './activities/activities.component';
 import { CarComponent } from './car/car.component';
 import { HouseComponent } from './house/house.component';
-import { MapComponent } from './map/map.component';
+import { MapComponent, MarkerCreatingDialogComponent } from './map/map.component';
 import { NewsComponent } from './news/news.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,6 +47,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     SignInComponent,
     NewsReadingComponent,
     PersonalAreaComponent,
+    MarkerCreatingDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +76,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     FormsModule,
     MatGridListModule,
   ],
-  entryComponents: [SignInComponent],
+  entryComponents: [SignInComponent, MarkerCreatingDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -51,28 +51,28 @@ ul.legend li {
   overflow: hidden !important;
 }
 
-ul.legend li.const-polution {
+ul.legend li.const-pollution {
   color: #EDA2A8;
   border-radius: 7px;
   border: 1px solid #EDA2A8;
   transition: background-color 0.5s ease, border-radius 0.5s ease;
 }
 
-ul.legend li.temporary-polution {
+ul.legend li.temporary-pollution {
   color: #E2E6AE;
   border-radius: 7px;
   border: 1px solid #E2E6AE;
   transition: background-color 0.5s ease, border-radius 0.5s ease;
 }
 
-ul.legend li.const-polution:hover {
+ul.legend li.const-pollution:hover {
   color: white;
   border-radius: 20px;
   border: 1px solid #EDA2A8;
   background-color: #EDA2A8;
 }
 
-ul.legend li.temporary-polution:hover {
+ul.legend li.temporary-pollution:hover {
   color: white;
   border-radius: 20px;
   border: 1px solid #E2E6AE;

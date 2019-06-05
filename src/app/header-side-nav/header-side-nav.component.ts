@@ -52,6 +52,7 @@ export class HeaderSideNavComponent implements OnInit {
       height: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if (localStorage.getItem('email')) {
         this.register = true;
       }

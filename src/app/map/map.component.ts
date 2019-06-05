@@ -1,8 +1,10 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Inject } from '@angular/core';
 import { MapsService } from '../shared/services/maps.service';
 import { Marker } from '../shared/models/marker.model';
 import { MarkerCircle } from '../shared/models/marker.circle.model';
 import { CheckingService } from '../shared/checking.service';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { DialogData } from '../header-side-nav/header-side-nav.component';
 @Component({
     selector: 'app-map',
     templateUrl: 'map.component.html',
@@ -142,8 +144,17 @@ export class MapComponent implements OnInit {
     dataBaseInfo = [];
     constructor(
         private mapService: MapsService,
-        private checkingService: CheckingService
+        private checkingService: CheckingService,
+        public dialog: MatDialog
     ) { }
+
+    public openDialog(lat, lng): void {
+        const dialogRef = this.dialog.open(MarkerCreatingDialogComponent, {
+            width: '550px',
+            height: '600px',
+            data: {lat: lat, lng: lng}
+        });
+    }
 
     public markerOver(m: Marker) {
         m.animation = 'BOUNCE';
@@ -191,4 +202,28 @@ export class MapComponent implements OnInit {
     public closePollutionDescription() {
         this.shiftPollution = !this.shiftPollution;
     }
+
+    public addMarker(lat, lng) {
+        if (localStorage.getItem('role') === 'admin') {
+            this.openDialog(lat, lng);
+        }
+    }
+}
+
+
+@Component({
+    selector: 'app-marker-creating-dialog',
+    templateUrl: 'marker.creating.dialog.html',
+    styleUrls: ['marker.creating.dialog.css']
+})
+export class MarkerCreatingDialogComponent {
+
+    constructor(
+        public dialogRef: MatDialogRef<MarkerCreatingDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
 }
