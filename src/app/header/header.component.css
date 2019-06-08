@@ -141,4 +141,11 @@ tr.border td {
   table {
     width: 0vw;
   }
+} 
+
+@media (max-width: 1679px) {
+  .headerHelperCard {
+    height: auto;
+  }
+  
 }

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { ActivitiesComponent } from './activities/activities.component';
 import { CarComponent } from './car/car.component';
 import { HouseComponent } from './house/house.component';
-import { MapComponent, MarkerCreatingDialogComponent } from './map/map.component';
+import { MapComponent, MarkerCreatingDialogComponent, PollutionCreatingDialogComponent } from './map/map.component';
 import { NewsComponent } from './news/news.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,6 +33,8 @@ import { PersonalAreaComponent } from './personal-area/personal.area.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatRadioModule } from '@angular/material/radio';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     SignInComponent,
     NewsReadingComponent,
     PersonalAreaComponent,
-    MarkerCreatingDialogComponent
+    MarkerCreatingDialogComponent,
+    PollutionCreatingDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,9 +59,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    TextFieldModule,
     ReactiveFormsModule,
     MatMenuModule,
     MatSlideToggleModule,
+    MatRadioModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDIuyI8VxR9oscUQJIi0OFl0DfkOhWwP9k'
     }),
@@ -76,7 +81,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     FormsModule,
     MatGridListModule,
   ],
-  entryComponents: [SignInComponent, MarkerCreatingDialogComponent],
+  entryComponents: [SignInComponent, MarkerCreatingDialogComponent, PollutionCreatingDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -16,17 +16,17 @@
         <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>
 
         <!--Work in progress marker-->
-        <agm-marker *ngFor="let marker of wipMarkers" (markerClick)="markerClick($event)" [latitude]="marker.lat"
+        <agm-marker *ngFor="let marker of wipMarkers" (markerClick)="markerClick($event); wipMarkerClick($event)" [latitude]="marker.lat"
           [longitude]="marker.lng" [opacity]="1" [label]="marker.label" [iconUrl]="wipIcon"
           (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
 
         <!--Hot markers-->
-        <agm-marker *ngFor="let marker of hotMarkers" (markerClick)="markerClick($event)" [latitude]="marker.lat"
+        <agm-marker *ngFor="let marker of hotMarkers" (markerClick)="markerClick($event); hotMarkerClick($event)" [latitude]="marker.lat"
           [longitude]="marker.lng" [opacity]="0.7" [title]='asfhadk' [label]="marker.label" [iconUrl]="hotIcon"
           (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
 
         <!--Coming soon markers-->
-        <agm-marker *ngFor="let marker of comingSoonMarkers" (markerClick)="markerClick($event)" [latitude]="marker.lat"
+        <agm-marker *ngFor="let marker of comingSoonMarkers" (markerClick)="markerClick($event); comingMarkerClick($event)" [latitude]="marker.lat"
           [longitude]="marker.lng" [opacity]="0.7" [label]="marker.label" [iconUrl]="commingSoonIcon"
           (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
 
@@ -34,9 +34,8 @@
       </agm-map>
       <div [ngClass]="{disable: !shiftMarker}" class="activityInfo disable">
         <i (click)='closeMarkerDescription()' class="fas fa-times"></i>
-        <i *ngIf="admin" matTooltip="As admin you also can create new events" [matTooltipPosition]="'below'" class="fas fa-map-marker"></i>
-        <h1>Event name</h1>
-        <h2>Description</h2>
+        <h1>{{markerTitle}}</h1>
+        <h2>{{markerDescription}}</h2>
       </div>
 
     </div>
@@ -49,8 +48,8 @@
         <li class="const-pollution">Constant pollution</li>
         <li class="temporary-pollution">Temporary pollution (depends from traffic or year season)</li>
       </ul>
-      <agm-map [ngClass]="{shiftedMap: shiftPollution}" [clickableIcons]="true" [zoom]="11" [latitude]="lat"
-        [longitude]="lng" [zoomControl]="false">
+      <agm-map [disableDoubleClickZoom]="'false'" [ngClass]="{shiftedMap: shiftPollution}" [clickableIcons]="true" [zoom]="11" [latitude]="lat"
+        [longitude]="lng" [zoomControl]="false" (mapDblClick)="addPollution($event.coords.lat, $event.coords.lng)">
         <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>
 
         <!--Constant pollution markers for place description-->
@@ -71,9 +70,8 @@
       </agm-map>
       <div [ngClass]="{disable: !shiftPollution}" class="pollutionInfo disable">
         <i (click)='closePollutionDescription()' class="fas fa-times"></i>
-        <i *ngIf="admin" matTooltip="As admin you also can create new events" [matTooltipPosition]="'below'" class="fas fa-map-marker"></i>
-        <h1>{{description}}</h1>
-        <h2>Pollution description</h2>
+        <h1>{{pollutionTitle}}</h1>
+        <h2>{{pollutionDescription}}</h2>
       </div>
     </div>
   </mat-tab>

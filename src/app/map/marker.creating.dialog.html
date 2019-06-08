@@ -1,12 +1,53 @@
-<div mat-dialog-content>
-  <mat-form-field>
-    <input type="email" value="{{data.lat}}" matInput placeholder="Latitude" required>
-  </mat-form-field>
-</div>
+<div class="wrapper" [formGroup]="markerCreatingForm">
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input type="email" value="{{data.lat}}" matInput placeholder="Latitude" required disabled>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input type="email" value="{{data.lng}}" matInput placeholder="Longitude" required disabled>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input formControlName="title" type="text" [(ngModel)]="title" matInput placeholder="Title for new event" required>
+    </mat-form-field>
+  </div>
 
-<div mat-dialog-content>
-  <mat-form-field>
-    <input type="email" value="{{data.lng}}" matInput placeholder="Longitude" required>
-  </mat-form-field>
+  <div mat-dialog-content>
+    <mat-form-field class="example-full-width">
+      <textarea
+      formControlName="description"
+      cdkTextareaAutosize 
+      #autosize="cdkTextareaAutosize" 
+      cdkAutosizeMinRows="1"
+      cdkAutosizeMaxRows="5"
+      matInput 
+      [(ngModel)]="description"
+      placeholder="Leave a comment"
+       required></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="check-container">
+    <label class="container hotColor">Hot
+      <input (change)="hotClick()" type="radio" name="radio">
+      <span class="checkmark hot"></span>
+    </label>
+    <label class="container wipColor">WIP
+      <input (change)="wipClick()" type="radio" name="radio">
+      <span class="checkmark wip"></span>
+    </label>
+    <label class="container futureColor">Future
+      <input (change)="futClick()" type="radio" name="radio">
+      <span class="checkmark future"></span>
+    </label>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick($event)">Cancel</button>
+    <!-- cdkFocusInitial -->
+    <button [disabled]="hot === false && wip === false && future === false && !markerCreatingForm.valid" (click)="onOkClick($event)"
+      mat-button>Ok</button>
+  </div>
 </div>
-<div mat-dialog-content></div>

@@ -1,10 +1,14 @@
-import { Component, OnInit, EventEmitter, Inject } from '@angular/core';
+import { Component, OnInit, EventEmitter, Inject, NgZone, ViewChild } from '@angular/core';
 import { MapsService } from '../shared/services/maps.service';
 import { Marker } from '../shared/models/marker.model';
 import { MarkerCircle } from '../shared/models/marker.circle.model';
 import { CheckingService } from '../shared/checking.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { DialogData } from '../header-side-nav/header-side-nav.component';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { take } from 'rxjs/operators';
+
 @Component({
     selector: 'app-map',
     templateUrl: 'map.component.html',
@@ -15,7 +19,11 @@ export class MapComponent implements OnInit {
 
     private shiftMarker = false;
     private shiftPollution = false;
-    public description: string;
+    public pollutionMarker: string;
+    public pollutionDescription: string;
+    public pollutionTitle: string;
+    public markerDescription: string;
+    public markerTitle: string;
     public admin = false;
     lat = '';
     lng = '';
@@ -40,12 +48,16 @@ export class MapComponent implements OnInit {
             lat: 53.945,
             lng: 27.904,
             label: 'A',
+            title: 'wip маркер',
+            description: 'wip описание',
             draggable: false,
             animation: 'DROP'
         },
         {
             lat: 53.899028,
             lng: 27.564069,
+            title: 'wip маркер',
+            description: 'wip описание',
             draggable: false,
             animation: 'DROP',
         }
@@ -56,18 +68,24 @@ export class MapComponent implements OnInit {
             lat: 53.935,
             lng: 27.904,
             label: 'A',
+            title: 'hot маркер',
+            description: 'hot описание',
             draggable: false,
             animation: 'DROP'
         },
         {
             lat: 53.898547,
             lng: 27.569397,
+            title: 'hot маркер',
+            description: 'hot описание',
             draggable: false,
             animation: 'DROP'
         },
         {
             lat: 53.901152,
             lng: 27.566414,
+            title: 'hot маркер',
+            description: 'hot описание',
             draggable: false,
             animation: 'DROP'
         }
@@ -78,6 +96,8 @@ export class MapComponent implements OnInit {
             lat: 53.915,
             lng: 27.904,
             label: 'A',
+            title: 'coming soon маркер',
+            description: 'coming soon описание',
             draggable: false,
             animation: 'DROP'
         }
@@ -119,23 +139,27 @@ export class MapComponent implements OnInit {
 
     public pollutionMarkerDescription: MarkerCircle[] = [
         {
-            lat: 53.89429197551946,
-            lng: 27.644030780545904,
+            lat: 53.894214,
+            lng: 27.644620,
+            title: 'заголовок загрязнения',
             description: 'Дражня'
         },
         {
-            lat: 53.87952097033476,
-            lng: 27.64883754277116,
+            lat: 53.879133,
+            lng: 27.647825,
+            title: 'заголовок загрязнения',
             description: 'Минская ТЭЦ-3'
         },
         {
-            lat: 53.883019905293764,
-            lng: 27.57574540396331,
+            lat: 53.883183,
+            lng: 27.576386,
+            title: 'заголовок загрязнения',
             description: 'Мотовелозавод'
         },
         {
-            lat: 53.89636819340571,
-            lng: 27.57593579233435,
+            lat: 53.895841,
+            lng: 27.576037,
+            title: 'заголовок загрязнения',
             description: 'Станкостроительный завод'
         }
     ];
@@ -152,7 +176,40 @@ export class MapComponent implements OnInit {
         const dialogRef = this.dialog.open(MarkerCreatingDialogComponent, {
             width: '550px',
             height: '600px',
-            data: {lat: lat, lng: lng}
+            data: { lat: lat, lng: lng, type: 'unedfined', title: 'undefined', description: 'undefined' }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            try {
+
+                switch (result['type']) {
+                    // tslint:disable-next-line:max-line-length
+                    case 'hot': this.hotMarkers.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    // tslint:disable-next-line:max-line-length
+                    case 'wip': this.wipMarkers.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    // tslint:disable-next-line:max-line-length
+                    case 'future': this.comingSoonMarkers.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+
+                }
+            } catch (e) { }
+        });
+    }
+
+    public openPollutionDialog(lat, lng): void {
+        const dialogRef = this.dialog.open(PollutionCreatingDialogComponent, {
+            width: '550px',
+            height: '600px',
+            data: { lat: lat, lng: lng, type: 'unedfined', title: 'undefined', description: 'undefined' }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            try {
+                switch (result['type']) {
+                    // tslint:disable-next-line:max-line-length
+                    case 'constant': this.constantPollutionCircle.push({ lat: result['lat'], lng: result['lng'] }); this.pollutionMarkerDescription.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    // tslint:disable-next-line:max-line-length
+                    case 'temporary': this.temporaryPollutionCircle.push({ lat: result['lat'], lng: result['lng'] }); break;
+
+                }
+            } catch (e) { }
         });
     }
 
@@ -181,6 +238,33 @@ export class MapComponent implements OnInit {
         console.log($event);
     }
 
+    public wipMarkerClick($event) {
+        this.wipMarkers.forEach(wipMarker => {
+            if (wipMarker.lat === $event.latitude && wipMarker.lng === $event.longitude) {
+                this.markerDescription = wipMarker.description;
+                this.markerTitle = wipMarker.title;
+            }
+        });
+    }
+
+    public hotMarkerClick($event) {
+        this.hotMarkers.forEach(hotMarker => {
+            if (hotMarker.lat === $event.latitude && hotMarker.lng === $event.longitude) {
+                this.markerDescription = hotMarker.description;
+                this.markerTitle = hotMarker.title;
+            }
+        });
+    }
+
+    public comingMarkerClick($event) {
+        this.comingSoonMarkers.forEach(comMarker => {
+            if (comMarker.lat === $event.latitude && comMarker.lng === $event.longitude) {
+                this.markerDescription = comMarker.description;
+                this.markerTitle = comMarker.title;
+            }
+        });
+    }
+
     public circleClick($event) {
         // Only coords in event
         console.log($event.coords);
@@ -190,7 +274,8 @@ export class MapComponent implements OnInit {
         this.shiftPollution = !this.shiftPollution;
         this.pollutionMarkerDescription.forEach(m => {
             if (m.lat === $event.latitude && m.lng === $event.longitude) {
-                this.description = m.description;
+                this.pollutionDescription = m.description;
+                this.pollutionTitle = m.title;
             }
         });
     }
@@ -208,6 +293,12 @@ export class MapComponent implements OnInit {
             this.openDialog(lat, lng);
         }
     }
+
+    public addPollution(lat, lng) {
+        if (localStorage.getItem('role') === 'admin') {
+            this.openPollutionDialog(lat, lng);
+        }
+    }
 }
 
 
@@ -216,14 +307,132 @@ export class MapComponent implements OnInit {
     templateUrl: 'marker.creating.dialog.html',
     styleUrls: ['marker.creating.dialog.css']
 })
-export class MarkerCreatingDialogComponent {
-
+export class MarkerCreatingDialogComponent implements OnInit {
+    public markerCreatingForm: FormGroup;
+    public hot = false;
+    public wip = false;
+    public future = false;
+    public title: string;
+    public description: string;
     constructor(
         public dialogRef: MatDialogRef<MarkerCreatingDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+        @Inject(MAT_DIALOG_DATA) public data: DialogData,
+        private _ngZone: NgZone,
+        private fb: FormBuilder) { }
+
+    @ViewChild('autosize') autosize: CdkTextareaAutosize;
+    triggerResize() {
+        // Wait for changes to be applied, then trigger textarea resize.
+        this._ngZone.onStable.pipe(take(1))
+            .subscribe(() => this.autosize.resizeToFitContent(true));
+    }
+    ngOnInit() {
+        this.markerCreatingForm = this.fb.group({
+            title: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
+            description: ['', Validators.compose([Validators.required, Validators.minLength(20)])]
+        });
+    }
+
+    get f() { return this.markerCreatingForm.controls; }
+
+    public hotClick() {
+        this.hot = true;
+    }
+
+    public wipClick() {
+        this.wip = true;
+    }
+
+    public futClick() {
+        this.future = true;
+    }
 
     onNoClick(): void {
         this.dialogRef.close();
+    }
+
+    onOkClick(): void {
+        if (this.hot === true) {
+            this.data['type'] = 'hot';
+            this.data['title'] = this.title;
+            this.data['description'] = this.description;
+            this.dialogRef.close(this.data);
+        } else if (this.wip === true) {
+            this.data['type'] = 'wip';
+            this.data['title'] = this.title;
+            this.data['description'] = this.description;
+            this.dialogRef.close(this.data);
+        } else if (this.future === true) {
+            this.data['type'] = 'future';
+            this.data['title'] = this.title;
+            this.data['description'] = this.description;
+            this.dialogRef.close(this.data);
+        }
+    }
+
+}
+
+
+@Component({
+    selector: 'app-pollution-creating-dialog',
+    templateUrl: 'pollution.creating.dialog.html',
+    styleUrls: ['pollution.creating.dialog.css']
+})
+export class PollutionCreatingDialogComponent implements OnInit {
+    public creatingPollutionForm: FormGroup;
+    public temporary = false;
+    public constant = false;
+    public title: string;
+    public description: string;
+
+    constructor(
+        public dialogRef: MatDialogRef<PollutionCreatingDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData,
+        private _ngZone: NgZone,
+        private fb: FormBuilder) { }
+
+    @ViewChild('autosize') autosize: CdkTextareaAutosize;
+    triggerResize() {
+        // Wait for changes to be applied, then trigger textarea resize.
+        this._ngZone.onStable.pipe(take(1))
+            .subscribe(() => this.autosize.resizeToFitContent(true));
+    }
+
+    ngOnInit() {
+        this.creatingPollutionForm = this.fb.group({
+            title: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
+            description: ['', Validators.compose([Validators.required, Validators.minLength(20)])],
+            constant: [''],
+            temporary: ['']
+        });
+    }
+
+    get f() { return this.creatingPollutionForm.controls; }
+
+    public temporaryClick() {
+        this.temporary = true;
+    }
+
+    public constantClick() {
+        this.constant = true;
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+    onOkClick(): void {
+        if (this.constant === true) {
+            this.data['type'] = 'constant';
+            this.data['title'] = this.title;
+            this.data['description'] = this.description;
+            this.dialogRef.close(this.data);
+        } else if (this.temporary === true) {
+            this.data['type'] = 'temporary';
+            this.data['title'] = this.title;
+            this.data['description'] = this.description;
+            this.dialogRef.close(this.data);
+        }
     }
 
 }
