@@ -160,13 +160,25 @@ export class SignInComponent implements OnInit {
     //   res => { console.log(res); },
     //   err => { console.log(err); }
     // );
-    this.userService.postUser(this.signInForm.value).subscribe(
-      res => {},
+    const onk = {
+      Email: "asdfasdf",
+      isAdmin: 1,
+      District: "okt",
+      Password: "asdfasdf",
+      DwellingType: "house",
+      StageNumber: 1,
+    };
+
+    console.log(this.signInForm.value);
+    debugger;
+    this.userService.postUser(JSON.stringify(onk)).subscribe(
+      res => { },
       err => {
         console.log(err);
       }
     );
     Object.keys(this.formControls).forEach(control => {
+
       if (control !== 'password') {
         (this.signInForm.controls[control].value !== null &&
           this.signInForm.controls[control].value !== undefined &&

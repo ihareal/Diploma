@@ -1,6 +1,6 @@
 export class UserModel {
     Email: string;
-    isAdmin: number;
+    isAdmin?: number;
     Password: string;
     DwellingType: string;
     StageNumber?: number;
