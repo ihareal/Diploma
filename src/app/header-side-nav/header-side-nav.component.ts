@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MultiSelectModel } from '../shared/models/district.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../shared/services/user.service';
 
 export interface DialogData {
   animal: string;
@@ -115,7 +116,8 @@ export class SignInComponent implements OnInit {
     public dialogRef: MatDialogRef<SignInComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
     this.signInForm = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -154,6 +156,16 @@ export class SignInComponent implements OnInit {
   }
 
   public onOkClick($event) {
+    // this.userService.getUsers().subscribe(
+    //   res => { console.log(res); },
+    //   err => { console.log(err); }
+    // );
+    this.userService.postUser(this.signInForm.value).subscribe(
+      res => {},
+      err => {
+        console.log(err);
+      }
+    );
     Object.keys(this.formControls).forEach(control => {
       if (control !== 'password') {
         (this.signInForm.controls[control].value !== null &&

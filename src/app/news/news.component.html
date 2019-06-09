@@ -1,11 +1,12 @@
 <main>
-  <a [routerLink]="['/news-reading-component']">
-    <div class="container">
-      <div class="card">
+  <div class="container">
+    <div class="card">
+      <a [routerLink]="['/news-reading-component']">
         <div class="image-container">
           <img class="image"
             src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80"
             alt="">
+
         </div>
         <svg class="svg" viewBox="0 0 800 500">
 
@@ -15,31 +16,40 @@
           <path class="line" d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400"
             stroke="pink" stroke-width="3" fill="transparent" />
         </svg>
-
-        <div class="content">
-          <h1 class="title">Заголовок</h1>
-          <h2 class="title">
-            <i class="material-icons">
-              timelapse
-            </i>
-            Время прочтения</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis,
-            amet
-            eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
+      </a>
+      <div class="content">
+        <div class="row-card-admin">
+          <h1 class="title">Заголовок </h1>
         </div>
+
+        <h2 class="title">
+          <i class="material-icons">
+            timelapse
+          </i>
+          Время прочтения
+          <i *ngIf="dots" class="fas fa-ellipsis-v" [matMenuTriggerFor]="adminRights"></i>
+          <mat-menu #adminRights>
+            <button mat-menu-item (click)="deleteNews()">Delete</button>
+          </mat-menu>
+        </h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis,
+          amet
+          eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
       </div>
     </div>
-  </a>
+  </div>
 
-  <a [routerLink]="['/news-reading-component']">
-    <div class="container">
-      <div class="card">
+
+
+  <div class="container">
+    <div class="card">
+      <a [routerLink]="['/news-reading-component']">
         <div class="image-container">
           <img class="image"
             src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80"
             alt="">
-        </div>
 
+        </div>
         <svg class="svg" viewBox="0 0 800 500">
 
           <path
@@ -48,31 +58,38 @@
           <path class="line" d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400"
             stroke="pink" stroke-width="3" fill="transparent" />
         </svg>
-
-        <div class="content">
-          <h1 class="title">Заголовок</h1>
-          <h2 class="title">
-            <i class="material-icons">
-              timelapse
-            </i>
-            Время прочтения</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis,
-            amet
-            eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
+      </a>
+      <div class="content">
+        <div class="row-card-admin">
+          <h1 class="title">Заголовок </h1>
         </div>
+
+        <h2 class="title">
+          <i class="material-icons">
+            timelapse
+          </i>
+          Время прочтения
+          <i *ngIf="dots" class="fas fa-ellipsis-v" [matMenuTriggerFor]="adminRights"></i>
+          <mat-menu #adminRights>
+            <button mat-menu-item (click)="deleteNews()">Delete</button>
+          </mat-menu>
+        </h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis,
+          amet
+          eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
       </div>
     </div>
-  </a>
+  </div>
 
-  <a [routerLink]="['/news-reading-component']">
-    <div class="container">
-      <div class="card">
+  <div class="container">
+    <div class="card">
+      <a [routerLink]="['/news-reading-component']">
         <div class="image-container">
           <img class="image"
             src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80"
             alt="">
-        </div>
 
+        </div>
         <svg class="svg" viewBox="0 0 800 500">
 
           <path
@@ -81,31 +98,38 @@
           <path class="line" d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400"
             stroke="pink" stroke-width="3" fill="transparent" />
         </svg>
-
-        <div class="content">
-          <h1 class="title">Заголовок</h1>
-          <h2 class="title">
-            <i class="material-icons">
-              timelapse
-            </i>
-            Время прочтения</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis,
-            amet
-            eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
+      </a>
+      <div class="content">
+        <div class="row-card-admin">
+          <h1 class="title">Заголовок </h1>
         </div>
+
+        <h2 class="title">
+          <i class="material-icons">
+            timelapse
+          </i>
+          Время прочтения
+          <i *ngIf="dots" class="fas fa-ellipsis-v" [matMenuTriggerFor]="adminRights"></i>
+          <mat-menu #adminRights>
+            <button mat-menu-item (click)="deleteNews()">Delete</button>
+          </mat-menu>
+        </h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis,
+          amet
+          eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
       </div>
     </div>
-  </a>
+  </div>
 
-  <a [routerLink]="['/news-reading-component']">
-    <div class="container">
-      <div class="card">
+  <div class="container">
+    <div class="card">
+      <a [routerLink]="['/news-reading-component']">
         <div class="image-container">
           <img class="image"
             src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80"
             alt="">
-        </div>
 
+        </div>
         <svg class="svg" viewBox="0 0 800 500">
 
           <path
@@ -114,19 +138,26 @@
           <path class="line" d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400"
             stroke="pink" stroke-width="3" fill="transparent" />
         </svg>
-
-        <div class="content">
-          <h1 class="title">Заголовок</h1>
-          <h2 class="title">
-            <i class="material-icons">
-              timelapse
-            </i>
-            Время прочтения</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis,
-            amet
-            eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
+      </a>
+      <div class="content">
+        <div class="row-card-admin">
+          <h1 class="title">Заголовок </h1>
         </div>
+
+        <h2 class="title">
+          <i class="material-icons">
+            timelapse
+          </i>
+          Время прочтения
+          <i *ngIf="dots" class="fas fa-ellipsis-v" [matMenuTriggerFor]="adminRights"></i>
+          <mat-menu #adminRights>
+            <button mat-menu-item (click)="deleteNews()">Delete</button>
+          </mat-menu>
+        </h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis,
+          amet
+          eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
       </div>
     </div>
-  </a>
+  </div>
 </main>

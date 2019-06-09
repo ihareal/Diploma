@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CheckingService } from '../shared/checking.service';
 
 @Component({
     selector: 'app-news-component',
@@ -8,10 +9,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class NewsComponent implements OnInit {
+    public dots = false;
     constructor(
         private activatedRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private checkerService: CheckingService
     ) { }
 
-    ngOnInit() {}
+    ngOnInit() {
+        if (this.checkerService.checkForAdmin() === true) {
+            this.dots = true;
+        }
+    }
+
+    public deleteNews() {
+
+    }
 }
