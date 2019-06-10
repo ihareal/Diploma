@@ -1,9 +1,61 @@
-<div *ngIf="adminView">
-  <h1>control panel</h1>
-  <h1>statistic zone</h1>
+<div class="container" *ngIf="adminView">
+  <div (click)="controlPanel()" class="card">
+    <h3 class="title">Control panel
+      <i class="fas fa-columns"></i>
+    </h3>
+    <div class="bar">
+      <div class="emptybar"></div>
+      <div class="filledbar"></div>
+    </div>
+    <div class="circle">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <circle class="stroke" cx="60" cy="60" r="50" />
+      </svg>
+    </div>
+  </div>
+  <div (click)="statsZone()" class="card">
+    <h3 class="title">Statistic zone
+      <i class="fas fa-chart-pie"></i>
+    </h3>
+    <div class="bar">
+      <div class="emptybar"></div>
+      <div class="filledbar"></div>
+    </div>
+    <div class="circle">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <circle class="stroke" cx="60" cy="60" r="50" />
+      </svg>
+    </div>
+  </div>
 </div>
 
-<div *ngIf="!adminView">
-  <h1>Profile</h1>
-  <h1>Activities</h1>
+<div (click)="profile()" class="container" *ngIf="!adminView">
+  <div class="card">
+    <h3 class="title">Profile
+      <i class="fas fa-address-card"></i>
+    </h3>
+    <div class="bar">
+      <div class="emptybar"></div>
+      <div class="filledbar"></div>
+    </div>
+    <div class="circle">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <circle class="stroke" cx="60" cy="60" r="50" />
+      </svg>
+    </div>
+  </div>
+  <div (click)="activities()" class="card">
+    <h3 class="title">Activities
+      <i class="fas fa-chart-line"></i>
+    </h3>
+    <div class="bar">
+      <div class="emptybar"></div>
+      <div class="filledbar"></div>
+    </div>
+    <div class="circle">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <circle class="stroke" cx="60" cy="60" r="50" />
+      </svg>
+    </div>
+  </div>
 </div>

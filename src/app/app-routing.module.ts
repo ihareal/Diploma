@@ -15,24 +15,6 @@ import { ProfileComponent } from './profile/profile.component';
 
 
 
-// const childAdminRoutes = [
-//   { path: 'control-panel', component: AdminControlComponent },
-//   { path: 'statistic-zone', component: StatisticComponent }
-// ];
-
-const personalAreaOptionsRoutes = [
-  { path: 'profile', component: ProfileComponent },
-  { path: 'activities', component: ActivitiesComponent },
-  { path: 'control-panel', component: AdminControlComponent },
-  { path: 'statistic-zone', component: StatisticComponent }
-];
-
-// const dividerRoleRoutes = [
-//   { path: 'admin', component: PersonalAreaComponent, children: childAdminRoutes },
-//   { path: 'user', component: PersonalAreaComponent, children: childUserRoutes },
-// ];
-
-
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HeaderComponent },
@@ -40,8 +22,12 @@ const routes: Routes = [
   { path: 'house', component: HouseComponent },
   { path: 'map', component: MapComponent },
   { path: 'news', component: NewsComponent },
-  { path: 'personal-area', component: PersonalAreaComponent, children: personalAreaOptionsRoutes },
-  { path: 'news-reading-component', component: NewsReadingComponent }
+  { path: 'personal-area', component: PersonalAreaComponent },
+  { path: 'news-reading-component', component: NewsReadingComponent },
+  { path: 'statistic-zone', component: StatisticComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'activities', component: ActivitiesComponent },
+  { path: 'control-panel', component: AdminControlComponent },
 ];
 
 @NgModule({
