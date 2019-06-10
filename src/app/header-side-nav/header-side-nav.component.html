@@ -28,12 +28,12 @@
         <!--House / flat info -> advices -->
         <!--TODO: Dynamic naming-->
         <!--TODO: Add function of creating events in admin cabinet-->
-        <button *ngIf="menuType" mat-menu-item [routerLink]="['/personal-area/profile']">Profile</button>
-        <button *ngIf="menuType" mat-menu-item [routerLink]="['/personal-area/activities']">Activities</button>
+        <button *ngIf="menuType" mat-menu-item [routerLink]="['/profile']">Profile</button>
+        <button *ngIf="menuType" mat-menu-item [routerLink]="['/activities']">Activities</button>
         <button *ngIf="!menuType" mat-menu-item
-          [routerLink]="['/personal-area/control-panel']">Control panel</button>
+          [routerLink]="['/control-panel']">Control panel</button>
         <button *ngIf="!menuType" mat-menu-item
-          [routerLink]="['/personal-area/statistic-zone']">Statistic zone</button>
+          [routerLink]="['/statistic-zone']">Statistic zone</button>
         <button mat-menu-item (click)="signOut()">Sign Out</button>
       </mat-menu>
 
@@ -83,14 +83,14 @@
           <!--House / flat info -> advices -->
           <!--TODO: Dynamic naming-->
           <!--TODO: Add function of creating events in admin cabinet-->
-          <button *ngIf="menuType" mat-menu-item [routerLink]="['/personal-area/profile']">Profile</button>
-          <button *ngIf="menuType" mat-menu-item [routerLink]="['/personal-area/activities']">Activities</button>
+          <button *ngIf="menuType" mat-menu-item [routerLink]="['/profile']">Profile</button>
+          <button *ngIf="menuType" mat-menu-item [routerLink]="['/activities']">Activities</button>
           <button *ngIf="!menuType" mat-menu-item
-            [routerLink]="['/personal-area/control-panel']">Control panel</button>
+            [routerLink]="['/control-panel']">Control panel</button>
             <!-- [matMenuTriggerFor]="userStatistic" -->
           <button *ngIf="!menuType" mat-menu-item 
-            [routerLink]="['/personal-area/statistic-zone']">Statistic zone</button>
-          <button mat-menu-item (click)="signOut()">Sign Out</button>
+            [routerLink]="['/statistic-zone']">Statistic zone</button>
+          <button mat-menu-item [routerLink]="['/home']" routerLinkActive="router-link-active" (click)="signOut()">Sign Out</button>
         </mat-menu>
 
         <!-- <mat-menu #createZone="matMenu">
