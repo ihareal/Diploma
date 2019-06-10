@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { CheckingService } from '../shared/checking.service';
 
 @Component({
     selector: 'app-personal-area-component',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class PersonalAreaComponent implements OnInit {
-    constructor() { }
+    public adminView = false;
+    constructor(
+        private checkingService: CheckingService,
+    ) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        if (this.checkingService.checkForAdmin() === true) {
+            this.adminView = true;
+        } else { this.adminView = false; }
+    }
+
 }

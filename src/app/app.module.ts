@@ -35,6 +35,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { InfoComponent } from './info/info.component';
+import { AdminControlComponent } from './admin.control/admin.control.component';
+import { StatisticComponent } from './statistic/statistic.component';
+import { UserAreaComponent } from './user.area/user.area.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +55,12 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     NewsReadingComponent,
     PersonalAreaComponent,
     MarkerCreatingDialogComponent,
-    PollutionCreatingDialogComponent
+    PollutionCreatingDialogComponent,
+    InfoComponent,
+    AdminControlComponent,
+    StatisticComponent,
+    UserAreaComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
