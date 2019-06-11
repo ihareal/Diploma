@@ -1,1 +1,21 @@
-<i [routerLink]="['/personal-area']" routerLinkActive="router-link-active"  class="fas fa-arrow-left"></i>
+<i [routerLink]="['/personal-area']" routerLinkActive="router-link-active" class="fas fa-arrow-left"></i>
+
+<div class="main-container">
+  <div class="example-container">
+    <h2>Participate</h2>
+
+    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="participate" [cdkDropListConnectedTo]="[doneList]"
+      class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of participate" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>Refuse</h2>
+
+    <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="refuse" [cdkDropListConnectedTo]="[todoList]"
+      class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of refuse" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+</div>

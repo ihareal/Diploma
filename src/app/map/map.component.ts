@@ -3,7 +3,7 @@ import { MapsService } from '../shared/services/maps.service';
 import { Marker } from '../shared/models/marker.model';
 import { MarkerCircle } from '../shared/models/marker.circle.model';
 import { CheckingService } from '../shared/checking.service';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
 import { DialogData } from '../header-side-nav/header-side-nav.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
@@ -16,7 +16,7 @@ import { take } from 'rxjs/operators';
 })
 
 export class MapComponent implements OnInit {
-
+    public mark = false;
     private shiftMarker = false;
     private shiftPollution = false;
     public pollutionMarker: string;
@@ -169,7 +169,9 @@ export class MapComponent implements OnInit {
     constructor(
         private mapService: MapsService,
         private checkingService: CheckingService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private _snackBar: MatSnackBar
+
     ) { }
 
     public openDialog(lat, lng): void {
@@ -298,6 +300,20 @@ export class MapComponent implements OnInit {
         if (localStorage.getItem('role') === 'admin') {
             this.openPollutionDialog(lat, lng);
         }
+    }
+
+    removeMark() {
+        this.mark = !this.mark;
+    }
+
+    addMark() {
+        this.mark = !this.mark;
+    }
+
+    openSnackBar(message: string, action: string) {
+        this._snackBar.open(message, action, {
+            duration: 2000,
+        });
     }
 }
 

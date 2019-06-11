@@ -39,7 +39,7 @@ export class AdminControlComponent implements OnInit {
     { UserId: 7, Email: 'h@gmail.com', isAdmin: 0, Password: 'asdfaasdf', DwellingType: 'House', StageAmount: 1, StageNumber: 0, District: 'Autozavod' },
 
   ];
-  // public userData: UserGetModel[];
+
   // tslint:disable-next-line:max-line-length
   displayedColumns: string[] = ['UserId', 'Email', 'isAdmin', 'Password', 'DwellingType', 'StageAmount', 'StageNumber', 'District', 'Delete'];
 
@@ -56,7 +56,7 @@ export class AdminControlComponent implements OnInit {
     private userService: UserService,
     private http: HttpClient,
     private _snackBar: MatSnackBar
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource(this.userData);

@@ -1,10 +1,27 @@
 .fa-arrow-left {
-    margin-top: 30px;
-    margin-left: 30px;
-    transition: 0.5s ease color;
+  margin-top: 30px;
+  margin-left: 30px;
+  transition: 0.5s ease color;
 }
 
-.fa-arrow-left:hover{
-    cursor: pointer;
-    color: #BE145A;
+.fa-arrow-left:hover {
+  cursor: pointer;
+  color: #BE145A;
+}
+
+agm-map {
+  margin-top: 15%;
+  height: 300px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.sub {
+    padding: 30px;
+    flex-direction: row;
+    justify-content: space-between;
 }

@@ -46,6 +46,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AdminControlEventComponent } from './admin.control.event/admin.control.event.component';
 import { AdminControlPollutionComponent } from './admin.control.pollution/admin.control.pollution.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { AdminControlPollutionComponent } from './admin.control.pollution/admin.
     MatDialogModule,
     MatButtonModule,
     MatTabsModule,
+    DragDropModule,
     HttpClientModule,
     MatToolbarModule,
     MatIconModule,

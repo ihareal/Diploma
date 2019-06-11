@@ -13,9 +13,7 @@
       <a mat-button [routerLink]="['/house']" routerLinkActive="router-link-active" (click)="drawer.toggle()">
         <i class="fas fa-home"></i> Eco house</a>
       <a mat-button [routerLink]="['/car']" routerLinkActive="router-link-active" (click)="drawer.toggle()">
-        <i class="fas fa-car"></i> Eco car</a>
-      <a mat-button [routerLink]="['/activities']" routerLinkActive="router-link-active" (click)="drawer.toggle()">
-        <i class="fas fa-leaf"></i> Activities</a>
+        <i class="fas fa-car"></i> Eco car</a>      
       <br>
       <button *ngIf="!register" mat-button (click)="openSignInDialog()">Sign in</button>
       <button *ngIf="register" [matMenuTriggerFor]="cabinetOptions" mat-button>
@@ -70,8 +68,6 @@
           <i class="fas fa-home"></i> Eco house</a>
         <a mat-button [routerLink]="['/car']" routerLinkActive="router-link-active">
           <i class="fas fa-car"></i> Eco car</a>
-        <a mat-button [routerLink]="['/activities']" routerLinkActive="router-link-active">
-          <i class="fas fa-leaf"></i> Activities</a>
         <button *ngIf="!register" mat-button (click)="openSignInDialog()">Sign in</button>
         <button *ngIf="register" [matMenuTriggerFor]="cabinetOptions" mat-button>
           <i matTooltip="Admin cabinet allows you extra rights" [matTooltipPosition]="'below'" *ngIf="!menuType"
