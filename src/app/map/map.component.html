@@ -34,8 +34,10 @@
       </agm-map>
       <div [ngClass]="{disable: !shiftMarker}" class="activityInfo disable">
         <i (click)='closeMarkerDescription()' class="fas fa-times"></i>
-        <i *ngIf="!mark" (click)="addMark(); openSnackBar('You have added event to participate', 'close')" class="far fa-star"></i>
-        <i *ngIf="mark" (click)="removeMark(); openSnackBar('You have removed event to participate', 'close')" class="fas fa-star"></i>
+        <div *ngIf="" class="container">
+            <i *ngIf="!mark" (click)="addMark(); openSnackBar('You have added event to participate', 'close')" class="far fa-star"></i>
+            <i *ngIf="mark" (click)="removeMark(); openSnackBar('You have removed event to participate', 'close')" class="fas fa-star"></i>
+        </div>        
         <h1>{{markerTitle}}</h1>
         <h2>{{markerDescription}}</h2>
       </div>

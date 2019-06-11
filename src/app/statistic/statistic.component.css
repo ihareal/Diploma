@@ -1,10 +1,47 @@
 .fa-arrow-left {
-    margin-top: 30px;
-    margin-left: 30px;
-    transition: 0.5s ease color;
+  margin-top: 30px;
+  margin-left: 30px;
+  transition: 0.5s ease color;
 }
 
-.fa-arrow-left:hover{
-    cursor: pointer;
-    color: #BE145A;
+.fa-arrow-left:hover {
+  cursor: pointer;
+  color: #BE145A;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-group {
+  margin: 8px;
+  display: flex;
+  flex: 1;
+}
+
+.grid-cell {
+  margin: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.district-legend {
+  display: flex;
+  justify-content: center;
+}
+
+.house-type-legend {
+  display: flex;
+  justify-content: center;
+}
+
+.reading-type-legend {
+  display: flex;
+  justify-content: center;
+}
+
+.dwelling-type-legend {
+  display: flex;
+  justify-content: center;
 }
