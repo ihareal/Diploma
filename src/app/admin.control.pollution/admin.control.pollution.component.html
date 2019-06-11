@@ -1,3 +1,61 @@
-<p>
-  admin.control.pollution works!
-</p>
+<br>
+<div class="container">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+
+  <div class="mat-elevation-z8" #TABLE>
+    <table mat-table [dataSource]="dataSource" matSort>
+      <!-- PollutionId Column -->
+      <ng-container matColumnDef="PollutionId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> PollutionId </th>
+        <td mat-cell *matCellDef="let row"> {{row.PollutionId}} </td>
+      </ng-container>
+
+      <!-- UserId -->
+      <ng-container matColumnDef="UserId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> UserId </th>
+        <td mat-cell *matCellDef="let row"> {{row.UserId}} </td>
+      </ng-container>
+
+      <!-- Title -->
+      <ng-container matColumnDef="Title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+        <td mat-cell *matCellDef="let row"> {{row.Title}} </td>
+      </ng-container>
+
+      <!-- Description -->
+      <ng-container matColumnDef="Description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.Description}} </td>
+      </ng-container>
+
+      <!-- Status -->
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.Status}} </td>
+      </ng-container>
+
+      <!-- CreationDate -->
+      <ng-container matColumnDef="CreationDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> CreationDate </th>
+        <td mat-cell *matCellDef="let row" > {{row.CreationDate}} </td>
+      </ng-container>
+
+
+      <!--Deletion row-->
+      <ng-container matColumnDef="Delete">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
+        <td align="center" (click)="expr(row); openSnackBar('You have deleted user with id:' + row['UserId'], 'close')"
+          mat-cell *matCellDef="let row"> <i class="fas fa-trash-alt"></i> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+  <br>
+  <button mat-raised-button color="primary" (click)="ExportTOExcel()">Export as Excel</button>
+</div>

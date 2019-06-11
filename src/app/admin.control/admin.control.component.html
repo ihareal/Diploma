@@ -1,8 +1,8 @@
 <i [routerLink]="['/personal-area']" routerLinkActive="router-link-active" class="fas fa-arrow-left"></i>
 <mat-tab-group mat-stretch-tabs>
   <mat-tab label="Users">
+    
     <br>
-
     <div class="container">
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -61,7 +61,7 @@
           <!--Deletion row-->
           <ng-container matColumnDef="Delete">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
-            <td align="center" (click)="expr(row); openSnackBar('You have deleted ' + row['UserId'], 'close')" mat-cell
+            <td align="center" (click)="expr(row); openSnackBar('You have deleted user with id:' + row['UserId'], 'close')" mat-cell
               *matCellDef="let row"> <i class="fas fa-trash-alt"></i> </td>
           </ng-container>
 
@@ -75,15 +75,13 @@
       <button mat-raised-button color="primary" (click)="ExportTOExcel()">Export as Excel</button>
     </div>
 
-
-
   </mat-tab>
 
   <mat-tab label="Events">
-
+    <app-admin-control-event></app-admin-control-event>
   </mat-tab>
 
   <mat-tab label="Pollutions">
-
+    <app-admin-control-pollution></app-admin-control-pollution>
   </mat-tab>
 </mat-tab-group>

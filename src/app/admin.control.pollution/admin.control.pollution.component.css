@@ -1,0 +1,23 @@
+  .container {
+    margin: 0 7% 0 7%;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  td,
+  th {
+    width: 25%;
+  }
+
+  .filterExport {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }

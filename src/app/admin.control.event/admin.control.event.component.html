@@ -1,3 +1,84 @@
-<p>
-  admin.control.event works!
-</p>
+<br>
+<div class="container">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+
+  <div class="mat-elevation-z8" #TABLE>
+    <table mat-table [dataSource]="dataSource" matSort>
+      <!-- Event Id -->
+      <ng-container matColumnDef="EventId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> EventId </th>
+        <td mat-cell *matCellDef="let row"> {{row.EventId}} </td>
+      </ng-container>
+
+      <!-- UserId -->
+      <ng-container matColumnDef="UserId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> UserId </th>
+        <td mat-cell *matCellDef="let row"> {{row.UserId}} </td>
+      </ng-container>
+      
+      <!-- Title -->
+      <ng-container matColumnDef="Title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+        <td mat-cell *matCellDef="let row"> {{row.Title}} </td>
+      </ng-container>
+
+      <!-- Description -->
+      <ng-container matColumnDef="Description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.Description}} </td>
+      </ng-container>
+
+      <!-- Latitude -->
+      <ng-container matColumnDef="Latitude">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Latitude </th>
+        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.Latitude}} </td>
+      </ng-container>
+
+      <!-- Longitude -->
+      <ng-container matColumnDef="Longitude">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Longitude </th>
+        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.Longitude}} </td>
+      </ng-container>
+
+      <!--Status-->
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let row"> {{row.Status }} </td>
+      </ng-container>
+
+      <!--CreationDate-->
+      <ng-container matColumnDef="CreationDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> CreationDate </th>
+        <td mat-cell *matCellDef="let row"> {{row.CreationDate }} </td>
+      </ng-container>
+
+      <!--StartDate-->
+      <ng-container matColumnDef="StartDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> StartDate </th>
+        <td mat-cell *matCellDef="let row"> {{row.StartDate }} </td>
+      </ng-container>
+
+      <!--EndDate-->
+      <ng-container matColumnDef="EndDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> EndDate </th>
+        <td mat-cell *matCellDef="let row"> {{row.EndDate }} </td>
+      </ng-container>
+
+      <!--Deletion row-->
+      <ng-container matColumnDef="Delete">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
+        <td align="center" (click)="expr(row); openSnackBar('You have deleted user with id:' + row['UserId'], 'close')"
+          mat-cell *matCellDef="let row"> <i class="fas fa-trash-alt"></i> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+  <br>
+  <button mat-raised-button color="primary" (click)="ExportTOExcel()">Export as Excel</button>
+</div>
