@@ -1,3 +1,89 @@
-<p>
-  admin.control works!
-</p>
+<i [routerLink]="['/personal-area']" routerLinkActive="router-link-active" class="fas fa-arrow-left"></i>
+<mat-tab-group mat-stretch-tabs>
+  <mat-tab label="Users">
+    <br>
+
+    <div class="container">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+
+      <div class="mat-elevation-z8" #TABLE>
+        <table mat-table [dataSource]="dataSource" matSort>
+          <!-- ID Column -->
+          <ng-container matColumnDef="UserId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> UserId </th>
+            <td mat-cell *matCellDef="let row"> {{row.UserId}} </td>
+          </ng-container>
+
+          <!-- Email -->
+          <ng-container matColumnDef="Email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+            <td mat-cell *matCellDef="let row"> {{row.Email}} </td>
+          </ng-container>
+
+          <!-- isAdmin -->
+          <ng-container matColumnDef="isAdmin">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> isAdmin </th>
+            <td mat-cell *matCellDef="let row"> {{row.isAdmin}} </td>
+          </ng-container>
+
+          <!-- Password -->
+          <ng-container matColumnDef="Password">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Password </th>
+            <td mat-cell *matCellDef="let row"> {{row.Password}} </td>
+          </ng-container>
+
+          <!-- DwellingType -->
+          <ng-container matColumnDef="DwellingType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> DwellingType </th>
+            <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.DwellingType}} </td>
+          </ng-container>
+
+          <!-- StageAmount -->
+          <ng-container matColumnDef="StageAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> StageAmount </th>
+            <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.StageAmount}} </td>
+          </ng-container>
+
+          <!-- StageNumber -->
+          <ng-container matColumnDef="StageNumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> StageNumber </th>
+            <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.StageNumber}} </td>
+          </ng-container>
+
+          <!--Disctrict-->
+          <ng-container matColumnDef="District">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> District </th>
+            <td mat-cell *matCellDef="let row"> {{row.District }} </td>
+          </ng-container>
+
+          <!--Deletion row-->
+          <ng-container matColumnDef="Delete">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
+            <td align="center" (click)="expr(row); openSnackBar('You have deleted ' + row['UserId'], 'close')" mat-cell
+              *matCellDef="let row"> <i class="fas fa-trash-alt"></i> </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+      <br>
+      <button mat-raised-button color="primary" (click)="ExportTOExcel()">Export as Excel</button>
+    </div>
+
+
+
+  </mat-tab>
+
+  <mat-tab label="Events">
+
+  </mat-tab>
+
+  <mat-tab label="Pollutions">
+
+  </mat-tab>
+</mat-tab-group>

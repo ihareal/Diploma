@@ -40,6 +40,12 @@ import { AdminControlComponent } from './admin.control/admin.control.component';
 import { StatisticComponent } from './statistic/statistic.component';
 import { UserAreaComponent } from './user.area/user.area.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AdminControlEventComponent } from './admin.control.event/admin.control.event.component';
+import { AdminControlPollutionComponent } from './admin.control.pollution/admin.control.pollution.component';
 
 @NgModule({
   declarations: [
@@ -60,10 +66,16 @@ import { ProfileComponent } from './profile/profile.component';
     AdminControlComponent,
     StatisticComponent,
     UserAreaComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminControlEventComponent,
+    AdminControlPollutionComponent
   ],
   imports: [
     BrowserModule,
+    MatSnackBarModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
     MatTooltipModule,
     AppRoutingModule,
     MatFormFieldModule,
