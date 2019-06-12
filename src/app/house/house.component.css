@@ -1,0 +1,27 @@
+.container {
+  padding: 3% 10% 10%;
+}
+
+h1 {
+  text-align: center;
+}
+
+p {
+  text-indent: 2em;
+  text-align: justify;
+}
+
+.green {
+  font-weight: bold;
+  color: #45997A;
+}
+
+.red {
+  font-weight: bold;
+  color: #FF616E
+}
+
+.orange {
+  font-weight: bold;
+  color: #EBB52F;
+}

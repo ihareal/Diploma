@@ -16,6 +16,7 @@ import { take } from 'rxjs/operators';
 })
 
 export class MapComponent implements OnInit {
+    public log = false;
     public mark = false;
     private shiftMarker = false;
     private shiftPollution = false;
@@ -68,8 +69,8 @@ export class MapComponent implements OnInit {
             lat: 53.935,
             lng: 27.904,
             label: 'A',
-            title: 'hot маркер',
-            description: 'hot описание',
+            title: 'Forest layer revival',
+            description: 'We want to restore forest layer. We need 10 trees, no matter what type they are',
             draggable: false,
             animation: 'DROP'
         },
@@ -164,6 +165,26 @@ export class MapComponent implements OnInit {
         }
     ];
 
+    public freshCircle = [
+        {
+            lat: 53.917355,
+            lng: 27.614379,
+        },
+        {
+            lat: 53.919135,
+            lng: 27.536881,
+        },
+        {
+            lat: 53.902647,
+            lng: 27.572071,
+        },
+        {
+            lat: 53.901278,
+            lng: 27.562128,
+        }
+
+    ]
+
     /*put into database for future using in user statistic & user cabinet*/
     dataBaseInfo = [];
     constructor(
@@ -224,6 +245,7 @@ export class MapComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.log = this.checkingService.checkForLog();
         this.admin = this.checkingService.checkForAdmin();
         this.mapService.getLocation().subscribe(data => {
             console.log(data);

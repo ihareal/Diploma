@@ -7,6 +7,10 @@ img {
   font-size: 20pt;
 }
 
+.container {
+  margin-top: 5%;
+}
+
 .fake-menu {
   text-align: center;
   list-style: none;
@@ -53,11 +57,15 @@ hr {
   filter: blur(1px);
 }
 
+.map-description {
+  display: none;
+}
+
 .pollution-map {
   border-radius: 10px;
-  position: absolute;
-  bottom: 36vh;
-  left: 50vw;
+  /* position: absolute; */
+  /* bottom: 36vh;
+  left: 50vw; */
 }
 
 .option-description-text {
@@ -84,6 +92,10 @@ ul.fake-menu li {
   text-align: left;
 }
 
+.border {
+  padding-top: 10%;
+}
+
 .mat-toolbar-row {
   justify-content: center;
 }
@@ -93,7 +105,7 @@ ul.fake-menu li {
 }
 
 .headerHelperCard {
-  height: calc(89vh - 14px);
+  height: 95vh;
   color: gray;
   text-align: center;
   /* height: auto; */
@@ -118,12 +130,16 @@ tr.border td {
     display: none;
   }
 
+  .map-description {
+    display: inline-block;
+  }
+
   .events-map {
     display: inline-block;
     filter: blur(0px);
   }
 
-  .events-map-in  itial {
+  .events-map-in itial {
     display: none;
   }
 }
@@ -141,11 +157,25 @@ tr.border td {
   table {
     width: 0vw;
   }
-} 
 
-@media (max-width: 1679px) {
+  :host ::ng-deep .table {
+    margin-top: 7% !important;
+  }
+
+  .mat-card-content>:first-child,
+  .mat-card>:first-child {
+    margin-top: 10% !important;
+  }
+}
+
+.mat-card-content>:first-child,
+.mat-card>:first-child {
+  margin-top: 5% !important;
+}
+
+/* @media (max-width: 1679px) {
   .headerHelperCard {
     height: auto;
   }
-  
-}
+
+} */

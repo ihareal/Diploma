@@ -12,9 +12,9 @@
       <i class="fas fa-leaf"></i> Activities</a>
   </mat-toolbar-row>
 </mat-toolbar> -->
-
 <mat-card [class.alternative]="changeTheme" class="headerHelperCard">
-  <table>
+
+  <table class="table">
     <tr class="border">
       <td class="option-text">News</td>
       <td colspan="5">Eco news from popular "green" sources</td>
@@ -22,10 +22,10 @@
     <tr>
       <td class="option-text">Eco maps</td>
       <td colspan="5">
-        <span class="eco-maps-description">Maps where you can always check your district purity and choose your green route</span> 
-        <img class="events-map-initial" src="../../assets/images/homePageInitialPic.png" alt="">
-        <img class="events-map" src="../../assets/images/homePageMap.png" alt="">
+        <!-- <img class="events-map-initial" src="../../assets/images/homePageInitialPic.png" alt=""> -->
+        <!-- <img class="events-map" src="../../assets/images/homePageMap.png" alt=""> -->
         <img class="pollution-map" src="../../assets/images/homePagePollutionMap.png" alt="">
+       <span class="map-description">Eco maps will help you to participate in 'green' event & avoid pollution</span>
       </td>
     </tr>
     <tr>
@@ -37,12 +37,9 @@
       <td colspan="5">Some extra information about car: economy & ecological alternatives</td>
     </tr>
     <tr>
-      <td class="option-text">Activities</td>
-      <td colspan="5">Your opportunity to contribute in environment</td>
-    </tr>
-    <tr>
       <td class="option-text">Personal advices</td>
-      <td colspan="5">You will open this function after you will <span (click)="openSignIn($event)" class="sign-in">Sign in</span></td>
+      <td colspan="5">You will open this function after you will <span (click)="openSignIn($event)" class="sign-in">Sign
+          in</span></td>
     </tr>
   </table>
 

@@ -51,6 +51,21 @@ ul.legend li {
   overflow: hidden !important;
 }
 
+ul.legend li.fresh-area {
+  color: #B8D9BA;
+  border-radius: 7px;
+  border: 1px solid #B8D9BA;
+  transition: background-color 0.5s ease, border-radius 0.5s ease;
+}
+
+ul.legend li.fresh-area:hover {
+  color: white;
+  border-radius: 20px;
+  border: 1px solid #B8D9BA;
+  background-color: #B8D9BA;
+}
+
+
 ul.legend li.const-pollution {
   color: #EDA2A8;
   border-radius: 7px;

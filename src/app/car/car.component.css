@@ -1,0 +1,32 @@
+.container {
+  padding: 3% 10% 10%;
+}
+
+h1 {
+  text-align: center;
+}
+
+p {
+  text-indent: 2em;
+  text-align: justify;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+ul.a {
+  list-style-type: circle;
+}
+
+.green {
+  color: #45997A;
+}
+
+.red {
+  color: #FF616E
+}
+
+.orange {
+  color: #EBB52F;
+}

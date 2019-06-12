@@ -8,7 +8,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 
 export class ActivitiesComponent implements OnInit {
     participate = [
-        'Event descrition 0',
+        'We want to restore forest layer. We need 10 trees, no matter what type they are',
         'Event descrition 1',
     ];
 

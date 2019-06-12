@@ -1,8 +1,13 @@
 <i [routerLink]="['/personal-area']" routerLinkActive="router-link-active" class="fas fa-arrow-left"></i>
 <br>
-<agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-</agm-map>
+
+<div class="map-container">
+  <h3 align="center">Your current location:</h3>
+  <agm-map [zoom]="11" [latitude]="lat" [longitude]="lng">
+    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  </agm-map>
+</div>
+
 
 <div class="container">
   <div class="sub">
@@ -10,8 +15,8 @@
     <p>District: {{district}}</p>
   </div>
   <div class="sub">
-  <p>House type: {{houseType}}</p>    
-  <p *ngIf="flatStage !== undefined">Your house stages amount: {{flatStage}}</p>
-  <p *ngIf="stageAmount !== undefined">Your flat stage: {{stageAmount}}</p>
+    <p>House type: {{houseType}}</p>
+    <p *ngIf="flatStage !== undefined">Your house stages amount: {{flatStage}}</p>
+    <p *ngIf="stageAmount !== undefined">Your flat stage: {{stageAmount}}</p>
   </div>
 </div>
