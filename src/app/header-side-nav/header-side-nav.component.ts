@@ -172,7 +172,9 @@ export class SignInComponent implements OnInit {
     console.log(this.signInForm.value);
     debugger;
     this.userService.postUser(JSON.stringify(onk)).subscribe(
-      res => { },
+      res => {
+        console.log(res);
+       },
       err => {
         console.log(err);
       }
