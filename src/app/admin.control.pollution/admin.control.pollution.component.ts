@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { UserService } from '../shared/services/user.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import * as XLSX from 'xlsx';
+import { PollutionService } from '../shared/services/pollution.service';
 
 export interface PollutionGetModel {
   PollutionId: number;
@@ -19,7 +19,7 @@ export interface PollutionGetModel {
   styleUrls: ['./admin.control.pollution.component.css']
 })
 export class AdminControlPollutionComponent implements OnInit {
-  public userData: PollutionGetModel[] = [
+  public initial: PollutionGetModel[] = [
     // tslint:disable-next-line:max-line-length
     { PollutionId: 1, UserId: 1, Title: 'asdfasf', Description: 'asdfad', Status: 'Status', CreationDate: '29/08/2000' },
     // tslint:disable-next-line:max-line-length
@@ -31,12 +31,12 @@ export class AdminControlPollutionComponent implements OnInit {
 
 
   ];
-  // public userData: UserGetModel[];
+  public userData;
   // tslint:disable-next-line:max-line-length
   displayedColumns: string[] = ['PollutionId', 'UserId', 'Title', 'Description', 'Status', 'CreationDate', 'Delete'];
 
 
-  public dataSource: MatTableDataSource<PollutionGetModel>;
+  public dataSource;
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -45,13 +45,15 @@ export class AdminControlPollutionComponent implements OnInit {
 
 
   constructor(
-    private userService: UserService,
+    private pollutionService: PollutionService,
     private http: HttpClient,
     private _snackBar: MatSnackBar
-  ) { }
+  ) {
+    this.dataSource = new MatTableDataSource(this.initial);
+    this.pollutionService.getPollutions().subscribe(data => {this.dataSource.data = data; this.userData = data})
+  }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.userData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

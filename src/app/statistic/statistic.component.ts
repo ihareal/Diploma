@@ -176,10 +176,7 @@ export class StatisticComponent implements OnInit {
 
   private initReadingTime() {
     const ctx = <HTMLCanvasElement>document.getElementById('reading-time');
-    const context = ctx.getContext('2d');
-    context.canvas.height = 500;
-    context.canvas.width = 700;
-    this.readingTypeChart = new Chart(context, {
+    this.readingTypeChart = new Chart(ctx, {
       type: 'pie',
       data: {
         datasets: [{
@@ -214,7 +211,7 @@ export class StatisticComponent implements OnInit {
           text.push('</ul>');
           return text.join('');
         },
-        responsive: false,
+        responsive: true,
         legend: {
           labels: {
             usePointStyle: true,

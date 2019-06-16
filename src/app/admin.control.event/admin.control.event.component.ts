@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { UserService } from '../shared/services/user.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import * as XLSX from 'xlsx';
+import { EventService } from '../shared/services/event.service';
 
 export interface EventGetModel {
   EventId: number;
@@ -23,7 +23,7 @@ export interface EventGetModel {
   styleUrls: ['./admin.control.event.component.css']
 })
 export class AdminControlEventComponent implements OnInit {
-  public userData: EventGetModel[] = [
+  public initial: EventGetModel[] = [
     // tslint:disable-next-line:max-line-length
     { EventId: 0, UserId: 1, Title: 'dsf', Description: 'asdfasdf', Latitude: 56.4578457, Longitude: 52345.555, Status: 'asdfasdf', CreationDate: '28/05/2019', StartDate: '28/05/2019', EndDate: '31/05/2019' },
     // tslint:disable-next-line:max-line-length
@@ -32,16 +32,14 @@ export class AdminControlEventComponent implements OnInit {
     { EventId: 2, UserId: 1, Title: 'dsf', Description: 'asdfasdf', Latitude: 56.4578457, Longitude: 52345.555, Status: 'asdfasdf', CreationDate: '28/05/2019', StartDate: '28/05/2019', EndDate: '31/05/2019' },
     // tslint:disable-next-line:max-line-length
     { EventId: 3, UserId: 1, Title: 'dsf', Description: 'asdfasdf', Latitude: 56.4578457, Longitude: 52345.555, Status: 'asdfasdf', CreationDate: '28/05/2019', StartDate: '28/05/2019', EndDate: '31/05/2019' },
-
-
-
   ];
-  // public userData: UserGetModel[];
+
   // tslint:disable-next-line:max-line-length
   displayedColumns: string[] = ['EventId', 'UserId', 'Title', 'Description', 'Latitude', 'Longitude', 'Status', 'CreationDate', 'StartDate', 'EndDate', 'Delete'];
 
 
-  public dataSource: MatTableDataSource<EventGetModel>;
+  public dataSource;
+  public userData: any;
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -50,13 +48,15 @@ export class AdminControlEventComponent implements OnInit {
 
 
   constructor(
-    private userService: UserService,
+    private eventService: EventService,
     private http: HttpClient,
     private _snackBar: MatSnackBar
-  ) { }
+  ) {
+    this.dataSource = new MatTableDataSource(this.initial);
+    this.eventService.getEvents().subscribe(data => { debugger; this.dataSource.data = data; this.userData = data; });
+  }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.userData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
