@@ -25,7 +25,6 @@ export class HeaderSideNavComponent implements OnInit {
     .pipe(
       map(result => result.matches)
     );
-
   public register = false;
   public menuType = null;
   public changeTheme = false;
@@ -94,6 +93,7 @@ export class SignInComponent implements OnInit {
   public signInForm: FormGroup;
   public hiddenPassword = true;
   public changeTheme = false;
+  public isAdmin = 0;
   public districtArray: MultiSelectModel[] = [
     { value: 'Centralniy', viewValue: 'Centralniy' },
     { value: 'Sovietskiy', viewValue: 'Sovietskiy' },
@@ -160,25 +160,7 @@ export class SignInComponent implements OnInit {
     //   res => { console.log(res); },
     //   err => { console.log(err); }
     // );
-    const onk = {
-      Email: "asdfasdf",
-      isAdmin: 1,
-      District: "okt",
-      Password: "asdfasdf",
-      DwellingType: "house",
-      StageNumber: 1,
-    };
 
-    console.log(this.signInForm.value);
-    debugger;
-    this.userService.postUser(JSON.stringify(onk)).subscribe(
-      res => {
-        console.log(res);
-       },
-      err => {
-        console.log(err);
-      }
-    );
     Object.keys(this.formControls).forEach(control => {
 
       if (control !== 'password') {
@@ -195,6 +177,69 @@ export class SignInComponent implements OnInit {
         localStorage.setItem('role', 'user');
       }
     });
+
+    // const onk = {
+    //   Email: this.signInForm.controls['email'].value,
+    //   isAdmin: localStorage.getItem('role'),
+    //   District: this.signInForm.controls['district'].value,
+    //   Password: this.signInForm.controls['password'].value,
+    //   DwellingType: this.signInForm.controls['houseType'].value,
+    //   StageNumber: this.signInForm.controls['flatStage'].value,
+    // };
+    if (this.signInForm.controls['houseType'].value === 'flat') {
+
+      if (localStorage.getItem('role') === 'admin') {
+        this.isAdmin = 1;
+      }
+
+      const onk = {
+        Email: this.signInForm.controls['email'].value,
+        isAdmin: this.isAdmin,
+        District: this.signInForm.controls['district'].value,
+        Password: this.signInForm.controls['password'].value,
+        DwellingType: this.signInForm.controls['houseType'].value,
+        StageNumber: parseInt(this.signInForm.controls['flatStage'].value, 10),
+      };
+
+      debugger;
+      this.userService.postUser(JSON.stringify(onk)).subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+
+    } else if (this.signInForm.controls['houseType'].value === 'house') {
+
+      if (localStorage.getItem('role') === 'admin') {
+        this.isAdmin = 1;
+      }
+
+      const onk = {
+        Email: this.signInForm.controls['email'].value,
+        isAdmin: this.isAdmin,
+        District: this.signInForm.controls['district'].value,
+        Password: this.signInForm.controls['password'].value,
+        DwellingType: this.signInForm.controls['houseType'].value,
+        StageAmount: parseInt(this.signInForm.controls['stageHouseAmount'].value, 10),
+      };
+
+      debugger;
+      this.userService.postUser(JSON.stringify(onk)).subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+
+    }
+
+
+
     this.dialogRef.close();
   }
 }

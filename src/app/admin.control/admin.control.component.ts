@@ -5,14 +5,14 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import * as XLSX from 'xlsx';
 
 export interface UserGetModel {
-  UserId: number;
   Email: string;
   isAdmin: number;
+  District: string;
   Password: string;
   DwellingType: string;
+  UserId: number;
   StageAmount: number;
   StageNumber: number;
-  District: string;
 }
 
 
@@ -22,7 +22,7 @@ export interface UserGetModel {
   styleUrls: ['./admin.control.component.css']
 })
 export class AdminControlComponent implements OnInit {
-  public userData: UserGetModel[] = [
+  public initial: UserGetModel[] = [
     // tslint:disable-next-line:max-line-length
     { UserId: 1, Email: 'h@gmail.com', isAdmin: 0, Password: 'asdfaasdf', DwellingType: 'House', StageAmount: 1, StageNumber: 0, District: 'Autozavod' },
     // tslint:disable-next-line:max-line-length
@@ -37,14 +37,16 @@ export class AdminControlComponent implements OnInit {
     { UserId: 6, Email: 'h@gmail.com', isAdmin: 0, Password: 'asdfaasdf', DwellingType: 'House', StageAmount: 1, StageNumber: 0, District: 'Autozavod' },
     // tslint:disable-next-line:max-line-length
     { UserId: 7, Email: 'h@gmail.com', isAdmin: 0, Password: 'asdfaasdf', DwellingType: 'House', StageAmount: 1, StageNumber: 0, District: 'Autozavod' },
-
+    
   ];
+  public userData: any;
+
 
   // tslint:disable-next-line:max-line-length
   displayedColumns: string[] = ['UserId', 'Email', 'isAdmin', 'Password', 'DwellingType', 'StageAmount', 'StageNumber', 'District', 'Delete'];
 
 
-  public dataSource: MatTableDataSource<UserGetModel>;
+  public dataSource;
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -56,10 +58,12 @@ export class AdminControlComponent implements OnInit {
     private userService: UserService,
     private http: HttpClient,
     private _snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.dataSource = new MatTableDataSource(this.initial);
+    this.userService.getUsers().subscribe(result => { this.dataSource.data  = result; });
+  }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.userData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

@@ -44,13 +44,13 @@
 
   <div *ngIf="formControls.houseType.value === 'house'" mat-dialog-content>
     <mat-form-field>
-      <input type="number" formControlName="flatStage" matInput placeholder="Stage amount" required>
+      <input type="number" formControlName="stageHouseAmount" matInput placeholder="Stage amount" required>
     </mat-form-field>
   </div>
 
   <div *ngIf="formControls.houseType.value === 'flat'" mat-dialog-content>
     <mat-form-field>
-      <input type="number" formControlName="stageHouseAmount" matInput placeholder="Stage number" required>
+      <input type="number" formControlName="flatStage" matInput placeholder="Stage number" required>
     </mat-form-field>
   </div>
 
