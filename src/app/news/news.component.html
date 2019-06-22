@@ -1,7 +1,10 @@
-<main>
-  <div class="container">
+<mat-spinner *ngIf="spin" [diameter]="100" [value]="1"></mat-spinner>
+
+<main *ngIf="!spin">
+
+  <div *ngFor="let item of newsInfo" class="container">
     <div class="card">
-      <a [routerLink]="['/news-reading-component']">
+      <a href="{{item['Link']}}">
         <div class="image-container">
           <img class="image"
             src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80"
@@ -19,144 +22,15 @@
       </a>
       <div class="content">
         <div class="row-card-admin">
-          <h1 class="title">Заголовок </h1>
+          <h3 class="title">{{item['Title']}} </h3>
         </div>
 
-        <h2 class="title">
-          <i class="material-icons">
-            timelapse
-          </i>
-          Время прочтения
-          <i *ngIf="dots" class="fas fa-ellipsis-v" [matMenuTriggerFor]="adminRights"></i>
-          <mat-menu #adminRights>
-            <button mat-menu-item (click)="deleteNews()">Delete</button>
-          </mat-menu>
-        </h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis,
-          amet
-          eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
-      </div>
-    </div>
-  </div>
-
-
-
-  <div class="container">
-    <div class="card">
-      <a [routerLink]="['/news-reading-component']">
-        <div class="image-container">
-          <img class="image"
-            src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80"
-            alt="">
-
-        </div>
-        <svg class="svg" viewBox="0 0 800 500">
-
-          <path
-            d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500"
-            stroke="transparent" fill="#333" />
-          <path class="line" d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400"
-            stroke="pink" stroke-width="3" fill="transparent" />
-        </svg>
-      </a>
-      <div class="content">
-        <div class="row-card-admin">
-          <h1 class="title">Заголовок </h1>
-        </div>
-
-        <h2 class="title">
-          <i class="material-icons">
-            timelapse
-          </i>
-          Время прочтения
-          <i *ngIf="dots" class="fas fa-ellipsis-v" [matMenuTriggerFor]="adminRights"></i>
-          <mat-menu #adminRights>
-            <button mat-menu-item (click)="deleteNews()">Delete</button>
-          </mat-menu>
-        </h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis,
-          amet
-          eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="card">
-      <a [routerLink]="['/news-reading-component']">
-        <div class="image-container">
-          <img class="image"
-            src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80"
-            alt="">
-
-        </div>
-        <svg class="svg" viewBox="0 0 800 500">
-
-          <path
-            d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500"
-            stroke="transparent" fill="#333" />
-          <path class="line" d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400"
-            stroke="pink" stroke-width="3" fill="transparent" />
-        </svg>
-      </a>
-      <div class="content">
-        <div class="row-card-admin">
-          <h1 class="title">Заголовок </h1>
-        </div>
-
-        <h2 class="title">
-          <i class="material-icons">
-            timelapse
-          </i>
-          Время прочтения
-          <i *ngIf="dots" class="fas fa-ellipsis-v" [matMenuTriggerFor]="adminRights"></i>
-          <mat-menu #adminRights>
-            <button mat-menu-item (click)="deleteNews()">Delete</button>
-          </mat-menu>
-        </h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis,
-          amet
-          eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="card">
-      <a [routerLink]="['/news-reading-component']">
-        <div class="image-container">
-          <img class="image"
-            src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80"
-            alt="">
-
-        </div>
-        <svg class="svg" viewBox="0 0 800 500">
-
-          <path
-            d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500"
-            stroke="transparent" fill="#333" />
-          <path class="line" d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400"
-            stroke="pink" stroke-width="3" fill="transparent" />
-        </svg>
-      </a>
-      <div class="content">
-        <div class="row-card-admin">
-          <h1 class="title">Заголовок </h1>
-        </div>
-
-        <h2 class="title">
-          <i class="material-icons">
-            timelapse
-          </i>
-          Время прочтения
-          <i *ngIf="dots" class="fas fa-ellipsis-v" [matMenuTriggerFor]="adminRights"></i>
-          <mat-menu #adminRights>
-            <button mat-menu-item (click)="deleteNews()">Delete</button>
-          </mat-menu>
-        </h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis,
-          amet
-          eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
+        <i *ngIf="dots" class="fas fa-ellipsis-v" [matMenuTriggerFor]="adminRights"></i>
+        <mat-menu #adminRights>
+          <button #get="Id" [Id]="item['NewsId']" mat-menu-item (click)="deleteNews(get.Id)">Delete</button>
+        </mat-menu>
+        <p class="description">{{[item['Description']]}}</p>
+        <p class="date">Publishing date: {{item['Date']}}</p>
       </div>
     </div>
   </div>

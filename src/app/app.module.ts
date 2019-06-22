@@ -7,7 +7,7 @@ import { ActivitiesComponent } from './activities/activities.component';
 import { CarComponent } from './car/car.component';
 import { HouseComponent } from './house/house.component';
 import { MapComponent, MarkerCreatingDialogComponent, PollutionCreatingDialogComponent } from './map/map.component';
-import { NewsComponent } from './news/news.component';
+import { NewsComponent, IdDirective } from './news/news.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatListModule } from '@angular/material';
@@ -47,6 +47,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AdminControlEventComponent } from './admin.control.event/admin.control.event.component';
 import { AdminControlPollutionComponent } from './admin.control.pollution/admin.control.pollution.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     UserAreaComponent,
     ProfileComponent,
     AdminControlEventComponent,
-    AdminControlPollutionComponent
+    AdminControlPollutionComponent,
+    IdDirective
   ],
   imports: [
     BrowserModule,
@@ -77,6 +80,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     MatTooltipModule,
     AppRoutingModule,
     MatFormFieldModule,

@@ -144,6 +144,12 @@ tr.border td {
   }
 }
 
+@media (max-width: 400px){
+  *{
+    font-size: 15pt;
+  }
+}
+
 @media (max-width: 938px) {
   .events-map {
     display: none;
