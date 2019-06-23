@@ -34,7 +34,6 @@ export class NewsComponent implements OnInit {
     ) {
         const themeType = localStorage.getItem('theme');
         if (themeType === 'eye') {
-            debugger;
             this.changeTheme = true;
         }
         this.http.get<any[]>(this.rootUrl).subscribe(result => {

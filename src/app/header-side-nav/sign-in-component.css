@@ -14,8 +14,17 @@
   align-content: center;
 }
 
+::ng-deep .mat-tab-body-content {
+  height: 100%;
+  overflow: hidden !important;
+}
+
 .dialog-content {
   margin-top: 5vh;
+}
+
+.authorization-dialog-content {
+  margin-top: 10vh;
 }
 
 .errorMessage {

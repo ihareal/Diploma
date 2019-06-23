@@ -199,16 +199,22 @@ ul.legend li::before {
   .activityInfo {
     margin-top: 0;
     float: none;
-    width: 98vw;
+    width: 70vw;
   }
 
   .pollutionInfo {
     margin-top: 0;
     float: none;
-    width: 98vw;
+    width: 70vw;
   }
 
   .shiftedMap {
     width: 98vw;
+  }
+
+  @media (max-width: 320px){
+    .headerHelperCard{
+      height: auto;
+    }
   }
 }

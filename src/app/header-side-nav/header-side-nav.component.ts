@@ -91,7 +91,9 @@ export class HeaderSideNavComponent implements OnInit {
 export class SignInComponent implements OnInit {
 
   public signInForm: FormGroup;
+  public registrationForm: FormGroup;
   public hiddenPassword = true;
+  public hiddenRegistratePassword = true;
   public changeTheme = false;
   public isAdmin = 0;
   public districtArray: MultiSelectModel[] = [
@@ -127,6 +129,10 @@ export class SignInComponent implements OnInit {
       flatStage: [''],
       stageHouseAmount: [''],
     });
+    this.registrationForm = this.fb.group({
+      email: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(5)])]
+    });
   }
 
   ngOnInit(): void {
@@ -136,7 +142,7 @@ export class SignInComponent implements OnInit {
       }
     });
   }
-
+  get registrateControls() { return this.registrationForm.controls; }
   get formControls() { return this.signInForm.controls; }
 
   public show() {
@@ -148,6 +154,18 @@ export class SignInComponent implements OnInit {
   public hide() {
     this.hiddenPassword = true;
     const x = (<HTMLInputElement>document.getElementById('passwordInput'));
+    x.type = 'password';
+  }
+
+  public showRegistrationPassword() {
+    this.hiddenRegistratePassword = false;
+    const x = (<HTMLInputElement>document.getElementById('passwordRegInput'));
+    x.type = 'text';
+  }
+
+  public hideRegistraionPassword() {
+    this.hiddenRegistratePassword = true;
+    const x = (<HTMLInputElement>document.getElementById('passwordRegInput'));
     x.type = 'password';
   }
 

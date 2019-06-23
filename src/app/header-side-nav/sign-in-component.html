@@ -1,64 +1,102 @@
-<div [class.alternative]="changeTheme" class="dialog-content" [formGroup]="signInForm">
-  <h1 align="center">Log in</h1>
-  <div mat-dialog-content>
-    <mat-form-field>
-      <input type="email" formControlName="email" matInput placeholder="Email" required>
-    </mat-form-field>
-  </div>
-  <div mat-dialog-content>
-    <mat-form-field>
-      <div class="password-container">
-        <input type="password" id="passwordInput" formControlName="password" matInput placeholder="Password" required>
-        <i *ngIf="hiddenPassword" (click)="show()" class="fas fa-eye-slash"></i>
-        <i *ngIf="!hiddenPassword" (click)="hide()" class="fas fa-eye"></i>
+<mat-tab-group mat-stretch-tabs>
+  <mat-tab label="Registration">
+    <div class="dialog-content" [formGroup]="signInForm">
+      <div mat-dialog-content>
+        <mat-form-field>
+          <input type="email" formControlName="email" matInput placeholder="Email" required>
+        </mat-form-field>
       </div>
-    </mat-form-field>
-  </div>
+      <div mat-dialog-content>
+        <mat-form-field>
+          <div class="password-container">
+            <input type="password" id="passwordInput" formControlName="password" matInput placeholder="Password"
+              required>
+            <i *ngIf="hiddenPassword" (click)="show()" class="fas fa-eye-slash"></i>
+            <i *ngIf="!hiddenPassword" (click)="hide()" class="fas fa-eye"></i>
+          </div>
+        </mat-form-field>
+      </div>
 
-  <div mat-dialog-content>
-    <p align="center" class="errorMessage" *ngIf="formControls.password.errors">Minimum 6 characters required for
-      password</p>
-  </div>
+      <div mat-dialog-content>
+        <p align="center" class="errorMessage" *ngIf="formControls.password.errors">Minimum 6 characters required for
+          password</p>
+      </div>
 
-  <div mat-dialog-content>
-    <mat-form-field>
-      <mat-label>Choose your district</mat-label>
-      <mat-select formControlName="district" required>
-        <mat-option *ngFor="let district of districtArray" [value]="district.value">
-          {{district.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+      <div mat-dialog-content>
+        <mat-form-field>
+          <mat-label>Choose your district</mat-label>
+          <mat-select formControlName="district" required>
+            <mat-option *ngFor="let district of districtArray" [value]="district.value">
+              {{district.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-  <div mat-dialog-content>
-    <mat-form-field>
-      <mat-label>Choose dwelling type</mat-label>
-      <mat-select formControlName="houseType" required>
-        <mat-option *ngFor="let dwelling of dwellingArray" [value]="dwelling.value">
-          {{dwelling.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+      <div mat-dialog-content>
+        <mat-form-field>
+          <mat-label>Choose dwelling type</mat-label>
+          <mat-select formControlName="houseType" required>
+            <mat-option *ngFor="let dwelling of dwellingArray" [value]="dwelling.value">
+              {{dwelling.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-  <div *ngIf="formControls.houseType.value === 'house'" mat-dialog-content>
-    <mat-form-field>
-      <input type="number" formControlName="stageHouseAmount" matInput placeholder="Stage amount" required>
-    </mat-form-field>
-  </div>
+      <div *ngIf="formControls.houseType.value === 'house'" mat-dialog-content>
+        <mat-form-field>
+          <input type="number" formControlName="stageHouseAmount" matInput placeholder="Stage amount" required>
+        </mat-form-field>
+      </div>
 
-  <div *ngIf="formControls.houseType.value === 'flat'" mat-dialog-content>
-    <mat-form-field>
-      <input type="number" formControlName="flatStage" matInput placeholder="Stage number" required>
-    </mat-form-field>
-  </div>
+      <div *ngIf="formControls.houseType.value === 'flat'" mat-dialog-content>
+        <mat-form-field>
+          <input type="number" formControlName="flatStage" matInput placeholder="Stage number" required>
+        </mat-form-field>
+      </div>
 
 
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick($event)">No Thanks</button>
-    <!-- cdkFocusInitial -->
-    <button [disabled]="!signInForm.valid" [routerLink]="['/personal-area']" routerLinkActive="router-link-active"
-      (click)="onOkClick($event)" mat-button>Ok</button>
-  </div>
-</div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick($event)">No Thanks</button>
+        <!-- cdkFocusInitial -->
+        <button [disabled]="!signInForm.valid" [routerLink]="['/personal-area']" routerLinkActive="router-link-active"
+          (click)="onOkClick($event)" mat-button>Ok</button>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Authorization">
+      <div class="authorization-dialog-content" [formGroup]="registrationForm">
+          <div mat-dialog-content>
+            <mat-form-field>
+              <input type="email" formControlName="email" matInput placeholder="Email" required>
+            </mat-form-field>
+          </div>
+          <div mat-dialog-content>
+            <mat-form-field>
+              <div class="password-container">
+                <input type="password" id="passwordRegInput" formControlName="password" matInput placeholder="Password"
+                  required>
+                <i *ngIf="hiddenRegistratePassword" (click)="showRegistrationPassword()" class="fas fa-eye-slash"></i>
+                <i *ngIf="!hiddenRegistratePassword" (click)="hideRegistraionPassword()" class="fas fa-eye"></i>
+              </div>
+            </mat-form-field>
+          </div>
+    
+          <div mat-dialog-content>
+            <p align="center" class="errorMessage" *ngIf="registrateControls.password.errors">Minimum 6 characters required for
+              password</p>
+          </div>
+    
+         
+          <div mat-dialog-actions>
+            <button mat-button (click)="onNoClick($event)">No Thanks</button>
+            <!-- cdkFocusInitial -->
+            <button [disabled]="!registrationForm.valid" [routerLink]="['/personal-area']" routerLinkActive="router-link-active"
+              (click)="onOkClick($event)" mat-button>Ok</button>
+          </div>
+        </div>
+  </mat-tab>
+
+</mat-tab-group>
