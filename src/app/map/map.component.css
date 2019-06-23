@@ -15,6 +15,13 @@ ul.legend {
   padding: 10px;
 }
 
+.headerHelperCard {
+  height: calc(60.6em - 97px);
+  color: gray;
+  text-align: center;
+  /* height: auto; */
+}
+
 ul.legend li {
   display: inline;
   text-align: center;

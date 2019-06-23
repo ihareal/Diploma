@@ -16,6 +16,7 @@ import { take } from 'rxjs/operators';
 })
 
 export class MapComponent implements OnInit {
+    public changeTheme = false;
     public log = false;
     public mark = false;
     private shiftMarker = false;
@@ -245,6 +246,10 @@ export class MapComponent implements OnInit {
     }
 
     ngOnInit() {
+        const themeType = localStorage.getItem('theme');
+        if (themeType === 'eye') {
+            this.changeTheme = true;
+        }
         this.log = this.checkingService.checkForLog();
         this.admin = this.checkingService.checkForAdmin();
         this.mapService.getLocation().subscribe(data => {

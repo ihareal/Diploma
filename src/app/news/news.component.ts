@@ -20,6 +20,7 @@ export class IdDirective {
 })
 
 export class NewsComponent implements OnInit {
+    public changeTheme = false;
     public dots = false;
     public spin = true;
     public newsInfo: any;
@@ -31,6 +32,11 @@ export class NewsComponent implements OnInit {
         private checkerService: CheckingService,
         private http: HttpClient
     ) {
+        const themeType = localStorage.getItem('theme');
+        if (themeType === 'eye') {
+            debugger;
+            this.changeTheme = true;
+        }
         this.http.get<any[]>(this.rootUrl).subscribe(result => {
             this.newsInfo = result;
             this.newsInfo.forEach(element => {

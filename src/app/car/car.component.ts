@@ -6,7 +6,13 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class CarComponent implements OnInit {
+    public changeTheme = false;
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        const themeType = localStorage.getItem('theme');
+        if (themeType === 'eye') {
+            this.changeTheme = true;
+        }
+    }
 }
