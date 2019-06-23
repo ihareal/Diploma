@@ -48,6 +48,7 @@ import { AdminControlEventComponent } from './admin.control.event/admin.control.
 import { AdminControlPollutionComponent } from './admin.control.pollution/admin.control.pollution.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ChatComponent } from './chat/chat.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ProfileComponent,
     AdminControlEventComponent,
     AdminControlPollutionComponent,
-    IdDirective
+    IdDirective,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

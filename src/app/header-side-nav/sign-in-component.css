@@ -36,6 +36,15 @@
   animation: 2s alertAnimation forwards;
 }
 
+.errorResponseMessage {
+  text-align: center;
+  background-color: red;
+  color: white;
+  width: 20vw;
+  font-style: oblique;
+  animation: 2s alertAnimation forwards;
+}
+
 @keyframes alertAnimation {
   from {
     opacity: 0;

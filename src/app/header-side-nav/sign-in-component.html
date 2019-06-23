@@ -56,7 +56,10 @@
         </mat-form-field>
       </div>
 
-
+      <div mat-dialog-content>
+      <p align="center" class="errorResponseMessage" *ngIf="registratingError.length > 0">{{registratingError}}</p>
+      </div>
+      
       <div mat-dialog-actions>
         <button mat-button (click)="onNoClick($event)">No Thanks</button>
         <!-- cdkFocusInitial -->
@@ -67,36 +70,38 @@
   </mat-tab>
 
   <mat-tab label="Authorization">
-      <div class="authorization-dialog-content" [formGroup]="registrationForm">
-          <div mat-dialog-content>
-            <mat-form-field>
-              <input type="email" formControlName="email" matInput placeholder="Email" required>
-            </mat-form-field>
+    <div class="authorization-dialog-content" [formGroup]="registrationForm">
+      <div mat-dialog-content>
+        <mat-form-field>
+          <input type="email" formControlName="emailR" matInput placeholder="Email" required>
+        </mat-form-field>
+      </div>
+      <div mat-dialog-content>
+        <mat-form-field>
+          <div class="password-container">
+            <input type="password" id="passwordRegInput" formControlName="passwordR" matInput placeholder="Password"
+              required>
+            <i *ngIf="hiddenRegistratePassword" (click)="showRegistrationPassword()" class="fas fa-eye-slash"></i>
+            <i *ngIf="!hiddenRegistratePassword" (click)="hideRegistraionPassword()" class="fas fa-eye"></i>
           </div>
-          <div mat-dialog-content>
-            <mat-form-field>
-              <div class="password-container">
-                <input type="password" id="passwordRegInput" formControlName="password" matInput placeholder="Password"
-                  required>
-                <i *ngIf="hiddenRegistratePassword" (click)="showRegistrationPassword()" class="fas fa-eye-slash"></i>
-                <i *ngIf="!hiddenRegistratePassword" (click)="hideRegistraionPassword()" class="fas fa-eye"></i>
-              </div>
-            </mat-form-field>
-          </div>
-    
-          <div mat-dialog-content>
-            <p align="center" class="errorMessage" *ngIf="registrateControls.password.errors">Minimum 6 characters required for
-              password</p>
-          </div>
-    
-         
-          <div mat-dialog-actions>
-            <button mat-button (click)="onNoClick($event)">No Thanks</button>
-            <!-- cdkFocusInitial -->
-            <button [disabled]="!registrationForm.valid" [routerLink]="['/personal-area']" routerLinkActive="router-link-active"
-              (click)="onOkClick($event)" mat-button>Ok</button>
-          </div>
-        </div>
+        </mat-form-field>
+      </div>
+
+      <div mat-dialog-content>
+        <p align="center" class="errorMessage" *ngIf="registrateControls.passwordR.errors">Minimum 6 characters required
+          for
+          password</p>
+        <p align="center" class="errorResponseMessage" *ngIf="authorizationError.length > 0">{{authorizationError}}</p>
+      </div>
+
+
+      <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick($event)">No Thanks</button>
+        <!-- cdkFocusInitial -->
+        <button [disabled]="!registrationForm.valid" [routerLink]="['/personal-area']"
+          routerLinkActive="router-link-active" (click)="authorisationSubmit($event)" mat-button>Ok</button>
+      </div>
+    </div>
   </mat-tab>
 
 </mat-tab-group>

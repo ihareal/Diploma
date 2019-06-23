@@ -7,6 +7,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MultiSelectModel } from '../shared/models/district.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../shared/services/user.service';
+import { HttpClient } from '@angular/common/http';
 
 export interface DialogData {
   animal: string;
@@ -96,6 +97,8 @@ export class SignInComponent implements OnInit {
   public hiddenRegistratePassword = true;
   public changeTheme = false;
   public isAdmin = 0;
+  public authorizationError = '';
+  public registratingError = '';
   public districtArray: MultiSelectModel[] = [
     { value: 'Centralniy', viewValue: 'Centralniy' },
     { value: 'Sovietskiy', viewValue: 'Sovietskiy' },
@@ -119,7 +122,8 @@ export class SignInComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private fb: FormBuilder,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private http: HttpClient
   ) {
     this.signInForm = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -130,8 +134,8 @@ export class SignInComponent implements OnInit {
       stageHouseAmount: [''],
     });
     this.registrationForm = this.fb.group({
-      email: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(5)])]
+      emailR: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      passwordR: ['', Validators.compose([Validators.required, Validators.minLength(5)])]
     });
   }
 
@@ -173,11 +177,42 @@ export class SignInComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  public authorisationSubmit($event) {
+
+    console.log(this.registrationForm.value);
+    let email = this.registrationForm.controls['emailR'].value;
+    let password = this.registrationForm.controls['passwordR'].value;
+    this.http.get(`https://localhost:44338/api/users/login?email=${email}&password=${password}`).subscribe(
+      res => {
+        debugger;
+        localStorage.setItem('UserId', res['UserId']);
+        localStorage.setItem('email', res['Email']);
+        if (res['isAdmin'] == 1) {
+          localStorage.setItem('role', 'admin');
+        } else if (res['isAdmin'] == 0) {
+          localStorage.setItem('role', 'user');
+        }
+        localStorage.setItem('houseType', res['DwellingType']);
+        localStorage.setItem('district', res['District']);
+        if (res['StageNumber'] !== 0) {
+          localStorage.setItem('flatStage', res['StageNumber']);
+
+        } else if (res['StageAmount'] !== 0) {
+          localStorage.setItem('stageHouseAmount', res['StageAmount']);
+        }
+
+        console.log(res);
+        this.dialogRef.close();
+      },
+      err => {
+        debugger;
+        this.authorizationError = err.error;
+        console.log(err.error);
+      });
+
+  }
+
   public onOkClick($event) {
-    // this.userService.getUsers().subscribe(
-    //   res => { console.log(res); },
-    //   err => { console.log(err); }
-    // );
 
     Object.keys(this.formControls).forEach(control => {
 
@@ -196,14 +231,6 @@ export class SignInComponent implements OnInit {
       }
     });
 
-    // const onk = {
-    //   Email: this.signInForm.controls['email'].value,
-    //   isAdmin: localStorage.getItem('role'),
-    //   District: this.signInForm.controls['district'].value,
-    //   Password: this.signInForm.controls['password'].value,
-    //   DwellingType: this.signInForm.controls['houseType'].value,
-    //   StageNumber: this.signInForm.controls['flatStage'].value,
-    // };
     if (this.signInForm.controls['houseType'].value === 'flat') {
 
       if (localStorage.getItem('role') === 'admin') {
@@ -222,10 +249,15 @@ export class SignInComponent implements OnInit {
       debugger;
       this.userService.postUser(JSON.stringify(onk)).subscribe(
         res => {
+          debugger;
+          localStorage.setItem('UserId', res['UserId']);
           console.log(res);
+          this.dialogRef.close();
+
         },
         err => {
           console.log(err);
+          this.registratingError = err.error;
         }
       );
 
@@ -247,17 +279,18 @@ export class SignInComponent implements OnInit {
       debugger;
       this.userService.postUser(JSON.stringify(onk)).subscribe(
         res => {
+          localStorage.setItem('UserId', res['UserId']);
+          this.dialogRef.close();
           console.log(res);
         },
         err => {
           console.log(err);
+          this.registratingError = err.error;
         }
       );
 
     }
-
-
-
-    this.dialogRef.close();
   }
+
+
 }
