@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit {
       .then(() => console.log('Connection started'))
       .catch(err => console.log(err));
 
-    this.hubConnection.on('BroadcastMessage', (nick: string, receivedMessage: string) => {
+    this.hubConnection.on('sendToAll', (nick: string, receivedMessage: string) => {
       let text = `${nick}: ${receivedMessage}`;
         this.messages.push(text);
     });
