@@ -7,8 +7,8 @@ import { MapsService } from '../shared/services/maps.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  public lat = '';
-  public lng = '';
+  lat = 53.848305;
+  lng = 27.509436;
   public email = '';
   public flatStage = '';
   public stageAmount = '';
@@ -20,8 +20,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.mapService.getLocation().subscribe(data => {
-      this.lat = data.latitude;
-      this.lng = data.longitude;
+      // this.lat = data.latitude;
+      // this.lng = data.longitude;
       this.email = localStorage['email'];
       this.flatStage = localStorage['flatStage'];
       this.stageAmount = localStorage['stageHouseAmount'];

@@ -1,110 +1,113 @@
 <mat-card [class.alternative]="changeTheme" class="headerHelperCard">
 
-<mat-tab-group class="local-navigation-menu">
-  <mat-tab label="Events map">
-    <div class="container">
-      <h1>Events map</h1>
-      <!-- [mapDraggable]="false -->
-      <ul class="legend">
-        <li class="personal-marker">Your current location marker</li>
-        <li class="hot-marker">Hot event marker</li>
-        <li class="wip-marker">Work in progress event marker</li>
-        <li class="coming-soon-marker">Nearest future event marker</li>
-      </ul>
-      <agm-map [disableDoubleClickZoom]="'false'" (mapDblClick)="addMarker($event.coords.lat, $event.coords.lng)"
-        [ngClass]="{shiftedMap: shiftMarker}" class="shiftedMap" [clickableIcons]="true" [zoom]="11" [latitude]="lat"
-        [longitude]="lng">
+  <mat-tab-group class="local-navigation-menu">
+    <mat-tab label="Events map">
+      <div class="container">
+        <h1>Events map</h1>
+        <!-- [mapDraggable]="false -->
+        <ul class="legend">
+          <li class="personal-marker">Your current location marker</li>
+          <li class="hot-marker">Hot event marker</li>
+          <li class="wip-marker">Work in progress event marker</li>
+          <li class="coming-soon-marker">Nearest future event marker</li>
+        </ul>
+        <agm-map [disableDoubleClickZoom]="'false'" (mapDblClick)="addMarker($event.coords.lat, $event.coords.lng)"
+          [ngClass]="{shiftedMap: shiftMarker}" class="shiftedMap" [clickableIcons]="true" [zoom]="12" [latitude]="lat"
+          [longitude]="lng">
 
-        <!--User position marker-->
-        <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>
+          <!--User position marker-->
+          <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'">
+          </agm-marker>
 
-        <!--Work in progress marker-->
-        <agm-marker *ngFor="let marker of wipMarkers" (markerClick)="markerClick($event); wipMarkerClick($event)"
-          [latitude]="marker.lat" [longitude]="marker.lng" [opacity]="1" [label]="marker.label" [iconUrl]="wipIcon"
-          (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
+          <!--Hot markers-->
+          <agm-marker *ngFor="let marker of hotMarkers" (markerClick)="markerClick($event); hotMarkerClick($event)"
+            [latitude]="marker.lat" [longitude]="marker.lng" [opacity]="0.7" [title]='asfhadk' [label]="marker.label"
+            [iconUrl]="hotIcon" (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
 
-        <!--Hot markers-->
-        <agm-marker *ngFor="let marker of hotMarkers" (markerClick)="markerClick($event); hotMarkerClick($event)"
-          [latitude]="marker.lat" [longitude]="marker.lng" [opacity]="0.7" [title]='asfhadk' [label]="marker.label"
-          [iconUrl]="hotIcon" (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
+          <!--Work in progress marker-->
+          <agm-marker *ngFor="let marker of wipMarkers" (markerClick)="markerClick($event); wipMarkerClick($event)"
+            [latitude]="marker.lat" [longitude]="marker.lng" [opacity]="1" [label]="marker.label" [iconUrl]="wipIcon"
+            (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
 
-        <!--Coming soon markers-->
-        <agm-marker *ngFor="let marker of comingSoonMarkers"
-          (markerClick)="markerClick($event); comingMarkerClick($event)" [latitude]="marker.lat"
-          [longitude]="marker.lng" [opacity]="0.7" [label]="marker.label" [iconUrl]="commingSoonIcon"
-          (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
+          <!--Coming soon markers-->
+          <agm-marker *ngFor="let marker of comingSoonMarkers"
+            (markerClick)="markerClick($event); comingMarkerClick($event)" [latitude]="marker.lat"
+            [longitude]="marker.lng" [opacity]="0.7" [label]="marker.label" [iconUrl]="commingSoonIcon"
+            (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"></agm-marker>
 
 
-      </agm-map>
-      <div [ngClass]="{disable: !shiftMarker}" class="activityInfo disable">
-        <i (click)='closeMarkerDescription()' class="fas fa-times"></i>
-        <div *ngIf="log" class="container">
-          <i *ngIf="!mark" (click)="addMark(); openSnackBar('You have added event to participate', 'close')"
-            class="far fa-star"></i>
-          <i *ngIf="mark" (click)="removeMark(); openSnackBar('You have removed event to participate', 'close')"
-            class="fas fa-star"></i>
+        </agm-map>
+        <div [ngClass]="{disable: !shiftMarker}" class="activityInfo disable">
+          <i (click)='closeMarkerDescription()' class="fas fa-times"></i>
+          <div *ngIf="log" class="container">
+            <i *ngIf="!mark" (click)="addMark(); openSnackBar('You have added event to participate', 'close')"
+              class="far fa-star"></i>
+            <i *ngIf="mark" (click)="removeMark(); openSnackBar('You have removed event to participate', 'close')"
+              class="fas fa-star"></i>
+          </div>
+          <h1>{{markerTitle}}</h1>
+          <h2>{{markerDescription}}</h2>
+          <h3>Start: {{startDate}}</h3>
+          <h3>End: {{endDate}}</h3>
+          <h3>Mail: kfd@gmai.com</h3>
+          <h4>Phone: +375 555 55 55</h4>
         </div>
-        <h1>{{markerTitle}}</h1>
-        <h2>{{markerDescription}}</h2>
-        <h3>Mail: kfd@gmai.com</h3>
-        <h4>Phone: +375 555 55 55</h4>
+
       </div>
+    </mat-tab>
+    <mat-tab label="Pollution map">
+      <div class="container">
 
-    </div>
-  </mat-tab>
-  <mat-tab label="Pollution map">
-    <div class="container">
+        <h1>Pollution map</h1>
+        <ul class="legend">
+          <li class="const-pollution">Constant pollution</li>
+          <li class="temporary-pollution">Temporary pollution (depends from traffic or year season)</li>
+        </ul>
+        <agm-map [disableDoubleClickZoom]="'false'" [ngClass]="{shiftedMap: shiftPollution}" [clickableIcons]="true"
+          [zoom]="11" [latitude]="lat" [longitude]="lng" [zoomControl]="false"
+          (mapDblClick)="addPollution($event.coords.lat, $event.coords.lng)">
+          <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'">
+          </agm-marker>
 
-      <h1>Pollution map</h1>
+          <!--Constant pollution markers for place description-->
+          <agm-marker *ngFor="let m of pollutionMarkerDescription" (markerClick)="markerForDescription($event)"
+            [latitude]="m.lat" [longitude]="m.lng" [opacity]="0.7" [title]='asfhadk' [iconUrl]="hotIcon">
+
+          </agm-marker>
+          <!--Constant pollution circle-->
+          <agm-circle *ngFor="let m of constantPollutionCircle" [latitude]="m.lat" [longitude]="m.lng" [radius]="800"
+            [fillColor]="'red'" [circleDraggable]="false" [editable]="false" (circleClick)="circleClick($event)">
+          </agm-circle>
+
+          <!--Temporary pollution marker-->
+          <agm-circle *ngFor="let m of temporaryPollutionCircle" [latitude]="m.lat" [longitude]="m.lng" [radius]="800"
+            [fillColor]="'yellow'" [circleDraggable]="false" [editable]="false" (circleClick)="circleClick($event)">
+          </agm-circle>
+
+        </agm-map>
+        <div [ngClass]="{disable: !shiftPollution}" class="pollutionInfo disable">
+          <i (click)='closePollutionDescription()' class="fas fa-times"></i>
+          <h1>{{pollutionTitle}}</h1>
+          <h2>{{pollutionDescription}}</h2>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Fresh map">
+      <h1>Fresh Map</h1>
       <ul class="legend">
-        <li class="const-pollution">Constant pollution</li>
-        <li class="temporary-pollution">Temporary pollution (depends from traffic or year season)</li>
-      </ul>
-      <agm-map [disableDoubleClickZoom]="'false'" [ngClass]="{shiftedMap: shiftPollution}" [clickableIcons]="true"
-        [zoom]="11" [latitude]="lat" [longitude]="lng" [zoomControl]="false"
-        (mapDblClick)="addPollution($event.coords.lat, $event.coords.lng)">
-        <agm-marker (markerClick)="markerClick($event)" [latitude]="lat" [longitude]="lng" [label]="'Me'"></agm-marker>
-
-        <!--Constant pollution markers for place description-->
-        <agm-marker *ngFor="let m of pollutionMarkerDescription" (markerClick)="markerForDescription($event)"
-          [latitude]="m.lat" [longitude]="m.lng" [opacity]="0.7" [title]='asfhadk' [iconUrl]="hotIcon">
-
-        </agm-marker>
-        <!--Constant pollution circle-->
-        <agm-circle *ngFor="let m of constantPollutionCircle" [latitude]="m.lat" [longitude]="m.lng" [radius]="800"
-          [fillColor]="'red'" [circleDraggable]="false" [editable]="false" (circleClick)="circleClick($event)">
-        </agm-circle>
-
-        <!--Temporary pollution marker-->
-        <agm-circle *ngFor="let m of temporaryPollutionCircle" [latitude]="m.lat" [longitude]="m.lng" [radius]="800"
-          [fillColor]="'yellow'" [circleDraggable]="false" [editable]="false" (circleClick)="circleClick($event)">
-        </agm-circle>
-
-      </agm-map>
-      <div [ngClass]="{disable: !shiftPollution}" class="pollutionInfo disable">
-        <i (click)='closePollutionDescription()' class="fas fa-times"></i>
-        <h1>{{pollutionTitle}}</h1>
-        <h2>{{pollutionDescription}}</h2>        
-      </div>
-    </div>
-  </mat-tab>
-
-  <mat-tab label="Fresh map">
-    <h1>Fresh Map</h1>
-    <ul class="legend">
         <li class="fresh-area">Fresh area</li>
       </ul>
-    <agm-map [zoom]="11" [latitude]="lat" [longitude]="lng">
-        <agm-circle  *ngFor="let m of freshCircle" [latitude]="m.lat" [longitude]="m.lng" [radius]="800"
-        [fillColor]="'green'" [circleDraggable]="false" [editable]="false" (circleClick)="circleClick($event)">
-      </agm-circle>
-    </agm-map>
-  </mat-tab>
+      <agm-map [zoom]="11" [latitude]="lat" [longitude]="lng">
+        <agm-circle *ngFor="let m of freshCircle" [latitude]="m.lat" [longitude]="m.lng" [radius]="800"
+          [fillColor]="'green'" [circleDraggable]="false" [editable]="false" (circleClick)="circleClick($event)">
+        </agm-circle>
+      </agm-map>
+    </mat-tab>
 
-</mat-tab-group>
+  </mat-tab-group>
 
-<app-chat-component>
+  <app-chat-component>
 
-</app-chat-component>
+  </app-chat-component>
 </mat-card>
-

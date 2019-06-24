@@ -17,13 +17,24 @@ export class ActivitiesComponent implements OnInit {
     ];
 
     drop(event: CdkDragDrop<string[]>) {
+        console.log(event);
         if (event.previousContainer === event.container) {
+            debugger;
+            // Если пользователь недоятянул
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
+            debugger;
+            // Если дотянул успешно
             transferArrayItem(event.previousContainer.data,
                 event.container.data,
                 event.previousIndex,
                 event.currentIndex);
+
+            if (event.container.id === '') {
+                // post if sdk = 0 
+            } else if (event.container.id === '') {
+                // delete if sdk = 1
+            }
         }
     }
 

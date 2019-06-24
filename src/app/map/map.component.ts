@@ -8,6 +8,8 @@ import { DialogData } from '../header-side-nav/header-side-nav.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 
 @Component({
     selector: 'app-map',
@@ -27,8 +29,10 @@ export class MapComponent implements OnInit {
     public markerDescription: string;
     public markerTitle: string;
     public admin = false;
-    lat = '';
-    lng = '';
+    public startDate: any;
+    public endDate: any;
+    lat = 53.848305;
+    lng = 27.509436;
 
     wipIcon = {
         url: ('../../assets/icons/yellow-map-localization.svg'),
@@ -45,65 +49,71 @@ export class MapComponent implements OnInit {
         scaledSize: { width: 50, height: 60 }
     };
 
-    public wipMarkers: Marker[] = [
-        {
-            lat: 53.945,
-            lng: 27.904,
-            label: 'A',
-            title: 'wip маркер',
-            description: 'wip описание',
-            draggable: false,
-            animation: 'DROP'
-        },
-        {
-            lat: 53.899028,
-            lng: 27.564069,
-            title: 'wip маркер',
-            description: 'wip описание',
-            draggable: false,
-            animation: 'DROP',
-        }
-    ];
+    public hotMarkers: Marker[] = [];
+    public wipMarkers: Marker[] = [];
+    public comingSoonMarkers: Marker[] = [];
+    public allEvents = [];
+    public eventsByUser = [];
 
-    public hotMarkers: Marker[] = [
-        {
-            lat: 53.935,
-            lng: 27.904,
-            label: 'A',
-            title: 'Forest layer revival',
-            description: 'We want to restore forest layer. We need 10 trees, no matter what type they are',
-            draggable: false,
-            animation: 'DROP'
-        },
-        {
-            lat: 53.898547,
-            lng: 27.569397,
-            title: 'hot маркер',
-            description: 'hot описание',
-            draggable: false,
-            animation: 'DROP'
-        },
-        {
-            lat: 53.901152,
-            lng: 27.566414,
-            title: 'hot маркер',
-            description: 'hot описание',
-            draggable: false,
-            animation: 'DROP'
-        }
-    ];
+    // public wipMarkers: Marker[] = [
+    //     {
+    //         lat: 53.945,
+    //         lng: 27.904,
+    //         label: 'A',
+    //         title: 'wip маркер',
+    //         description: 'wip описание',
+    //         draggable: false,
+    //         animation: 'DROP'
+    //     },
+    //     {
+    //         lat: 53.899028,
+    //         lng: 27.564069,
+    //         title: 'wip маркер',
+    //         description: 'wip описание',
+    //         draggable: false,
+    //         animation: 'DROP',
+    //     }
+    // ];
 
-    public comingSoonMarkers: Marker[] = [
-        {
-            lat: 53.915,
-            lng: 27.904,
-            label: 'A',
-            title: 'coming soon маркер',
-            description: 'coming soon описание',
-            draggable: false,
-            animation: 'DROP'
-        }
-    ];
+    // public hotMarkers: Marker[] = [
+    //     {
+    //         lat: 53.935,
+    //         lng: 27.904,
+    //         label: 'A',
+    //         title: 'Forest layer revival',
+    //         description: 'We want to restore forest layer. We need 10 trees, no matter what type they are',
+    //         draggable: false,
+    //         animation: 'DROP'
+    //     },
+    //     {
+    //         lat: 53.898547,
+    //         lng: 27.569397,
+    //         title: 'hot маркер',
+    //         description: 'hot описание',
+    //         draggable: false,
+    //         animation: 'DROP'
+    //     },
+    //     {
+    //         lat: 53.901152,
+    //         lng: 27.566414,
+    //         title: 'hot маркер',
+    //         description: 'hot описание',
+    //         draggable: false,
+    //         animation: 'DROP'
+    //     }
+    // ];
+
+    // public comingSoonMarkers: Marker[] = [
+    //     {
+    //         lat: 53.915,
+    //         lng: 27.904,
+    //         label: 'A',
+    //         title: 'coming soon маркер',
+    //         description: 'coming soon описание',
+    //         draggable: false,
+    //         animation: 'DROP'
+    //     }
+    // ];
 
     public constantPollutionCircle: MarkerCircle[] = [
         {
@@ -184,7 +194,15 @@ export class MapComponent implements OnInit {
             lng: 27.562128,
         }
 
-    ]
+    ];
+
+    public rootEventUrl = 'https://localhost:44338/api/EventDetails';
+    public rootEventsByUser = 'https://localhost:44338/api/users/eventsByUser';
+    public rootPostEventsByUser = 'https://localhost:44338/api/users/events?';
+
+    public rootHotUrl = 'https://localhost:44338/api/EventDetails/HotEvents';
+    public rootWipUrl = 'https://localhost:44338/api/EventDetails/WipEvents';
+    public rootFutureUrl = 'https://localhost:44338/api/EventDetails/HotEvents';
 
     /*put into database for future using in user statistic & user cabinet*/
     dataBaseInfo = [];
@@ -192,9 +210,44 @@ export class MapComponent implements OnInit {
         private mapService: MapsService,
         private checkingService: CheckingService,
         public dialog: MatDialog,
-        private _snackBar: MatSnackBar
+        private _snackBar: MatSnackBar,
+        private http: HttpClient
 
-    ) { }
+    ) {
+
+        forkJoin([
+            this.http.get<any[]>(this.rootHotUrl),
+            this.http.get<any[]>(this.rootWipUrl),
+            this.http.get<any[]>(this.rootFutureUrl),
+        ]).subscribe(([hot, wip, future]) => {
+            hot.forEach(element => {
+                // tslint:disable-next-line:max-line-length
+                this.hotMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
+                // debugger;
+            });
+            wip.forEach(element => {
+                // tslint:disable-next-line:max-line-length
+                this.wipMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
+            });
+            future.forEach(element => {
+                // debugger;
+                // tslint:disable-next-line:max-line-length
+                this.comingSoonMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
+            });
+        });
+
+
+        if (localStorage.getItem('UserId')) {
+            let userId = localStorage.getItem('UserId');
+            forkJoin([
+                this.http.get<any[]>(this.rootEventUrl),
+                this.http.get<any[]>(this.rootEventsByUser + `?userId=${userId}`),
+            ]).subscribe(([root, eventsByUser]) => {
+                this.allEvents = root;
+                this.eventsByUser = eventsByUser;
+            });
+        }
+    }
 
     public openDialog(lat, lng): void {
         const dialogRef = this.dialog.open(MarkerCreatingDialogComponent, {
@@ -207,11 +260,11 @@ export class MapComponent implements OnInit {
 
                 switch (result['type']) {
                     // tslint:disable-next-line:max-line-length
-                    case 'hot': this.hotMarkers.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    case 'hot': this.hotMarkers.push({ id: 0, lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
                     // tslint:disable-next-line:max-line-length
-                    case 'wip': this.wipMarkers.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    case 'wip': this.wipMarkers.push({ id: 0, lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
                     // tslint:disable-next-line:max-line-length
-                    case 'future': this.comingSoonMarkers.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    case 'future': this.comingSoonMarkers.push({ id: 0, lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
 
                 }
             } catch (e) { }
@@ -255,8 +308,8 @@ export class MapComponent implements OnInit {
         this.mapService.getLocation().subscribe(data => {
             console.log(data);
             this.dataBaseInfo.push({ country: data.country_name, region: data.region, ip: data.ip, postal: data.postal });
-            this.lat = data.latitude;
-            this.lng = data.longitude;
+            // this.lat = data.latitude;
+            // this.lng = data.longitude;
         });
     }
 
@@ -265,31 +318,53 @@ export class MapComponent implements OnInit {
             this.shiftMarker = !this.shiftMarker;
         }
         console.log($event);
+
+        let userId = localStorage.getItem('UserId');
+        let eventId = localStorage.getItem('markerId');
+        this.eventsByUser.forEach(event => {
+            debugger;
+            if ($event.label == event.EventId) {
+                console.log(event['EventId']);
+                this.mark = !this.mark;
+            } else {this.mark = true; }
+        });
+
+        /// checking for fullfill star
     }
 
     public wipMarkerClick($event) {
+        localStorage.setItem('markerId', $event.label);
         this.wipMarkers.forEach(wipMarker => {
+            debugger;
             if (wipMarker.lat === $event.latitude && wipMarker.lng === $event.longitude) {
                 this.markerDescription = wipMarker.description;
                 this.markerTitle = wipMarker.title;
+                this.startDate = new Date(wipMarker.dateStart).toUTCString();
+                this.endDate = new Date(wipMarker.dateEnd).toUTCString();
             }
         });
     }
 
     public hotMarkerClick($event) {
+        localStorage.setItem('markerId', $event.label);
         this.hotMarkers.forEach(hotMarker => {
             if (hotMarker.lat === $event.latitude && hotMarker.lng === $event.longitude) {
                 this.markerDescription = hotMarker.description;
                 this.markerTitle = hotMarker.title;
+                this.startDate = new Date(hotMarker.dateStart).toUTCString();
+                this.endDate = new Date(hotMarker.dateEnd).toUTCString();
             }
         });
     }
 
     public comingMarkerClick($event) {
+        localStorage.setItem('markerId', $event.label);
         this.comingSoonMarkers.forEach(comMarker => {
             if (comMarker.lat === $event.latitude && comMarker.lng === $event.longitude) {
                 this.markerDescription = comMarker.description;
                 this.markerTitle = comMarker.title;
+                this.startDate = new Date(comMarker.dateStart).toUTCString();
+                this.endDate = new Date(comMarker.dateEnd).toUTCString();
             }
         });
     }
@@ -330,10 +405,23 @@ export class MapComponent implements OnInit {
     }
 
     removeMark() {
+        let userId = localStorage.getItem('UserId');
+        let eventId = localStorage.getItem('markerId');
         this.mark = !this.mark;
+        debugger;
+        this.http.get(`https://localhost:44338/api/users/eventDelete?userId=${userId}&eventId=${eventId}`).subscribe(res => {
+            console.log(res);
+        });
     }
 
     addMark() {
+        let userId = localStorage.getItem('UserId');
+        let eventId = localStorage.getItem('markerId');
+        this.http.get(this.rootPostEventsByUser + `userId=${userId}&eventId=${eventId}`).subscribe(
+            res => { console.log(res); },
+            err => { console.log(err); }
+        );
+
         this.mark = !this.mark;
     }
 
