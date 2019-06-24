@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { HttpClient } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 @Component({
     selector: 'app-activities',
     templateUrl: 'activities.component.html',
@@ -7,19 +9,19 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 })
 
 export class ActivitiesComponent implements OnInit {
-    participate = [
-        'We want to restore forest layer. We need 10 trees, no matter what type they are',
-        'Event descrition 1',
-    ];
+    participate = [ ];
+    public userId: any;
+    refuse = [ ];
 
-    refuse = [
-        'Event descrition 2'
-    ];
+    public rootEventUrl = 'https://localhost:44338/api/EventDetails';
+    public rootEventsByUser = 'https://localhost:44338/api/users/eventsByUser';
 
+    public allEvents = [];
+    public eventsByUser = [];
+    public partIds = [];
     drop(event: CdkDragDrop<string[]>) {
         console.log(event);
         if (event.previousContainer === event.container) {
-            debugger;
             // Если пользователь недоятянул
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
@@ -30,15 +32,39 @@ export class ActivitiesComponent implements OnInit {
                 event.previousIndex,
                 event.currentIndex);
 
-            if (event.container.id === '') {
+            if (event.container.id === 'cdk-drop-list-0') {
                 // post if sdk = 0 
-            } else if (event.container.id === '') {
+            } else if (event.container.id === 'cdk-drop-list-1') {
                 // delete if sdk = 1
             }
         }
     }
 
-    constructor() { }
+    constructor(private http: HttpClient) {
+        if (localStorage.getItem('UserId')) {
+            let userId = localStorage.getItem('UserId');
+            forkJoin([
+                this.http.get<any[]>(this.rootEventUrl),
+                this.http.get<any[]>(this.rootEventsByUser + `?userId=${userId}`),
+            ]).subscribe(([root, eventsByUser]) => {
+                debugger;
+                this.allEvents = root;
+                this.eventsByUser = eventsByUser;
 
-    ngOnInit() { }
+                this.eventsByUser.forEach(eventByUser => {
+                    debugger;
+                    this.allEvents.forEach(event => {
+                        debugger;
+                        if (eventByUser.EventId === event.EventId) {
+                            this.participate.push(event.Title);
+                        }
+                    });
+                });
+            });
+        }
+    }
+
+    ngOnInit() {
+       
+    }
 }
