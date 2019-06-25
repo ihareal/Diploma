@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
+import * as signalR from '@aspnet/signalr';
 
 @Component({
   selector: 'app-chat-component',
@@ -7,7 +7,7 @@ import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  private hubConnection: HubConnection;
+  private hubConnection: signalR.HubConnection;
   public nick = '';
   public message = '';
   public messages: string[] = [];
@@ -15,11 +15,11 @@ export class ChatComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.hubConnection = new HubConnectionBuilder().withUrl('https://localhost:44338/api/chat').build();
+    this.hubConnection = new signalR.HubConnectionBuilder().withUrl('https://localhost:44338/chat').build();
     this.hubConnection
       .start()
       .then(() => console.log('Connection started'))
-      .catch(err => console.log(err));
+      .catch(err => console.log('Connection problem: '+ err));
 
     this.hubConnection.on('sendToAll', (nick: string, receivedMessage: string) => {
       let text = `${nick}: ${receivedMessage}`;
