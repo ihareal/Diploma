@@ -27,6 +27,17 @@ ul.a {
   color: #FF616E
 }
 
+.sign-in {
+  transition: color 0.5s ease;
+  cursor: pointer;
+  text-decoration: underline;
+  font-style: italic;
+}
+
+.sign-in:hover {
+  color: #BE145A;
+}
+
 .orange {
   color: #EBB52F;
 }
