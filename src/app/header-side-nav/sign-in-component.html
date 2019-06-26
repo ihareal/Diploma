@@ -63,7 +63,7 @@
       <div mat-dialog-actions>
         <button mat-button (click)="onNoClick($event)">No Thanks</button>
         <!-- cdkFocusInitial -->
-        <button [disabled]="!signInForm.valid" [routerLink]="['/personal-area']" routerLinkActive="router-link-active"
+        <button [disabled]="!signInForm.valid"
           (click)="onOkClick($event)" mat-button>Ok</button>
       </div>
     </div>
@@ -98,7 +98,7 @@
       <div mat-dialog-actions>
         <button mat-button (click)="onNoClick($event)">No Thanks</button>
         <!-- cdkFocusInitial -->
-        <button [disabled]="!registrationForm.valid" [routerLink]="['/personal-area']"
+        <button [disabled]="!registrationForm.valid"
           routerLinkActive="router-link-active" (click)="authorisationSubmit($event)" mat-button>Ok</button>
       </div>
     </div>

@@ -260,11 +260,11 @@ export class MapComponent implements OnInit {
 
                 switch (result['type']) {
                     // tslint:disable-next-line:max-line-length
-                    case 'hot': this.hotMarkers.push({ id: 0, lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    case 'hot': this.hotMarkers.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
                     // tslint:disable-next-line:max-line-length
-                    case 'wip': this.wipMarkers.push({ id: 0, lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    case 'wip': this.wipMarkers.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
                     // tslint:disable-next-line:max-line-length
-                    case 'future': this.comingSoonMarkers.push({ id: 0, lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    case 'future': this.comingSoonMarkers.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
 
                 }
             } catch (e) { }
@@ -313,29 +313,9 @@ export class MapComponent implements OnInit {
         });
     }
 
-    public markerClick($event) {
-        if ($event._id !== '0') {
-            this.shiftMarker = !this.shiftMarker;
-        }
-        console.log($event);
-
-        let userId = localStorage.getItem('UserId');
-        let eventId = localStorage.getItem('markerId');
-        this.eventsByUser.forEach(event => {
-            debugger;
-            if ($event.label == event.EventId) {
-                console.log(event['EventId']);
-                this.mark = !this.mark;
-            } else {this.mark = true; }
-        });
-
-        /// checking for fullfill star
-    }
-
     public wipMarkerClick($event) {
         localStorage.setItem('markerId', $event.label);
         this.wipMarkers.forEach(wipMarker => {
-            debugger;
             if (wipMarker.lat === $event.latitude && wipMarker.lng === $event.longitude) {
                 this.markerDescription = wipMarker.description;
                 this.markerTitle = wipMarker.title;
@@ -404,10 +384,27 @@ export class MapComponent implements OnInit {
         }
     }
 
+    public markerClick($event) {
+        if ($event._id !== '0') {
+            this.shiftMarker = !this.shiftMarker;
+        }
+
+        let userId = localStorage.getItem('UserId');
+        let eventId = localStorage.getItem('markerId');
+        let event: any;
+        for (event of this.eventsByUser) {
+            if ($event.label === event.EventId) {
+                this.mark = true;
+                break;
+            } else { this.mark = false; }
+        }
+
+    }
+
     removeMark() {
         let userId = localStorage.getItem('UserId');
         let eventId = localStorage.getItem('markerId');
-        this.mark = !this.mark;
+        this.mark = false;
         debugger;
         this.http.get(`https://localhost:44338/api/users/eventDelete?userId=${userId}&eventId=${eventId}`).subscribe(res => {
             console.log(res);
@@ -417,12 +414,16 @@ export class MapComponent implements OnInit {
     addMark() {
         let userId = localStorage.getItem('UserId');
         let eventId = localStorage.getItem('markerId');
+        debugger;
         this.http.get(this.rootPostEventsByUser + `userId=${userId}&eventId=${eventId}`).subscribe(
             res => { console.log(res); },
             err => { console.log(err); }
         );
+        this.http.get<any[]>(this.rootEventsByUser + `?userId=${userId}`).subscribe(eventsByUser => {
+            this.eventsByUser = eventsByUser;
+        });
 
-        this.mark = !this.mark;
+        this.mark = true;
     }
 
     openSnackBar(message: string, action: string) {

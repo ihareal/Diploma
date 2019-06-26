@@ -1,5 +1,5 @@
 export class Marker {
-    id: number;
+    id?: number;
     lat: number;
     lng: number;
     title: string;
