@@ -388,12 +388,12 @@ export class MapComponent implements OnInit {
                             // tslint:disable-next-line:max-line-length
                             UserId: 0, lat: result['lat'], lng: result['lng'], Title: result['title'], Description: result['description'], Status: 'CONSTANT'
                         }
-                        this.http.post(this.rootPollutionUrl, data0,  {
+                        this.http.post(this.rootPollutionUrl, data0, {
                             headers: new HttpHeaders({
                                 'Content-Type': 'application/json'
                             })
                         }).subscribe(res => {
-                            
+
                         });
                         break;
                     // tslint:disable-next-line:max-line-length

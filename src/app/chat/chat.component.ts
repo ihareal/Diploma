@@ -11,6 +11,7 @@ export class ChatComponent implements OnInit {
   public nick = '';
   public message = '';
   public messages: string[] = [];
+  public email: string;
   constructor(
   ) { }
 
@@ -20,17 +21,17 @@ export class ChatComponent implements OnInit {
       .start()
       .then(() => console.log('Connection started'))
       .catch(err => console.log('Connection problem: '+ err));
-
+      this.email = localStorage.getItem('email');
     this.hubConnection.on('sendToAll', (nick: string, receivedMessage: string) => {
       debugger;
-      let text = `${nick}: ${receivedMessage}`;
+      let text = `${this.email}: ${receivedMessage}`;
         this.messages.push(text);
     });
   }
 
   public sendMessage(): void {
     this.hubConnection
-      .invoke('sendToAll', this.nick, this.message)
+      .invoke('sendToAll', this.email, this.message)
       .then(() => this.message = '')
       .catch(err => console.error(err));
   }
