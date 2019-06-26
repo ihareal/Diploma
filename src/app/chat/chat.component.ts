@@ -16,15 +16,15 @@ export class ChatComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.email = localStorage.getItem('email');
     this.hubConnection = new signalR.HubConnectionBuilder().withUrl('https://localhost:44338/chat').build();
     this.hubConnection
       .start()
       .then(() => console.log('Connection started'))
-      .catch(err => console.log('Connection problem: '+ err));
-      this.email = localStorage.getItem('email');
+      .catch(err => console.log('Connection problem: ' + err));
     this.hubConnection.on('sendToAll', (nick: string, receivedMessage: string) => {
       debugger;
-      let text = `${this.email}: ${receivedMessage}`;
+      let text = `${nick}: ${receivedMessage}`;
         this.messages.push(text);
     });
   }

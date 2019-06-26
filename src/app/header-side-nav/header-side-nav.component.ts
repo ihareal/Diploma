@@ -254,7 +254,6 @@ export class SignInComponent implements OnInit {
           this.router.navigate(['/personal-area']);
         },
         err => {
-          console.log(err);
           this.registratingError = err.error;
         }
       );
