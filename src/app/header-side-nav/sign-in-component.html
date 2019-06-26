@@ -57,14 +57,13 @@
       </div>
 
       <div mat-dialog-content>
-      <p align="center" class="errorResponseMessage" *ngIf="registratingError.length > 0">{{registratingError}}</p>
+        <p align="center" class="errorResponseMessage" *ngIf="registratingError.length > 0">{{registratingError}}</p>
       </div>
-      
+
       <div mat-dialog-actions>
         <button mat-button (click)="onNoClick($event)">No Thanks</button>
         <!-- cdkFocusInitial -->
-        <button [disabled]="!signInForm.valid"
-          (click)="onOkClick($event)" mat-button>Ok</button>
+        <button [disabled]="!signInForm.valid" (click)="onOkClick($event)" mat-button>Ok</button>
       </div>
     </div>
   </mat-tab>
@@ -98,8 +97,7 @@
       <div mat-dialog-actions>
         <button mat-button (click)="onNoClick($event)">No Thanks</button>
         <!-- cdkFocusInitial -->
-        <button [disabled]="!registrationForm.valid"
-          routerLinkActive="router-link-active" (click)="authorisationSubmit($event)" mat-button>Ok</button>
+        <button [disabled]="!registrationForm.valid" (click)="authorisationSubmit($event)" mat-button>Ok</button>
       </div>
     </div>
   </mat-tab>

@@ -58,23 +58,19 @@ export class NewsComponent implements OnInit {
 
         const sentence = 'fasdfasd.asdfasdfasdf';
         let index = sentence.indexOf('.');
-        console.log(sentence.substring(0, index));
     }
 
     public deleteNews(id) {
-        console.log(this.newsInfo);
         this.newsInfo.forEach((element, idx) => {
             if (element['NewsId'] === id) {
                 this.newsInfo.splice(idx, 1);
             }
         });
-        debugger;
         let headers = new HttpHeaders({
             'Content-Type': 'application/json'
         });
         let options = { headers: headers };
         this.http.delete<void>(this.newsUrl + '/' + id, options).subscribe(res => {
-            console.log(res);
         });
     }
 }

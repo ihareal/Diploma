@@ -123,7 +123,7 @@ export class SignInComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private http: HttpClient
+    private http: HttpClient,
   ) {
     this.signInForm = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -200,7 +200,7 @@ export class SignInComponent implements OnInit {
         } else if (res['StageAmount'] !== 0) {
           localStorage.setItem('stageHouseAmount', res['StageAmount']);
         }
-
+        this.router.navigate(['/personal-area']);
         console.log(res);
         this.dialogRef.close();
       },
@@ -246,14 +246,12 @@ export class SignInComponent implements OnInit {
         StageNumber: parseInt(this.signInForm.controls['flatStage'].value, 10),
       };
 
-      debugger;
       this.userService.postUser(JSON.stringify(onk)).subscribe(
         res => {
-          debugger;
           localStorage.setItem('UserId', res['UserId']);
           console.log(res);
           this.dialogRef.close();
-
+          this.router.navigate(['/personal-area']);
         },
         err => {
           console.log(err);

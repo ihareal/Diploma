@@ -125,6 +125,15 @@ tr.border td {
   border-bottom: 3px solid white;
 } */
 
+@media (max-width: 700px){
+  .headerHelperCard {
+    height: auto;
+  }
+  .mat-card {
+    padding: 16px 0 0 0;
+  }
+}
+
 @media (max-width: 1352px) {
   .pollution-map {
     display: none;
