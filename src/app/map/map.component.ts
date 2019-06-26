@@ -202,7 +202,8 @@ export class MapComponent implements OnInit {
 
     public rootHotUrl = 'https://localhost:44338/api/EventDetails/HotEvents';
     public rootWipUrl = 'https://localhost:44338/api/EventDetails/WipEvents';
-    public rootFutureUrl = 'https://localhost:44338/api/EventDetails/HotEvents';
+    public rootFutureUrl = 'https://localhost:44338/api/EventDetails/FutureEvents';
+    public rootPollutionUrl = 'https://localhost:44338/api/PollutionDetails';
 
     /*put into database for future using in user statistic & user cabinet*/
     dataBaseInfo = [];
@@ -382,7 +383,19 @@ export class MapComponent implements OnInit {
             try {
                 switch (result['type']) {
                     // tslint:disable-next-line:max-line-length
-                    case 'constant': this.constantPollutionCircle.push({ lat: result['lat'], lng: result['lng'] }); this.pollutionMarkerDescription.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    case 'constant': this.constantPollutionCircle.push({ lat: result['lat'], lng: result['lng'] }); this.pollutionMarkerDescription.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] });
+                        let data0 = {
+                            // tslint:disable-next-line:max-line-length
+                            UserId: 0, lat: result['lat'], lng: result['lng'], Title: result['title'], Description: result['description'], Status: 'CONSTANT'
+                        }
+                        this.http.post(this.rootPollutionUrl, data0,  {
+                            headers: new HttpHeaders({
+                                'Content-Type': 'application/json'
+                            })
+                        }).subscribe(res => {
+                            
+                        });
+                        break;
                     // tslint:disable-next-line:max-line-length
                     case 'temporary': this.temporaryPollutionCircle.push({ lat: result['lat'], lng: result['lng'] }); break;
 
