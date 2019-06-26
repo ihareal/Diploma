@@ -8,7 +8,7 @@ import { DialogData } from '../header-side-nav/header-side-nav.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -253,18 +253,119 @@ export class MapComponent implements OnInit {
         const dialogRef = this.dialog.open(MarkerCreatingDialogComponent, {
             width: '550px',
             height: '600px',
-            data: { lat: lat, lng: lng, type: 'unedfined', title: 'undefined', description: 'undefined' }
+            // tslint:disable-next-line:max-line-length
+            data: { lat: lat, lng: lng, type: 'unedfined', title: 'undefined', description: 'undefined', dateStart: 'undefined', dateEnd: 'undefined' }
         });
         dialogRef.afterClosed().subscribe(result => {
             try {
 
                 switch (result['type']) {
                     // tslint:disable-next-line:max-line-length
-                    case 'hot': this.hotMarkers.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    case 'hot':
+                        // tslint:disable-next-line:max-line-length
+                        debugger;
+                        let data = {
+                            // tslint:disable-next-line:max-line-length
+                            Latitude: result['lat'], Longitude: result['lng'], Title: result['title'], Description: result['description'], StartDate: result['dateStart'], EndDate: result['dateEnd'], Status: 'HOT'
+                        };
+                        this.http.post(this.rootEventUrl, data, {
+                            headers: new HttpHeaders({
+                                'Content-Type': 'application/json'
+                            })
+                        }).subscribe(res => {
+                            console.log(res);
+                            forkJoin([
+                                this.http.get<any[]>(this.rootHotUrl),
+                                this.http.get<any[]>(this.rootWipUrl),
+                                this.http.get<any[]>(this.rootFutureUrl),
+                            ]).subscribe(([hot, wip, future]) => {
+                                hot.forEach(element => {
+                                    // tslint:disable-next-line:max-line-length
+                                    this.hotMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
+                                    // debugger;
+                                });
+                                wip.forEach(element => {
+                                    // tslint:disable-next-line:max-line-length
+                                    this.wipMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
+                                });
+                                future.forEach(element => {
+                                    // debugger;
+                                    // tslint:disable-next-line:max-line-length
+                                    this.comingSoonMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
+                                });
+                            });
+                        });
+
+                        break;
                     // tslint:disable-next-line:max-line-length
-                    case 'wip': this.wipMarkers.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    case 'wip':
+                        let data1 = {
+                            // tslint:disable-next-line:max-line-length
+                            Latitude: result['lat'], Longitude: result['lng'], Title: result['title'], Description: result['description'], StartDate: result['dateStart'], EndDate: result['dateEnd'], Status: 'WIP'
+                        };
+                        this.http.post(this.rootEventUrl, data1, {
+                            headers: new HttpHeaders({
+                                'Content-Type': 'application/json'
+                            })
+                        }).subscribe(res => {
+                            console.log(res);
+                            forkJoin([
+                                this.http.get<any[]>(this.rootHotUrl),
+                                this.http.get<any[]>(this.rootWipUrl),
+                                this.http.get<any[]>(this.rootFutureUrl),
+                            ]).subscribe(([hot, wip, future]) => {
+                                hot.forEach(element => {
+                                    // tslint:disable-next-line:max-line-length
+                                    this.hotMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
+                                    // debugger;
+                                });
+                                wip.forEach(element => {
+                                    // tslint:disable-next-line:max-line-length
+                                    this.wipMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
+                                });
+                                future.forEach(element => {
+                                    // debugger;
+                                    // tslint:disable-next-line:max-line-length
+                                    this.comingSoonMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
+                                });
+                            });
+                        });
+
+                        break;
                     // tslint:disable-next-line:max-line-length
-                    case 'future': this.comingSoonMarkers.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] }); break;
+                    case 'future':
+                        let data2 = {
+                            // tslint:disable-next-line:max-line-length
+                            Latitude: result['lat'], Longitude: result['lng'], Title: result['title'], Description: result['description'], StartDate: result['dateStart'], EndDate: result['dateEnd'], Status: 'FUTURE'
+                        };
+                        this.http.post(this.rootEventUrl, data2, {
+                            headers: new HttpHeaders({
+                                'Content-Type': 'application/json'
+                            })
+                        }).subscribe(res => {
+                            console.log(res);
+                            forkJoin([
+                                this.http.get<any[]>(this.rootHotUrl),
+                                this.http.get<any[]>(this.rootWipUrl),
+                                this.http.get<any[]>(this.rootFutureUrl),
+                            ]).subscribe(([hot, wip, future]) => {
+                                hot.forEach(element => {
+                                    // tslint:disable-next-line:max-line-length
+                                    this.hotMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
+                                    // debugger;
+                                });
+                                wip.forEach(element => {
+                                    // tslint:disable-next-line:max-line-length
+                                    this.wipMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
+                                });
+                                future.forEach(element => {
+                                    // debugger;
+                                    // tslint:disable-next-line:max-line-length
+                                    this.comingSoonMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
+                                });
+                            });
+                        });
+                        break;
 
                 }
             } catch (e) { }
@@ -444,6 +545,8 @@ export class MarkerCreatingDialogComponent implements OnInit {
     public future = false;
     public title: string;
     public description: string;
+    public dateStart: string;
+    public dateEnd: string;
     constructor(
         public dialogRef: MatDialogRef<MarkerCreatingDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -459,7 +562,9 @@ export class MarkerCreatingDialogComponent implements OnInit {
     ngOnInit() {
         this.markerCreatingForm = this.fb.group({
             title: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-            description: ['', Validators.compose([Validators.required, Validators.minLength(20)])]
+            description: ['', Validators.compose([Validators.required, Validators.minLength(20)])],
+            dateStart: [''],
+            dateEnd: ['']
         });
     }
 
@@ -483,19 +588,27 @@ export class MarkerCreatingDialogComponent implements OnInit {
 
     onOkClick(): void {
         if (this.hot === true) {
+            console.log(this.data);
             this.data['type'] = 'hot';
             this.data['title'] = this.title;
             this.data['description'] = this.description;
+            this.data['dateStart'] = this.markerCreatingForm.controls['dateStart'].value;
+            this.data['dateEnd'] = this.markerCreatingForm.controls['dateEnd'].value;
+
             this.dialogRef.close(this.data);
         } else if (this.wip === true) {
             this.data['type'] = 'wip';
             this.data['title'] = this.title;
             this.data['description'] = this.description;
+            this.data['dateStart'] = this.markerCreatingForm.controls['dateStart'].value;
+            this.data['dateEnd'] = this.markerCreatingForm.controls['dateEnd'].value;
             this.dialogRef.close(this.data);
         } else if (this.future === true) {
             this.data['type'] = 'future';
             this.data['title'] = this.title;
             this.data['description'] = this.description;
+            this.data['dateStart'] = this.markerCreatingForm.controls['dateStart'].value;
+            this.data['dateEnd'] = this.markerCreatingForm.controls['dateEnd'].value;
             this.dialogRef.close(this.data);
         }
     }

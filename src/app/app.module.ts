@@ -10,7 +10,7 @@ import { MapComponent, MarkerCreatingDialogComponent, PollutionCreatingDialogCom
 import { NewsComponent, IdDirective } from './news/news.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatListModule } from '@angular/material';
+import { MatButtonModule, MatListModule, MatNativeDateModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -49,6 +49,7 @@ import { AdminControlPollutionComponent } from './admin.control.pollution/admin.
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ChatComponent } from './chat/chat.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -81,6 +82,8 @@ import { ChatComponent } from './chat/chat.component';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
@@ -112,7 +115,7 @@ import { ChatComponent } from './chat/chat.component';
     MatGridListModule,
   ],
   entryComponents: [SignInComponent, MarkerCreatingDialogComponent, PollutionCreatingDialogComponent],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

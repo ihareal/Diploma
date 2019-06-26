@@ -16,7 +16,6 @@ export class UserService {
     ) { }
 
     postUser(data) {
-        //return this.http.post(this.rootUrl + '/UserDetails', this.data, 'Content-Type', 'application/json; charset=utf-8');
         return this.http.post<UserModel>(this.rootUrl + '/UserDetails', data, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'

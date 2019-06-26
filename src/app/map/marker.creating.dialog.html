@@ -11,24 +11,31 @@
   </div>
   <div mat-dialog-content>
     <mat-form-field>
-      <input formControlName="title" type="text" [(ngModel)]="title" matInput placeholder="Title for new event" required>
+      <input formControlName="title" type="text" [(ngModel)]="title" matInput placeholder="Title for new event"
+        required>
     </mat-form-field>
   </div>
 
   <div mat-dialog-content>
     <mat-form-field class="example-full-width">
-      <textarea
-      formControlName="description"
-      cdkTextareaAutosize 
-      #autosize="cdkTextareaAutosize" 
-      cdkAutosizeMinRows="1"
-      cdkAutosizeMaxRows="5"
-      matInput 
-      [(ngModel)]="description"
-      placeholder="Leave a comment"
-       required></textarea>
+      <textarea formControlName="description" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5" matInput [(ngModel)]="description" placeholder="Leave a comment" required></textarea>
     </mat-form-field>
   </div>
+
+  <mat-form-field mat-dialog-content>
+    <input matInput formControlName="dateStart" [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field mat-dialog-content>
+    <input matInput formControlName="dateEnd" [matDatepicker]="picker2" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+
+
 
   <div class="check-container">
     <label class="container hotColor">Hot
@@ -47,7 +54,7 @@
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick($event)">Cancel</button>
     <!-- cdkFocusInitial -->
-    <button [disabled]="hot === false && wip === false && future === false && !markerCreatingForm.valid" (click)="onOkClick($event)"
-      mat-button>Ok</button>
+    <button [disabled]="hot === false && wip === false && future === false && !markerCreatingForm.valid"
+      (click)="onOkClick($event)" mat-button>Ok</button>
   </div>
 </div>
