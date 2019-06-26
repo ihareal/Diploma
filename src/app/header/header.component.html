@@ -1,26 +1,12 @@
-<!-- <mat-toolbar role='heading' color='warn' class="z-depth-5">
-  <mat-toolbar-row>
-    <a mat-button class="md-title center" [routerLink]="['/news']" routerLinkActive="router-link-active">
-      <i class="far fa-newspaper"></i> News</a>
-    <a mat-button [routerLink]="['/map']" routerLinkActive="router-link-active">
-      <i class="fas fa-map-marked-alt"></i> Eco maps</a>
-    <a mat-button [routerLink]="['/house']" routerLinkActive="router-link-active">
-      <i class="fas fa-home"></i> Eco house</a>
-    <a mat-button [routerLink]="['/car']" routerLinkActive="router-link-active">
-      <i class="fas fa-car"></i> Eco car</a>
-    <a mat-button [routerLink]="['/activities']" routerLinkActive="router-link-active">
-      <i class="fas fa-leaf"></i> Activities</a>
-  </mat-toolbar-row>
-</mat-toolbar> -->
 <mat-card [class.alternative]="changeTheme" class="headerHelperCard">
 
   <table class="table">
     <tr class="border">
-      <td class="option-text">News</td>
+      <td class="option-text"><span [routerLink]="['/news']" routerLinkActive="router-link-active"  class="sign-in">News</span></td>
       <td colspan="5">Eco news from popular "green" sources</td>
     </tr>
     <tr>
-      <td class="option-text">Eco maps</td>
+      <td class="option-text"><span [routerLink]="['/maps']" routerLinkActive="router-link-active"  class="sign-in">Eco maps</span></td>
       <td colspan="5">
         <!-- <img class="events-map-initial" src="../../assets/images/homePageInitialPic.png" alt=""> -->
         <!-- <img class="events-map" src="../../assets/images/homePageMap.png" alt=""> -->
@@ -29,11 +15,11 @@
       </td>
     </tr>
     <tr>
-      <td class="option-text">Eco {{dwellingType}}</td>
-      <td colspan="5">Some extra information about your {{dwellingType}} or flat material</td>
+      <td class="option-text"><span [routerLink]="['/house']" routerLinkActive="router-link-active"  class="sign-in">Eco house</span></td>
+      <td colspan="5">Some extra information about dwelling</td>
     </tr>
     <tr>
-      <td class="option-text">Eco car</td>
+      <td class="option-text"><span [routerLink]="['/car']" routerLinkActive="router-link-active"  class="sign-in">Eco car</span></td>
       <td colspan="5">Some extra information about car: economy & ecological alternatives</td>
     </tr>
     <tr>
@@ -42,19 +28,5 @@
           in</span></td>
     </tr>
   </table>
-
-  <!-- <mat-card-title color='warn'>EcoService - your provider in ecology</mat-card-title>
-  <mat-card-content>
-    <p>
-      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-      bred for hunting.
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button class="z-depth-5" mat-button>Start</button>
-    <button class="z-depth-5" mat-button>Share</button> -->
-  <!-- </mat-card-actions> -->
-
 
 </mat-card>

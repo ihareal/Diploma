@@ -11,7 +11,7 @@ import { SignInComponent } from '../header-side-nav/header-side-nav.component';
 
 export class HeaderComponent implements OnInit {
     public changeTheme = false;
-    public dwellingType = 'flat';
+    // public dwellingType = 'flat';
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
@@ -25,9 +25,9 @@ export class HeaderComponent implements OnInit {
             this.changeTheme = true;
         }
 
-        if (localStorage.getItem('houseType') === 'house') {
-            this.dwellingType = 'house';
-        } else { this.dwellingType = 'flat'; }
+        // if (localStorage.getItem('houseType') === 'house') {
+        //     this.dwellingType = 'house';
+        // } else { this.dwellingType = 'flat'; }
     }
 
     openSignIn($event) {

@@ -405,7 +405,6 @@ export class MapComponent implements OnInit {
         let userId = localStorage.getItem('UserId');
         let eventId = localStorage.getItem('markerId');
         this.mark = false;
-        debugger;
         this.http.get(`https://localhost:44338/api/users/eventDelete?userId=${userId}&eventId=${eventId}`).subscribe(res => {
             console.log(res);
         });
@@ -414,7 +413,6 @@ export class MapComponent implements OnInit {
     addMark() {
         let userId = localStorage.getItem('UserId');
         let eventId = localStorage.getItem('markerId');
-        debugger;
         this.http.get(this.rootPostEventsByUser + `userId=${userId}&eventId=${eventId}`).subscribe(
             res => { console.log(res); },
             err => { console.log(err); }

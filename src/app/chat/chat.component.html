@@ -1,16 +1,15 @@
 <div class="container">
-  <form (ngSubmit)="sendMessage()" action="https://localhost:44338/api/chat"  #chatForm="ngForm">
-    <div>
-      <label for="message">Message</label>
-      <input type="text" id="message" name="message" [(ngModel)]="message" required>
-    </div>
-    <button type="submit" id="sendmessage" [disabled]="!chatForm.valid">
-      Send
-    </button>
+  <form (ngSubmit)="sendMessage()" action="https://localhost:44338/api/chat" #chatForm="ngForm">
+    <div class="chat">
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" id="message" name="message" placeholder="Message" matInput [(ngModel)]="message" required>
+      </mat-form-field>
+    <button type="submit" mat-button id="sendmessage" [disabled]="!chatForm.valid"><i class="fas fa-bolt"></i></button>
+  </div>
   </form>
 </div>
 
-<div class="chat" *ngIf="messages.length > 0">
+<div class="" *ngIf="messages.length > 0">
   <div *ngFor="let message of messages">
     <span>{{message}}</span>
   </div>

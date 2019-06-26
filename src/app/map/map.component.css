@@ -1,5 +1,5 @@
 agm-map {
-  height: 550px;
+  height: 600px;
   width: 98vw;
   transition-property: width;
   transition-duration: 0.75s;
@@ -16,10 +16,11 @@ ul.legend {
 }
 
 .headerHelperCard {
-  height: calc(60.6em - 97px);
+  /* height: calc(60.6em - 97px); */
+
   color: gray;
   text-align: center;
-  /* height: auto; */
+  height: auto;
 }
 
 ul.legend li {
