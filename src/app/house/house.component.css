@@ -27,6 +27,7 @@ p {
 }
 
 .sign-in {
+  color: gray;
   transition: color 0.5s ease;
   cursor: pointer;
   text-decoration: underline;

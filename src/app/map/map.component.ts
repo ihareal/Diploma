@@ -4,7 +4,7 @@ import { Marker } from '../shared/models/marker.model';
 import { MarkerCircle } from '../shared/models/marker.circle.model';
 import { CheckingService } from '../shared/checking.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
-import { DialogData } from '../header-side-nav/header-side-nav.component';
+import { DialogData, SignInComponent } from '../header-side-nav/header-side-nav.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/operators';
@@ -131,6 +131,18 @@ export class MapComponent implements OnInit {
         {
             lat: 53.895841,
             lng: 27.576037,
+        },
+        {
+            lat: 53.921847,
+            lng: 27.503373,
+        },
+        {
+            lat: 53.902227,
+            lng: 27.523752,
+        },
+        {
+            lat: 53.871275,
+            lng: 27.643969,
         }
     ];
 
@@ -176,6 +188,27 @@ export class MapComponent implements OnInit {
             title: 'Machine Tool Plant',
             // tslint:disable-next-line:max-line-length
             description: 'High level of noise is a disturbance to the human environment. Noise in industries is also an occupational hazard because of its attendant effects on workers health. Noise presents health and social problems in industrial operations, and the source is related to the machineries used in the industries. One of the unique features of the noise associated with wood machinery is the level of exposure and duration. Equipment used in a factory can be extremely loud.'
+        },
+        {
+            lat: 53.921847,
+            lng: 27.503373,
+            title: 'Experienced Metalworking Plant',
+            // tslint:disable-next-line:max-line-length
+            description: 'Metal production and processing businesses can cause significant pollution. Metal production and processing includes manufacturing ferrous, non-ferrous and precious metals and alloys; metal forming processes; bar, wire and tube drawing; and metal casting.Your activities may cause air pollution from fumes and dust, noise pollution from materials handling and deliveries to your site, water pollution from contaminated discharges.'
+        },
+        {
+            lat: 53.902227,
+            lng: 27.523752,
+            title: 'Building Products Factory',
+            // tslint:disable-next-line:max-line-length
+            description: 'Construction activities that contribute to air pollution include: land clearing, operation of diesel engines, demolition, burning, and working with toxic materials. All construction sites generate high levels of dust (typically from concrete, cement, wood, stone, silica) and this can carry for large distances over a long period of time. Construction dust is classified as PM10 - particulate matter less than 10 microns in diameter, invisible to the naked eye.'
+        },
+        {
+            lat: 53.871275,
+            lng: 27.643969,
+            title: 'Resource Plant OJSC MAZ',
+            // tslint:disable-next-line:max-line-length
+            description: 'Oil refining, for instance, is a process called fractional distillation that heats petroleum to high temperatures to separate it into various grades of gasoline and other petroleum products. Doing so releases sulfur dioxide into the air. Other manufacturing types use heat from coal or diesel furnaces to provide steam power to run the plant. Burning these fuels can also release pollutants into the air.'
         }
     ];
 
@@ -195,6 +228,34 @@ export class MapComponent implements OnInit {
         {
             lat: 53.901278,
             lng: 27.562128,
+        },
+        {
+            lat: 53.849716,
+            lng: 27.607845
+        },
+        {
+            lat: 53.854269,
+            lng: 27.578835
+        },
+        {
+            lat: 53.845896,
+            lng: 27.519459
+        },
+        {
+            lat: 53.835050,
+            lng: 27.471357
+        },
+        {
+            lat: 53.714944,
+            lng: 27.601997
+        },
+        {
+            lat: 53.952384,
+            lng: 27.651216
+        },
+        {
+            lat: 53.960502,
+            lng: 27.469174,
         }
 
     ];
@@ -218,7 +279,7 @@ export class MapComponent implements OnInit {
         private checkingService: CheckingService,
         public dialog: MatDialog,
         private _snackBar: MatSnackBar,
-        private http: HttpClient
+        private http: HttpClient,
 
     ) {
 
@@ -267,6 +328,15 @@ export class MapComponent implements OnInit {
                 this.eventsByUser = eventsByUser;
             });
         }
+    }
+
+    public openSignIn() {
+        const dialogRef = this.dialog.open(SignInComponent, {
+            width: '550px',
+            height: '600px',
+        }).afterClosed().subscribe(closed => {
+            window.location.reload();
+        });
     }
 
     public openDialog(lat, lng): void {
@@ -428,7 +498,7 @@ export class MapComponent implements OnInit {
                         break;
                     // tslint:disable-next-line:max-line-length
                     case 'temporary':
-                         this.temporaryPollutionCircle.push({ lat: result['lat'], lng: result['lng'] });
+                        this.temporaryPollutionCircle.push({ lat: result['lat'], lng: result['lng'] });
 
                         // let data1 = {
                         //     // tslint:disable-next-line:max-line-length

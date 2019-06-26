@@ -1,4 +1,5 @@
-<mat-card [class.alternative]="changeTheme" class="headerHelperCard">
+<mat-card [ngStyle]="{'height': log === false ? 'calc(60.6em - 97px)' : 'auto'}" [class.alternative]="changeTheme"
+  class="headerHelperCard">
 
   <mat-tab-group class="local-navigation-menu">
     <mat-tab label="Events map">
@@ -42,14 +43,17 @@
           <div *ngIf="log" class="container">
             <i *ngIf="mark === false" (click)="addMark(); openSnackBar('You have added event to participate', 'close')"
               class="far fa-star"></i>
-            <i *ngIf="mark === true" (click)="removeMark(); openSnackBar('You have removed event to participate', 'close')"
+            <i *ngIf="mark === true"
+              (click)="removeMark(); openSnackBar('You have removed event to participate', 'close')"
               class="fas fa-star"></i>
           </div>
+          <p *ngIf="log === false">You must <span (click)="openSignIn()" class="sign-in">Sign in</span> to participate</p>
           <h1>{{markerTitle}}</h1>
           <h2>{{markerDescription}}</h2>
           <h3>Start: {{startDate}}</h3>
           <h3>End: {{endDate}}</h3>
-          <h3>Mail: <a class="connectionLinks" href="mailto:ecoServiceAdmins@gmail.com">ecoServiceAdmins@gmail.com</a></h3>
+          <h3>Mail: <a class="connectionLinks" href="mailto:ecoServiceAdmins@gmail.com">ecoServiceAdmins@gmail.com</a>
+          </h3>
           <h4>Phone: <a class="connectionLinks" href="tel:+375 555 55 55">+375 555 55 55</a> </h4>
         </div>
 

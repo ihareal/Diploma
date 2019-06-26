@@ -68,6 +68,7 @@ export class HeaderSideNavComponent implements OnInit {
   public signOut() {
     this.register = false;
     localStorage.clear();
+    window.location.reload();
   }
 
   public themeChanged($event) {
@@ -251,7 +252,6 @@ export class SignInComponent implements OnInit {
           localStorage.setItem('UserId', res['UserId']);
           console.log(res);
           this.dialogRef.close();
-          this.router.navigate(['/personal-area']);
         },
         err => {
           this.registratingError = err.error;

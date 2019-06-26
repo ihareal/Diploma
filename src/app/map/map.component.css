@@ -23,7 +23,20 @@ ul.legend {
   height: auto;
 }
 
+.sign-in {
+  transition: color 0.5s ease;
+  cursor: pointer;
+  text-decoration: underline;
+  font-style: italic;
+}
+
+.sign-in:hover {
+  color: #BE145A;
+}
+
+
 .connectionLinks {
+  color: gray;
   transition: color 0.5s ease;
   cursor: pointer;
   text-decoration: underline;

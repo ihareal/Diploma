@@ -86,7 +86,7 @@
             <!-- [matMenuTriggerFor]="userStatistic" -->
           <button *ngIf="!menuType" mat-menu-item 
             [routerLink]="['/statistic-zone']">Statistic zone</button>
-          <button mat-menu-item [routerLink]="['/home']" routerLinkActive="router-link-active" (click)="signOut()">Sign Out</button>
+          <button mat-menu-item (click)="signOut()">Sign Out</button>
         </mat-menu>
 
         <!-- <mat-menu #createZone="matMenu">
