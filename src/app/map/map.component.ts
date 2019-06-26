@@ -153,26 +153,29 @@ export class MapComponent implements OnInit {
         {
             lat: 53.894214,
             lng: 27.644620,
-            title: 'заголовок загрязнения',
-            description: 'Дражня'
+            title: 'Teasing',
+            description: 'The association between the 24-h average ambient PM10, SO2 and NO2 levels and daily respiratory (RD), cardiovascular (CVD) and cerebrovascular (CBD) mortality in Cape Town (2001–2006) was investigated with a case-crossover design. For models that included entire year data, an inter-quartile range (IQR) increase in PM10 (12 mg/m3) and NO2 (12 mg/m3) significantly increased CBD mortality by 4% and 8%, respectively.'
         },
         {
             lat: 53.879133,
             lng: 27.647825,
-            title: 'заголовок загрязнения',
-            description: 'Минская ТЭЦ-3'
+            title: 'Minsk TPP-3',
+            // tslint:disable-next-line:max-line-length
+            description: 'All power plants have a physical footprint (the location of the power plant). Some power plants are located inside, on, or next to an existing building, so the footprint is fairly small. Most large power plants require land clearing to build the power plant. Some power plants may also require access roads, railroads, and pipelines for fuel delivery, electricity transmission lines, and cooling water supplies. Power plants that burn solid fuels may have areas to store the combustion ash. Many power plants are large structures that alter the visual landscape. In general, the larger the structure, the more likely it is that the power plant will affect the visual landscape.'
         },
         {
             lat: 53.883183,
             lng: 27.576386,
-            title: 'заголовок загрязнения',
-            description: 'Мотовелозавод'
+            title: 'Motorcycle factory',
+            // tslint:disable-next-line:max-line-length
+            description: 'Even looking at these emissions, you would think that the construction of a motorcycle would have less environmental impact, - on average - than a car. I thought so anyway.'
         },
         {
             lat: 53.895841,
             lng: 27.576037,
-            title: 'заголовок загрязнения',
-            description: 'Станкостроительный завод'
+            title: 'Machine Tool Plant',
+            // tslint:disable-next-line:max-line-length
+            description: 'High level of noise is a disturbance to the human environment. Noise in industries is also an occupational hazard because of its attendant effects on workers health. Noise presents health and social problems in industrial operations, and the source is related to the machineries used in the industries. One of the unique features of the noise associated with wood machinery is the level of exposure and duration. Equipment used in a factory can be extremely loud.'
         }
     ];
 
@@ -199,6 +202,9 @@ export class MapComponent implements OnInit {
     public rootEventUrl = 'https://localhost:44338/api/EventDetails';
     public rootEventsByUser = 'https://localhost:44338/api/users/eventsByUser';
     public rootPostEventsByUser = 'https://localhost:44338/api/users/events?';
+
+    public rootConstant = 'https://localhost:44338/api/PollutionDetails/ConstantPollution';
+    public rootTemporary = 'https://localhost:44338/api/PollutionDetails/TemporaryPollution';
 
     public rootHotUrl = 'https://localhost:44338/api/EventDetails/HotEvents';
     public rootWipUrl = 'https://localhost:44338/api/EventDetails/WipEvents';
@@ -236,6 +242,19 @@ export class MapComponent implements OnInit {
                 this.comingSoonMarkers.push({ id: element['EventId'], lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'], label: element['EventId'], dateStart: element['StartDate'], dateEnd: element['EndDate'] });
             });
         });
+
+        // forkJoin([
+        //     this.http.get<any[]>(this.rootConstant),
+        //     this.http.get<any[]>(this.rootTemporary),
+        // ]).subscribe(([constant, temporary]) => {
+        //     constant.forEach(element => {
+        //         // tslint:disable-next-line:max-line-length
+        //         this.pollutionMarkerDescription.push({ lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'] });
+        //     });
+        //     temporary.forEach(element => {
+        //         this.temporaryPollutionCircle.push({ lat: element['Latitude'], lng: element['Longitude'] });
+        //     });
+        // });
 
 
         if (localStorage.getItem('UserId')) {
@@ -384,20 +403,57 @@ export class MapComponent implements OnInit {
                 switch (result['type']) {
                     // tslint:disable-next-line:max-line-length
                     case 'constant': this.constantPollutionCircle.push({ lat: result['lat'], lng: result['lng'] }); this.pollutionMarkerDescription.push({ lat: result['lat'], lng: result['lng'], title: result['title'], description: result['description'] });
-                        let data0 = {
-                            // tslint:disable-next-line:max-line-length
-                            UserId: 0, lat: result['lat'], lng: result['lng'], Title: result['title'], Description: result['description'], Status: 'CONSTANT'
-                        }
-                        this.http.post(this.rootPollutionUrl, data0, {
-                            headers: new HttpHeaders({
-                                'Content-Type': 'application/json'
-                            })
-                        }).subscribe(res => {
-
-                        });
+                        // let data0 = {
+                        //     // tslint:disable-next-line:max-line-length
+                        //     UserId: localStorage['UserId'], Latitude: result['lat'], Longitude: result['lng'], Title: result['title'], Description: result['description'], Status: 'CONSTANT', CreationDate: new Date()
+                        // };
+                        // this.http.post(this.rootPollutionUrl, data0, {
+                        //     headers: new HttpHeaders({
+                        //         'Content-Type': 'application/json'
+                        //     })
+                        // }).subscribe(res => {
+                        //     forkJoin([
+                        //         this.http.get<any[]>(this.rootConstant),
+                        //         this.http.get<any[]>(this.rootTemporary),
+                        //     ]).subscribe(([constant, temporary]) => {
+                        //         constant.forEach(element => {
+                        //             // tslint:disable-next-line:max-line-length
+                        //             this.pollutionMarkerDescription.push({ lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'] });
+                        //         });
+                        //         temporary.forEach(element => {
+                        //             this.temporaryPollutionCircle.push({ lat: element['Latitude'], lng: element['Longitude'] });
+                        //         });
+                        //     });
+                        // });
                         break;
                     // tslint:disable-next-line:max-line-length
-                    case 'temporary': this.temporaryPollutionCircle.push({ lat: result['lat'], lng: result['lng'] }); break;
+                    case 'temporary':
+                         this.temporaryPollutionCircle.push({ lat: result['lat'], lng: result['lng'] });
+
+                        // let data1 = {
+                        //     // tslint:disable-next-line:max-line-length
+                        //     UserId: localStorage['UserId'], Latitude: result['lat'], Longitude: result['lng'], Title: result['title'], Description: result['description'], Status: 'TEMPORARY', CreationDate: new Date()
+                        // };
+                        // this.http.post(this.rootPollutionUrl, data1, {
+                        //     headers: new HttpHeaders({
+                        //         'Content-Type': 'application/json'
+                        //     })
+                        // }).subscribe(res => {
+                        //     forkJoin([
+                        //         this.http.get<any[]>(this.rootConstant),
+                        //         this.http.get<any[]>(this.rootTemporary),
+                        //     ]).subscribe(([constant, temporary]) => {
+                        //         constant.forEach(element => {
+                        //             // tslint:disable-next-line:max-line-length
+                        //             this.pollutionMarkerDescription.push({ lat: element['Latitude'], lng: element['Longitude'], title: element['Title'], description: element['Description'] });
+                        //         });
+                        //         temporary.forEach(element => {
+                        //             this.temporaryPollutionCircle.push({ lat: element['Latitude'], lng: element['Longitude'] });
+                        //         });
+                        //     });
+                        // });
+
+                        break;
 
                 }
             } catch (e) { }
@@ -658,8 +714,6 @@ export class PollutionCreatingDialogComponent implements OnInit {
         this.creatingPollutionForm = this.fb.group({
             title: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
             description: ['', Validators.compose([Validators.required, Validators.minLength(20)])],
-            constant: [''],
-            temporary: ['']
         });
     }
 

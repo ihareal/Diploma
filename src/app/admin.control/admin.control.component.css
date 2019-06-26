@@ -12,6 +12,14 @@
   margin: 0 7% 0 7%;
 }
 
+::ng-deep .alternative .mat-tab-label {
+  color: white !important;
+}
+
+::ng-deep .mat-form-field-empty.mat-form-field-label {
+    color: white !important;
+} 
+
 table {
   width: 100%;
 }

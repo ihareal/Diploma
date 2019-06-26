@@ -32,11 +32,11 @@
   
     <div class="check-container">
       <label class="container temporaryColor">Temporary
-        <input formControlName="constant" (change)="temporaryClick()" type="radio" name="radio">
+        <input (change)="temporaryClick()" type="radio" name="radio">
         <span class="checkmark temporary"></span>
       </label>
       <label class="container constColor">Const
-        <input formControlName="temporary" (change)="constantClick()" type="radio" name="radio">
+        <input (change)="constantClick()" type="radio" name="radio">
         <span class="checkmark constant"></span>
       </label>
     </div>
