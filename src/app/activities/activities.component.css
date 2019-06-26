@@ -10,7 +10,20 @@
 }
 
 .main-container {
-    margin: 50px 0 0 25%;
+  margin: 10px 0 0 30%;
+}
+
+.sign-in {
+  text-align: center;
+  margin-top: 10px;
+  transition: color 0.5s ease;
+  cursor: pointer;
+  text-decoration: underline;
+  font-style: italic;
+}
+
+.sign-in:hover {
+  color: #BE145A;
 }
 
 .example-container {
@@ -66,4 +79,16 @@
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+@media (max-width: 813px) {
+  .main-container {
+    margin: 10px 0 0 15%;
+  }
+}
+
+@media (max-width: 750px) {
+  .main-container {
+    margin: 10px 0 0 30px;
+  }
 }

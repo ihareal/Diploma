@@ -24,7 +24,14 @@ ul.legend {
 }
 
 .connectionLinks {
-  color: grey;
+  transition: color 0.5s ease;
+  cursor: pointer;
+  text-decoration: underline;
+  font-style: italic;
+}
+
+.connectionLinks:hover {
+  color: #BE145A;
 }
 
 ul.legend li {

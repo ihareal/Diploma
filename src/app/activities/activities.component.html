@@ -1,4 +1,9 @@
 <i [routerLink]="['/personal-area']" routerLinkActive="router-link-active" class="fas fa-arrow-left"></i>
+<div *ngIf="participate.length === 0 && this.refuse.length === 0">
+  <p class="sign-in">
+    <a [routerLink]="['/map']" routerLinkActive="router-link-active">You must to add events to work with them</a>
+  </p>
+</div>
 
 <div class="main-container">
   <div class="example-container">
