@@ -69,7 +69,6 @@ export class AdminControlPollutionComponent implements OnInit {
 
   public expr(row) {
     console.log(row);
-    debugger;
     this.userData.forEach((element, idx) => {
       if (element['UserId'] === row['UserId']) {
         console.log(idx);

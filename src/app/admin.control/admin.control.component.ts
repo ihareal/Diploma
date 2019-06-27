@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { UserService } from '../shared/services/user.service';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import * as XLSX from 'xlsx';
 
 export interface UserGetModel {
@@ -78,8 +78,14 @@ export class AdminControlComponent implements OnInit {
 
 
   public expr(row) {
-    console.log(row);
-    debugger;
+    let id = row['UserId'];
+    this.http.delete(`https://localhost:44338/api/UserDetails/${id}`,{
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+      })
+  }).subscribe(res => {
+      console.log(res);
+    });
     this.userData.forEach((element, idx) => {
       if (element['UserId'] === row['UserId']) {
         console.log(idx);

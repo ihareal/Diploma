@@ -46,7 +46,7 @@
       <!--Deletion row-->
       <ng-container matColumnDef="Delete">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
-        <td align="center" (click)="expr(row); openSnackBar('You have deleted user with id:' + row['UserId'], 'close')"
+        <td align="center" (click)="expr(row); openSnackBar('You have deleted event with id:' + row['EventId'], 'close')"
           mat-cell *matCellDef="let row"> <i class="fas fa-trash-alt"></i> </td>
       </ng-container>
 

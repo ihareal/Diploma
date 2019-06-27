@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
 import * as XLSX from 'xlsx';
 import { EventService } from '../shared/services/event.service';
 
@@ -53,7 +53,7 @@ export class AdminControlEventComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) {
     this.dataSource = new MatTableDataSource(this.initial);
-    this.eventService.getEvents().subscribe(data => { debugger; this.dataSource.data = data; this.userData = data; });
+    this.eventService.getEvents().subscribe(data => { this.dataSource.data = data; this.userData = data; });
   }
 
   ngOnInit() {
@@ -71,10 +71,16 @@ export class AdminControlEventComponent implements OnInit {
 
 
   public expr(row) {
-    console.log(row);
-    debugger;
+    let id = row['EventId'];
+    this.http.delete(`https://localhost:44338/api/EventDetails/${id}`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }).subscribe(res => {
+      console.log(res);
+    });
     this.userData.forEach((element, idx) => {
-      if (element['UserId'] === row['UserId']) {
+      if (element['EventId'] === row['EventId']) {
         console.log(idx);
         this.userData.splice(idx, 1);
         this.dataSource._updateChangeSubscription();
